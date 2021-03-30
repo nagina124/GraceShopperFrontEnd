@@ -1,6 +1,7 @@
 import { React, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { getToken, login, getAdmin } from "../auth";
+import { Redirect, Link } from "react-router-dom";
+// import RegisterModal from "./RegisterModal";
+import { getToken, login } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -10,6 +11,7 @@ const Login = ({
   setAuthentication,
   username,
   setUsername,
+  token,
   setToken,
   isAdmin,
   setIsAdmin,
@@ -31,23 +33,21 @@ const Login = ({
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.error) {
+        if (result.name === "IncorrectCredentialsError") {
           alert("Username or Password does not match. Please try again.");
         } else {
           console.log(result);
           login(result.token);
           setToken(getToken());
-          isLoggedIn(result);
-
           setIsAdmin(result.admin);
-          console.log(result.admin);
+          isLoggedIn(result);
         }
       })
       .catch(console.error);
   }
 
   const isLoggedIn = (result) => {
-    if (!result.error) {
+    if (result.name !== "IncorrectCredentialsError") {
       console.log("is logged in");
       setAuthentication(true);
       setLoginSuccessful(true);
@@ -57,12 +57,11 @@ const Login = ({
       alert(result.message);
     }
   };
-  
 
   if (loginSuccessful && authenticate && !isAdmin) {
     return <Redirect to="/" />;
   } else if (loginSuccessful && authenticate && isAdmin) {
-    return <Redirect to="/admin" />;
+    return <Redirect to="./admin" />;
   }
 
   return (
@@ -112,6 +111,14 @@ const Login = ({
           </Link>
         </Form>
       </Container>
+      {/* <RegisterModal
+            username={username}
+            setUsername={setUsername}
+            token={token}
+            setToken={setToken}
+            authenticate={authenticate}
+            setAuthentication={setAuthentication}
+          /> */}
     </div>
   );
 };
