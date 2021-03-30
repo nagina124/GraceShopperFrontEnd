@@ -1,7 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Admin, Login, Logout } from "./components";
+import { Home, Admin, Login, Logout, Games, SingleGame, Checkout} from "./components";
 import { getToken } from "./auth";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -17,7 +22,26 @@ const App = () => {
 
   return (
     <Router>
-      <nav>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="/">Video Games</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/games">Games</Nav.Link>
+          <Nav.Link href="/admin">Admin Tasks</Nav.Link>
+          <Nav.Link href="/checkout">Checkout!</Nav.Link>
+          {!authenticate && !getToken() ? (
+            <Nav.Link href="/login">Login/Register</Nav.Link>
+          ) : (
+            <Link
+              style={{ color: "rgba(255,255,255,.5)", padding: "7.5px" }}
+              to="/logout"
+            >
+              Logout
+            </Link>
+          )}
+        </Nav>
+      </Navbar>
+      {/* <nav>
         <Link to="/">HOME</Link>
         <Link to="/admin">ADMIN</Link>
         {getToken() && authenticate ? (
@@ -32,8 +56,8 @@ const App = () => {
         <Link to="/register">REGISTER</Link>
         <Link to="/games">GAMES</Link>
         {/* <Link to="/games/(name of game)">individual game</Link> */}
-        <Link to="/checkout">CHECKOUT</Link>
-      </nav>
+        {/* <Link to="/checkout">CHECKOUT</Link>
+      </nav> */} 
       <main>
         <Switch>
           <Route path="/admin">
@@ -56,10 +80,18 @@ const App = () => {
               setAuthentication={setAuthentication}
             />
           </Route>
-          <Route path="/register"></Route>
-          <Route path="/games"></Route>
-          <Route path="/checkout"></Route>
-          <Route path="/"></Route>
+          <Route path="/games">
+            <Games/>
+          </Route>
+          <Route path="/singlegame">
+            <SingleGame/>
+          </Route>
+          <Route path="/checkout">
+            <Checkout/>
+          </Route>
+          <Route path="/">
+            <Home/>
+          </Route>
         </Switch>
       </main>
     </Router>
