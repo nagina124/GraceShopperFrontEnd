@@ -9,9 +9,9 @@ import {
   Games,
   SingleGame,
   Checkout,
-  Error
+  Error,
 } from "./components";
-import { getToken } from "./auth";
+import { getToken, getUser } from "./auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -23,9 +23,14 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  console.log(isAdmin)
+  console.log(authenticate)
   useEffect(() => {
     if (getToken() && getToken() !== undefined) {
       setAuthentication(true);
+    }
+    if(getUser()) {
+      setIsAdmin(getUser())
     }
   }, []);
 
@@ -71,15 +76,14 @@ const App = () => {
       </nav> */}
       <main>
         <Switch>
-          {authenticate && getToken() && isAdmin ? (
-            <Route path="/admin">
+          <Route path="/admin">
+            {authenticate && getToken() && getUser() ? (
               <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-            </Route>
-          ) : (
-            <Route path="/error">
+            ) : (
               <Error />
-            </Route>
-          )}
+            )}
+          </Route>
+
           <Route path="/login">
             <Login
               username={username}

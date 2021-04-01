@@ -19,3 +19,18 @@ export function getUsername() {
     },
   });
 }
+
+export function getUser() {
+  const user = localStorage.getItem("user");
+  console.log(user)
+  return user;
+}
+
+export function user(result) {
+  localStorage.setItem("user", result);
+  console.log(result)
+}
+
+export function removeUser() {
+  localStorage.removeItem("user");
+}
