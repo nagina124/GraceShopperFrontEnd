@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.game-page {
+   background-color: #eee;
+}
+.genre-aside {
+  min-height: 0;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  
+}
