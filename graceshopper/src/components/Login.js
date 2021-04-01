@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 // import RegisterModal from "./RegisterModal";
-import { getToken, login } from "../auth";
+import { getToken, getUser, login, user } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -11,7 +11,6 @@ const Login = ({
   setAuthentication,
   username,
   setUsername,
-  token,
   setToken,
   isAdmin,
   setIsAdmin,
@@ -38,8 +37,10 @@ const Login = ({
         } else {
           console.log(result);
           login(result.token);
+          if (result.admin === true) {
+            user(result.admin);
+          }
           setToken(getToken());
-          setIsAdmin(result.admin);
           isLoggedIn(result);
         }
       })
@@ -58,9 +59,9 @@ const Login = ({
     }
   };
 
-  if (loginSuccessful && authenticate && !isAdmin) {
+  if (loginSuccessful && authenticate && !getUser()) {
     return <Redirect to="/" />;
-  } else if (loginSuccessful && authenticate && isAdmin) {
+  } else if (loginSuccessful && authenticate && getUser()) {
     return <Redirect to="./admin" />;
   }
 
