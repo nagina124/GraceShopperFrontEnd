@@ -1,12 +1,21 @@
 import { React, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Home, Admin, Login, Logout, Games, SingleGame, Checkout} from "./components";
-import { getToken } from "./auth";
+import {
+  Home,
+  Admin,
+  Login,
+  Logout,
+  Register,
+  Games,
+  SingleGame,
+  Checkout,
+  Error,
+} from "./components";
+import { getToken, getUser } from "./auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -14,9 +23,14 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  console.log(isAdmin)
+  console.log(authenticate)
   useEffect(() => {
     if (getToken() && getToken() !== undefined) {
       setAuthentication(true);
+    }
+    if(getUser()) {
+      setIsAdmin(getUser())
     }
   }, []);
 
@@ -27,7 +41,9 @@ const App = () => {
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/games">Games</Nav.Link>
-          <Nav.Link href="/admin">Admin Tasks</Nav.Link>
+          {authenticate && isAdmin && getToken() ? (
+            <Nav.Link href="/admin">Admin Tasks</Nav.Link>
+          ) : null}
           <Nav.Link href="/checkout">Checkout!</Nav.Link>
           {!authenticate && !getToken() ? (
             <Nav.Link href="/login">Login/Register</Nav.Link>
@@ -56,17 +72,23 @@ const App = () => {
         <Link to="/register">REGISTER</Link>
         <Link to="/games">GAMES</Link>
         {/* <Link to="/games/(name of game)">individual game</Link> */}
-        {/* <Link to="/checkout">CHECKOUT</Link>
-      </nav> */} 
+      {/* <Link to="/checkout">CHECKOUT</Link>
+      </nav> */}
       <main>
         <Switch>
           <Route path="/admin">
-            <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+            {authenticate && getToken() && getUser() ? (
+              <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+            ) : (
+              <Error />
+            )}
           </Route>
+
           <Route path="/login">
             <Login
               username={username}
               setUsername={setUsername}
+              token={token}
               setToken={setToken}
               authenticate={authenticate}
               setAuthentication={setAuthentication}
@@ -80,17 +102,29 @@ const App = () => {
               setAuthentication={setAuthentication}
             />
           </Route>
+          <Route path="/register">
+            <Register
+              username={username}
+              setUsername={setUsername}
+              token={token}
+              setToken={setToken}
+              authenticate={authenticate}
+              setAuthentication={setAuthentication}
+              isAdmin={isAdmin}
+              setIsAdmin={setIsAdmin}
+            />
+          </Route>
           <Route path="/games">
-            <Games/>
+            <Games />
           </Route>
           <Route path="/singlegame">
-            <SingleGame/>
+            <SingleGame />
           </Route>
           <Route path="/checkout">
-            <Checkout/>
+            <Checkout />
           </Route>
           <Route path="/">
-            <Home/>
+            <Home />
           </Route>
         </Switch>
       </main>
