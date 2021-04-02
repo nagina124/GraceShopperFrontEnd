@@ -4,20 +4,12 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-const AddProductModal = ({
-  products,
-  setProducts,
-  title,
-  setTitle,
-  category,
-  setCategory,
-  description,
-  setDescription,
-  price,
-  setPrice,
-  inventory,
-  setInventory,
-}) => {
+const AddProductModal = ({ products, setProducts }) => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [inventory, setInventory] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -67,6 +59,7 @@ const AddProductModal = ({
             <Form.Group controlId="formBasicName">
               <Form.Label>Title:</Form.Label>
               <Form.Control
+                type="text"
                 placeholder="Enter title"
                 onChange={(event) => {
                   setTitle(event.target.value);
@@ -77,6 +70,7 @@ const AddProductModal = ({
             <Form.Group controlId="formBasicCategory">
               <Form.Label>Category:</Form.Label>
               <Form.Control
+                type="text"
                 placeholder="Enter category"
                 onChange={(event) => {
                   setCategory(event.target.value);
@@ -87,6 +81,7 @@ const AddProductModal = ({
             <Form.Group controlId="formBasicDescription">
               <Form.Label>Description:</Form.Label>
               <Form.Control
+                type="text"
                 placeholder="Enter description"
                 onChange={(event) => {
                   setDescription(event.target.value);
@@ -97,6 +92,8 @@ const AddProductModal = ({
             <Form.Group controlId="formBasicPrice">
               <Form.Label>Price:</Form.Label>
               <Form.Control
+                type="number"
+                step="any"
                 placeholder="Enter price"
                 onChange={(event) => {
                   setPrice(event.target.value);
@@ -107,6 +104,8 @@ const AddProductModal = ({
             <Form.Group controlId="formBasicInventory">
               <Form.Label>Inventory:</Form.Label>
               <Form.Control
+                type="number"
+                step="any"
                 placeholder="Enter inventory"
                 onChange={(event) => {
                   setInventory(event.target.value);
@@ -119,7 +118,7 @@ const AddProductModal = ({
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleClose}>
               Add Product
             </Button>
           </Modal.Footer>
