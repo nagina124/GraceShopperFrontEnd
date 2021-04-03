@@ -8,11 +8,6 @@ import Button from "react-bootstrap/Button";
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [title, setTitle] = useState();
-  const [category, setCategory] = useState();
-  const [description, setDescription] = useState();
-  const [price, setPrice] = useState();
-  const [inventory, setInventory] = useState();
 
   useEffect(() => {
     fetch("https://peaceful-spire-60083.herokuapp.com/api/users")
@@ -112,18 +107,13 @@ const Admin = () => {
                     <td>
                       <EditProductModal
                         productId={product.id}
+                        productTitle={product.title}
+                        productCategory={product.category}
+                        productDescription={product.description}
+                        productPrice={product.price}
+                        productInventory={product.inventory}
                         products={products}
                         setProducts={setProducts}
-                        title={product.title}
-                        setTitle={setTitle}
-                        category={product.category}
-                        setCategory={setCategory}
-                        description={product.description}
-                        setDescription={setDescription}
-                        price={product.price}
-                        setPrice={setPrice}
-                        inventory={product.inventory}
-                        setInventory={setInventory}
                       />
                     </td>
                     <td>
@@ -145,16 +135,6 @@ const Admin = () => {
         <AddProductModal
           products={products}
           setProducts={setProducts}
-          title={title}
-          setTitle={setTitle}
-          category={category}
-          setCategory={setCategory}
-          description={description}
-          setDescription={setDescription}
-          price={price}
-          setPrice={setPrice}
-          inventory={inventory}
-          setInventory={setInventory}
         />
       </center>
     </div>
