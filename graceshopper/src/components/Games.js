@@ -37,12 +37,13 @@ const Games = () => {
       <aside className="genre-aside">
         <h3 onClick={getProducts}>Show All Games</h3>
         <h3 onClick={() => getProductsByCategory("JRPG")}>JRPG</h3>
-        <h3 onClick={() => getProductsByCategory("Action/Adventure")}>
+        <h3 onClick={() => getProductsByCategory("Action-Adventure")}>
           Action/Adventure
         </h3>
         <h3 onClick={() => getProductsByCategory("RPG")}>RPG</h3>
         <h3 onClick={() => getProductsByCategory("Fighting")}>Fighting</h3>
         <h3 onClick={() => getProductsByCategory("Horror")}>Horror</h3>
+        <h3 onClick={() => getProductsByCategory("Hack-N-Slash")}>Hack and Slash</h3>
       </aside>
       <div className="search-box">
         <input
