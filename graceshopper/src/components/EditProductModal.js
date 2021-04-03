@@ -6,19 +6,19 @@ import Button from "react-bootstrap/Button";
 
 const EditProductModal = ({
   productId,
+  productTitle,
+  productCategory,
+  productDescription,
+  productPrice,
+  productInventory,
   products,
   setProducts,
-  title,
-  setTitle,
-  category,
-  setCategory,
-  description,
-  setDescription,
-  price,
-  setPrice,
-  inventory,
-  setInventory,
 }) => {
+  const [title, setTitle] = useState(productTitle);
+  const [category, setCategory] = useState(productCategory);
+  const [description, setDescription] = useState(productDescription);
+  const [price, setPrice] = useState(productPrice);
+  const [inventory, setInventory] = useState(productInventory);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,10 +50,12 @@ const EditProductModal = ({
             const newProducts = products.map((product) => {
               if (product.id === productId) {
                 return result;
+                
               } else {
-                return products;
+                return product;
               }
             });
+            
             setProducts(newProducts);
           }
         })
@@ -76,9 +78,14 @@ const EditProductModal = ({
             <Form.Group controlId="formBasicName">
               <Form.Label>Title:</Form.Label>
               <Form.Control
-                placeholder={title}
+                type="text"
+                placeholder={productTitle}
                 onChange={(event) => {
-                  setTitle(event.target.value);
+                  if (event.target.value !== null) {
+                    setTitle(event.target.value);
+                  } else {
+                    return productTitle;
+                  }
                 }}
               />
             </Form.Group>
@@ -86,9 +93,14 @@ const EditProductModal = ({
             <Form.Group controlId="formBasicCategory">
               <Form.Label>Category:</Form.Label>
               <Form.Control
-                placeholder={category}
+                type="text"
+                placeholder={productCategory}
                 onChange={(event) => {
-                  setCategory(event.target.value);
+                  if (event.target.value !== null) {
+                    setCategory(event.target.value);
+                  } else {
+                    return productCategory;
+                  }
                 }}
               />
             </Form.Group>
@@ -96,9 +108,14 @@ const EditProductModal = ({
             <Form.Group controlId="formBasicDescription">
               <Form.Label>Description:</Form.Label>
               <Form.Control
-                placeholder={description}
+                type="text"
+                placeholder={productDescription}
                 onChange={(event) => {
-                  setDescription(event.target.value);
+                  if (event.target.value !== null) {
+                    setDescription(event.target.value);
+                  } else {
+                    return productDescription;
+                  }
                 }}
               />
             </Form.Group>
@@ -106,9 +123,15 @@ const EditProductModal = ({
             <Form.Group controlId="formBasicPrice">
               <Form.Label>Price:</Form.Label>
               <Form.Control
-                placeholder={price}
+                type="number"
+                step="0.01"
+                placeholder={productPrice}
                 onChange={(event) => {
-                  setPrice(event.target.value);
+                  if (event.target.value !== null) {
+                    setPrice(event.target.value);
+                  } else {
+                    return productPrice;
+                  }
                 }}
               />
             </Form.Group>
@@ -116,9 +139,15 @@ const EditProductModal = ({
             <Form.Group controlId="formBasicInventory">
               <Form.Label>Inventory:</Form.Label>
               <Form.Control
-                placeholder={inventory}
+                type="number"
+                step="any"
+                placeholder={productInventory}
                 onChange={(event) => {
-                  setInventory(event.target.value);
+                  if (event.target.value !== null) {
+                    setInventory(event.target.value);
+                  } else {
+                    return productInventory;
+                  }
                 }}
               />
             </Form.Group>
@@ -128,7 +157,7 @@ const EditProductModal = ({
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleClose}> 
               Edit Product
             </Button>
           </Modal.Footer>
