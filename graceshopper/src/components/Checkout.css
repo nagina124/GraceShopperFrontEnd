@@ -1,0 +1,35 @@
+body {
+    padding: 1%;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+ }
+ * {
+    box-sizing: border-box;
+ }
+ .left, .right, .center {
+    float: left;
+    width: 33%;
+    color: white;
+    padding: 50px;
+    height: 500px;
+    text-align: center;
+    /* margin-right: auto; */
+ }
+ .left {
+    background-color: #3C6E71;
+    color: white;
+ }
+ .right {
+    background-color: #3C6E71;
+    color: white;
+ }
+ .center {
+    background-color: #284B63;
+    color: white;
+ }
+ .container:after {
+    clear: both;
+ }
+
+ .orderCheckout {
+    text-align: center;
+ }

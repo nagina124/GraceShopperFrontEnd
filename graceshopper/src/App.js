@@ -41,7 +41,7 @@ const App = () => {
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/games">Games</Nav.Link>
-          {authenticate && isAdmin && getToken() ? (
+          {authenticate && getUser() && getToken() ? (
             <Nav.Link href="/admin">Admin Tasks</Nav.Link>
           ) : null}
           <Nav.Link href="/checkout">Checkout!</Nav.Link>
