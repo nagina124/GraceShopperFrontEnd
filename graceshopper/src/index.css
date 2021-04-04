@@ -15,12 +15,24 @@ code {
 .game-page {
    background-color: #eee;
 }
-.genre-aside {
-  min-height: 0;
-  overflow-y: scroll;
 
+.games-page-container {
+  display: flex;
+}
+
+.genre-aside {
   display: flex;
   flex-direction: column;
   padding: 8px;
-  
+}
+
+.genre-container {
+  display: flex;
+  justify-content: left;
+}
+
+.gamelist-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: right;
 }

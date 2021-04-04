@@ -11,6 +11,7 @@ const EditProductModal = ({
   productDescription,
   productPrice,
   productInventory,
+  productUrl,
   products,
   setProducts,
 }) => {
@@ -19,6 +20,7 @@ const EditProductModal = ({
   const [description, setDescription] = useState(productDescription);
   const [price, setPrice] = useState(productPrice);
   const [inventory, setInventory] = useState(productInventory);
+  const [url, setUrl] = useState(productUrl);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,6 +42,7 @@ const EditProductModal = ({
             description: description,
             price: price,
             inventory: inventory,
+            imageUrl: url
           }),
         }
       )
@@ -151,13 +154,29 @@ const EditProductModal = ({
                 }}
               />
             </Form.Group>
+
+            <Form.Group controlId="formBasicImageURL">
+              <Form.Label>Image Url:</Form.Label>
+              <Form.Control
+                type="text"
+                step="any"
+                placeholder={productUrl}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setUrl(event.target.value);
+                  } else {
+                    return productUrl;
+                  }
+                }}
+              />
+            </Form.Group>
           </Modal.Body>
 
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit" onClick={handleClose}> 
+            <Button variant="primary" type="submit" onClick={handleClose}>
               Edit Product
             </Button>
           </Modal.Footer>

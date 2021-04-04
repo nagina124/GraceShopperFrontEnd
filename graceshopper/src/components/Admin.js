@@ -112,6 +112,7 @@ const Admin = () => {
                         productDescription={product.description}
                         productPrice={product.price}
                         productInventory={product.inventory}
+                        productUrl={product.imageUrl}
                         products={products}
                         setProducts={setProducts}
                       />
