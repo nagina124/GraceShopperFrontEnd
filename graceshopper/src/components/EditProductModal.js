@@ -11,6 +11,8 @@ const EditProductModal = ({
   productDescription,
   productPrice,
   productInventory,
+  productURL,
+  productSplash,
   products,
   setProducts,
 }) => {
@@ -19,6 +21,8 @@ const EditProductModal = ({
   const [description, setDescription] = useState(productDescription);
   const [price, setPrice] = useState(productPrice);
   const [inventory, setInventory] = useState(productInventory);
+  const [url, setURL] = useState(productURL);
+  const [splash, setSplash] = useState(productSplash);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,6 +44,8 @@ const EditProductModal = ({
             description: description,
             price: price,
             inventory: inventory,
+            imageURL: url,
+            splash: splash
           }),
         }
       )
@@ -151,13 +157,45 @@ const EditProductModal = ({
                 }}
               />
             </Form.Group>
-          </Modal.Body>
 
+            <Form.Group controlId="formBasicImageURL">
+              <Form.Label>Image URL:</Form.Label>
+              <Form.Control
+                type="text"
+                step="any"
+                placeholder={productURL}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setURL(event.target.value);
+                  } else {
+                    return productURL;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicSplashURL">
+              <Form.Label>Splash URL:</Form.Label>
+              <Form.Control
+                type="text"
+                step="any"
+                placeholder={productSplash}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setSplash(event.target.value);
+                  } else {
+                    return productSplash;
+                  }
+                }}
+              />
+            </Form.Group>
+
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit" onClick={handleClose}> 
+            <Button variant="primary" type="submit" onClick={handleClose}>
               Edit Product
             </Button>
           </Modal.Footer>
