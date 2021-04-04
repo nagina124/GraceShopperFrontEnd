@@ -6,6 +6,9 @@ import Button from "react-bootstrap/Button";
 
 const AddProductModal = ({ products, setProducts }) => {
   const [title, setTitle] = useState("");
+  const [imageURL, setImageURL] = useState("");
+  const [splash, setSplash] = useState("")
+  const [productURL, setProductURL] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -25,6 +28,9 @@ const AddProductModal = ({ products, setProducts }) => {
         },
         body: JSON.stringify({
           title: title,
+          imageURL: imageURL,
+          splash: splash,
+          productURL: productURL,
           category: category,
           description: description,
           price: price,
@@ -63,6 +69,39 @@ const AddProductModal = ({ products, setProducts }) => {
                 placeholder="Enter title"
                 onChange={(event) => {
                   setTitle(event.target.value);
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicImageURL">
+              <Form.Label>Image URL:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image url"
+                onChange={(event) => {
+                  setImageURL(event.target.value);
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicSplash">
+              <Form.Label>Splash:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter splash"
+                onChange={(event) => {
+                  setSplash(event.target.value);
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicURL">
+              <Form.Label>Single Game URL Route:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter product url easy to read"
+                onChange={(event) => {
+                  setProductURL(event.target.value);
                 }}
               />
             </Form.Group>
