@@ -50,7 +50,10 @@ const Admin = () => {
 
   return (
     <div style={{ padding: "70px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "15px" }}> ADMIN PAGE </h1>
+      <h1 style={{ textAlign: "center", marginBottom: "15px" }}>
+        {" "}
+        ADMIN PAGE{" "}
+      </h1>
       <h2 style={{ textAlign: "center" }}>ALL USERS</h2>
       <section style={{ overflow: "auto", margin: "10px", height: "300px" }}>
         <center>
@@ -79,13 +82,16 @@ const Admin = () => {
         </center>
       </section>
       <h2 style={{ textAlign: "center" }}>ALL PRODUCTS </h2>
-      <section style={{ overflow: "auto", margin: "10px", height: "300px" }}>
+      <section style={{ overflow: "auto", margin: "10px", height: "800px" }}>
         <center>
           <Table striped bordered hover variant="dark">
             <thead>
               <tr>
                 <th>#</th>
                 <th>Title</th>
+                <th>Image URL</th>
+                <th>Splash</th>
+                <th>Single Game URL Route</th>
                 <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -99,7 +105,16 @@ const Admin = () => {
                 <tbody>
                   <tr key={index}>
                     <td>{product.id}</td>
-                    <td>{product.title}</td>
+                    <td>
+                      {product.title} 
+                    </td>
+                    <td>
+                      <img src={product.imageURL} style={{ width: "150px" }} />
+                    </td>
+                    <td>
+                      <img src={product.splash} style={{width:"150px"}} />
+                    </td>
+                    <td>{product.productURL}</td>
                     <td>{product.category}</td>
                     <td>{product.description}</td>
                     <td>${product.price}</td>
@@ -108,12 +123,13 @@ const Admin = () => {
                       <EditProductModal
                         productId={product.id}
                         productTitle={product.title}
+                        productImageURL={product.imageURL}
+                        productSplash={product.splash}
+                        productURL={product.productURL}
                         productCategory={product.category}
                         productDescription={product.description}
                         productPrice={product.price}
                         productInventory={product.inventory}
-                        productURL={product.imageURL}
-                        productSplash={product.splash}
                         products={products}
                         setProducts={setProducts}
                       />
@@ -134,10 +150,7 @@ const Admin = () => {
         </center>
       </section>
       <center>
-        <AddProductModal
-          products={products}
-          setProducts={setProducts}
-        />
+        <AddProductModal products={products} setProducts={setProducts} />
       </center>
     </div>
   );

@@ -7,22 +7,24 @@ import Button from "react-bootstrap/Button";
 const EditProductModal = ({
   productId,
   productTitle,
+  productImageURL,
+  productSplash,
+  productURL,
   productCategory,
   productDescription,
   productPrice,
   productInventory,
-  productURL,
-  productSplash,
   products,
   setProducts,
 }) => {
   const [title, setTitle] = useState(productTitle);
+  const [imageURL, setImageURL] = useState(productImageURL);
+  const [splash, setSplash] = useState(productSplash);
+  const [productUrl, setProductUrl] = useState(productURL);
   const [category, setCategory] = useState(productCategory);
   const [description, setDescription] = useState(productDescription);
   const [price, setPrice] = useState(productPrice);
   const [inventory, setInventory] = useState(productInventory);
-  const [url, setURL] = useState(productURL);
-  const [splash, setSplash] = useState(productSplash);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,12 +42,13 @@ const EditProductModal = ({
           },
           body: JSON.stringify({
             title: title,
+            imageURL: imageURL,
+            splash: splash,
+            productURL: productUrl,
             category: category,
             description: description,
             price: price,
             inventory: inventory,
-            imageURL: url,
-            splash: splash
           }),
         }
       )
@@ -56,12 +59,11 @@ const EditProductModal = ({
             const newProducts = products.map((product) => {
               if (product.id === productId) {
                 return result;
-                
               } else {
                 return product;
               }
             });
-            
+
             setProducts(newProducts);
           }
         })
@@ -91,6 +93,51 @@ const EditProductModal = ({
                     setTitle(event.target.value);
                   } else {
                     return productTitle;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicImageURL">
+              <Form.Label>Image URL:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder={productImageURL}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setImageURL(event.target.value);
+                  } else {
+                    return productImageURL;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicSplash">
+              <Form.Label>Splash:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder={productSplash}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setSplash(event.target.value);
+                  } else {
+                    return productSplash;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicURL">
+              <Form.Label>Single Game URL Route:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder={productURL}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setProductUrl(event.target.value);
+                  } else {
+                    return productUrl;
                   }
                 }}
               />
@@ -157,40 +204,8 @@ const EditProductModal = ({
                 }}
               />
             </Form.Group>
-
-            <Form.Group controlId="formBasicImageURL">
-              <Form.Label>Image URL:</Form.Label>
-              <Form.Control
-                type="text"
-                step="any"
-                placeholder={productURL}
-                onChange={(event) => {
-                  if (event.target.value !== null) {
-                    setURL(event.target.value);
-                  } else {
-                    return productURL;
-                  }
-                }}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicSplashURL">
-              <Form.Label>Splash URL:</Form.Label>
-              <Form.Control
-                type="text"
-                step="any"
-                placeholder={productSplash}
-                onChange={(event) => {
-                  if (event.target.value !== null) {
-                    setSplash(event.target.value);
-                  } else {
-                    return productSplash;
-                  }
-                }}
-              />
-            </Form.Group>
-
           </Modal.Body>
+
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
