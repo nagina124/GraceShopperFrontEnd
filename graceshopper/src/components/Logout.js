@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { getToken, logout, removeUser } from "../auth";
+import { getToken, logout, removeUser, removeUserId } from "../auth";
 
 const Logout = ({ authenticate, setAuthentication }) => {
   const [ logoutSuccessful, setLogoutSuccessful ] = useState(false);
@@ -11,6 +11,7 @@ const Logout = ({ authenticate, setAuthentication }) => {
       setLogoutSuccessful(true);
       setAuthentication(false);
       removeUser()
+      removeUserId()
     }
   }, []);
 

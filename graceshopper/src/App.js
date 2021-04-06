@@ -11,7 +11,7 @@ import {
   Checkout,
   Error,
 } from "./components";
-import { getToken, getUser } from "./auth";
+import { getToken, getUser, getUserId } from "./auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -23,6 +23,7 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
+  const [userId, setUserId] = useState()
 
   console.log(isAdmin)
   console.log(authenticate)
@@ -32,6 +33,10 @@ const App = () => {
     }
     if(getUser()) {
       setIsAdmin(getUser())
+    }
+    if(getUserId()) {
+      setUserId(getUserId())
+      console.log(userId)
     }
   }, []);
 
@@ -116,14 +121,23 @@ const App = () => {
             />
           </Route>
           <Route exact path="/games/:gametitle">
-            <SingleGame game={game} />
+            <SingleGame 
+            game={game} 
+            userId={userId}
+            />
           </Route>
           <Route path="/games">
-            <Games game={game} setGame={setGame} />
+            <Games 
+            game={game} 
+            setGame={setGame}
+            userId={userId}
+             />
           </Route>
 
           <Route path="/checkout">
-            <Checkout />
+            <Checkout 
+            userId={userId}
+            />
           </Route>
           <Route path="/">
             <Home />

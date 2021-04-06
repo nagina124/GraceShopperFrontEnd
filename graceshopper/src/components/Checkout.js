@@ -1,24 +1,48 @@
 import "./Checkout.css"
 import Table from 'react-bootstrap/Table'
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from "react";
+import {getProductForGuests} from '../auth'
 const API = "https://peaceful-spire-60083.herokuapp.com/api/orders";
 
-const Checkout = () => {
+const Checkout = ({userId}) => {
 
-    const [orders, setOrders] = useState([]);
-   
+    const [ orders, setOrders ] = useState([]);
+    const [ orderConfirmed, setOrderConfirmed ] = useState(false)
+    const [count, setCount] = useState()
+
     const getOrders = () => {
-    fetch(`${API}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setOrders(data);
-      })
-      .catch(console.error);
+        fetch(`${API}`)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            setOrders(data);
+        })
+        .catch(console.error);
     };
+
+
+
+    console.log(orders)
+
+    const userOrder = orders.filter((order) => {
+        if(order.userId == userId){
+            return order
+        }
+    })
+
+    console.log(userOrder)
+
     
     useEffect(() => {
-        getOrders();
+        if(userId){
+            getOrders();
+        } else {
+            getProductForGuests()
+        }
+         
     }, []);
 
 
@@ -28,6 +52,7 @@ const Checkout = () => {
             <h1> Secure Checkout </h1>
             <p> We hope you enjoy your purchase ^_^ </p>
         </div>
+        
         <section className = "left">
             <Table striped bordered hover>
                 <thead>
@@ -35,46 +60,88 @@ const Checkout = () => {
                     <th>#</th>
                     <th>Game Name</th>
                     <th>Price</th>
-
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
-                </tbody>
+                {userOrder.map((order, index) => {
+                    return (
+                        <tbody key={index}>
+                            <tr>
+                                <td>{order.count}</td>
+                                <td>{order.productTitle}</td>
+                                <td>{order.productPrice}</td>
+                            </tr>
+                        </tbody>
+                    )
+                    })
+                }
             </Table>
+            <button > Confirm Order </button>
         </section>
-        {/* <section className = "left">
-            <div>
-                <h2> Review Your Order </h2>
-               {orders.map((order, index) => {
-                   return (
-                        <>
-                            <h5 key={index}>{order.productTitle}</h5>
-                            <li>{order.count}</li>
-
-                        </>)
-               })}
-            </div>
-        </section> */}
-        <div className= "center">
+        {orderConfirmed ? 
+        <div className= "center" id="activeDelivery">
             <p> Delivery Address </p>
+            <Form>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control type="password" placeholder="First Name" />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control type="password" placeholder="Last Name" />
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Group controlId="formGridAddress1">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control placeholder="Address Line 1" />
+                </Form.Group>
+
+                <Form.Group controlId="formGridAddress2">
+                    <Form.Label>Address 2</Form.Label>
+                    <Form.Control placeholder="Address Line 2" />
+                </Form.Group>
+
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control placeholder="City"/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridState">
+                    <Form.Label>State</Form.Label>
+                    <Form.Control as="select" defaultValue="Choose...">
+                        <option>Choose...</option>
+                        <option>...</option>
+                    </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Label>Zip</Form.Label>
+                    <Form.Control />
+                    </Form.Group>
+                </Form.Row>
+
+                {/* <Form.Group id="formGridCheckbox">
+                    <Form.Check type="checkbox" label="Check me out" />
+                </Form.Group> */}
+
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
         </div>
+        : 
+        <div className= "center" id="inactiveDelivery">
+            <p> Please confirm your order to continue </p>
+        </div>
+        }
         <div className= "right">
             <p> Payment </p>
         </div>

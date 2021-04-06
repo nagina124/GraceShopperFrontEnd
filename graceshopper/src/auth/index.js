@@ -20,6 +20,7 @@ export function getUsername() {
   });
 }
 
+//user information 
 export function getUser() {
   const user = localStorage.getItem("user");
   console.log(user)
@@ -33,4 +34,36 @@ export function user(result) {
 
 export function removeUser() {
   localStorage.removeItem("user");
+}
+
+//userId
+export function userId(result) {
+  localStorage.setItem("userId", result);
+  console.log(result)
+}
+
+export function getUserId() {
+  const userId = localStorage.getItem("userId");
+  console.log(userId)
+  return userId;
+}
+
+export function removeUserId() {
+  localStorage.removeItem("userId");
+}
+
+//products for checkout 
+
+export function addProduct(result) {
+  localStorage.setItem("product", result);
+  console.log(result)
+}
+
+export function getProductForGuests() {
+  const products = localStorage.getItem("product");
+  return products;
+}
+
+export function removeProduct() {
+  localStorage.removeItem("product");
 }
