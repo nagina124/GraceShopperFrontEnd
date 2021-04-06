@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Nav from "react-bootstrap/esm/Nav";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import SingleGame from "./SingleGame";
 const API = "https://peaceful-spire-60083.herokuapp.com/api/products";
 
@@ -31,6 +33,7 @@ const Games = () => {
   const loadGamePage = (product) => {
     return <SingleGame product={product}/>;
   }
+  
   useEffect(() => {
     getProducts();
   }, []);
@@ -78,20 +81,33 @@ const Games = () => {
                     return product;
                   }
                 })
-                .map((product, index) => {
-                  return (
-                    <div className="results" key={index}>
-                      <h2
-                        onClick={() => {
-                          loadGamePage(product);
-                        }}
-                      >
-                        {product.title}
-                      </h2>
-                      <h3>{product.category}</h3>
-                      <h4>${product.price}</h4>
-                    </div>
-                  );
+              .map((product, index) => {
+                return (
+                  <Router>
+                    <Nav>
+                      <div className="results" key={index}>
+                        <Nav.Link href={`/games/${product.productURL}`}>
+                          <img
+                            src={product.imageURL}
+                            width="150"
+                            height="150"
+                            className="game-icon"
+                          />
+                        </Nav.Link>
+                        <Nav.Link href={`/games/${product.productURL}`}>
+                          <h2>{product.title}</h2>
+                        </Nav.Link>
+                        <h3>{product.category}</h3>
+                        <h4>${product.price}</h4>
+                      </div>
+                    </Nav>
+                    <Switch>
+                      <Route path={`games/${product.productURL}`}>
+                        <SingleGame product={product} />
+                      </Route>
+                    </Switch>
+                  </Router>
+                );
                 })
             : "There's no games to display!"}
         </div>

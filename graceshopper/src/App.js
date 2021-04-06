@@ -117,7 +117,7 @@ const App = () => {
           <Route path="/games">
             <Games />
           </Route>
-          <Route path="/singlegame">
+          <Route path="/games/*">
             <SingleGame />
           </Route>
           <Route path="/checkout">
