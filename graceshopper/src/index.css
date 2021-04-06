@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
+
 .game-page {
    background-color: #eee;
 }
@@ -36,3 +37,16 @@ code {
   grid-template-columns: auto auto auto;
   justify-content: right;
 }
+
+.details-page {
+  background-color: #343a40;
+  color: white;
+}
+
+.details-container {
+  margin: 20px;
+}
+
+/* .game-icon {
+
+} */
