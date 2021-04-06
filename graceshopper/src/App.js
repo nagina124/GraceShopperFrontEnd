@@ -22,6 +22,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [game, setGame] = useState(null);
 
   console.log(isAdmin)
   console.log(authenticate)
@@ -114,12 +115,13 @@ const App = () => {
               setIsAdmin={setIsAdmin}
             />
           </Route>
+          <Route exact path="/games/:gametitle">
+            <SingleGame game={game} />
+          </Route>
           <Route path="/games">
-            <Games />
+            <Games game={game} setGame={setGame} />
           </Route>
-          <Route path="/games/*">
-            <SingleGame />
-          </Route>
+
           <Route path="/checkout">
             <Checkout />
           </Route>

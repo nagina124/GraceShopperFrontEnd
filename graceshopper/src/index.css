@@ -38,6 +38,15 @@ code {
   justify-content: right;
 }
 
+.details-page {
+  background-color: #343a40;
+  color: white;
+}
+
+.details-container {
+  margin: 20px;
+}
+
 /* .game-icon {
 
 } */
