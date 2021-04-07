@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 // import RegisterModal from "./RegisterModal";
-import { getToken, getUser, login, user } from "../auth";
+import { getToken, getUser, login, user, userId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -12,8 +12,7 @@ const Login = ({
   username,
   setUsername,
   setToken,
-  isAdmin,
-  setIsAdmin,
+
 }) => {
   const [password, setPassword] = useState();
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -42,6 +41,7 @@ const Login = ({
           }
           setToken(getToken());
           isLoggedIn(result);
+          userId(result.userId)
         }
       })
       .catch(console.error);

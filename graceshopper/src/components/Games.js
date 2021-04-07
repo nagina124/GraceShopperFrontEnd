@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SingleGame from "./SingleGame";
 import Button from "react-bootstrap/Button";
-const API = "https://peaceful-spire-60083.herokuapp.com/api/products";
+const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const Games = ({game, setGame}) => {
+const Games = ({game, setGame, userId}) => {
   const [products, setProducts] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [orderComplete, setOrderComplete] = useState()
 
   const getProducts = () => {
-    fetch(`${API}`)
+    fetch(`${API}/products`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -19,7 +20,7 @@ const Games = ({game, setGame}) => {
   };
 
   const getProductsByCategory = (category) => {
-    fetch(`${API}/${category}`)
+    fetch(`${API}/products/${category}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -31,9 +32,33 @@ const Games = ({game, setGame}) => {
       .catch(console.error);
   };
 
-  const addToCart = () => {
-    
-  }
+  const getOrdersForUser = (userId) => {
+    fetch(`${API}/orders/${userId}`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        
+ 
+    })
+    .catch(console.error);
+};
+
+
+
+
+// console.log(orders)
+
+// const userOrder = orders.filter((order) => {
+//     if(order.userId == userId){
+//         return order
+//     }
+// })
+
+//   const addToCart = () => {
+//     if(userId){
+
+//     }
+//   }
 
   useEffect(() => {
     getProducts();
@@ -101,7 +126,7 @@ const Games = ({game, setGame}) => {
                       </Link>
                       <h3>{product.category}</h3>
                       <h4>${product.price}</h4>
-                      <Button>Add to Cart</Button>
+                      <Button onClick={getOrdersForUser}>Add to Cart</Button>
                     </div>
                   );
                 })
