@@ -43,7 +43,7 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
     .catch(console.error);
   };
   
-  const addProductToAnOrder = (productId, productTitle) => {
+  const addOrderToCart = (productId, productTitle) => {
     fetch(`${API}/orders`, {
       method: "POST",
       headers: {
@@ -143,7 +143,7 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
                       <h4>${product.price}</h4>
                       <Button
                         onClick={() =>
-                          addProductToAnOrder(product.id, product.title)
+                          addOrderToCart(product.id, product.title)
                         }
                       >
                         Add to Cart
