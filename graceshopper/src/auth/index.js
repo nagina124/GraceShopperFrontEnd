@@ -52,7 +52,12 @@ export function removeUserId() {
   localStorage.removeItem("userId");
 }
 
-//products for checkout 
+
+//products for checkout for guests
+
+
+
+//products for checkout for guests 
 
 export function addProduct(result) {
   localStorage.setItem("product", result);
