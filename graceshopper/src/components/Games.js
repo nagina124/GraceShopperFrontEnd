@@ -4,11 +4,10 @@ import SingleGame from "./SingleGame";
 import Button from "react-bootstrap/Button";
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const Games = ({game, setGame, userId}) => {
+const Games = ({game, setGame, userId, orders, setOrders}) => {
   const [products, setProducts] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [orderComplete, setOrderComplete] = useState();
-  const [orders, setOrders] = useState(null);
   const [orderId, setOrderId] = useState(null);
 
   const getProducts = () => {
@@ -34,58 +33,36 @@ const Games = ({game, setGame, userId}) => {
       .catch(console.error);
   };
 
-  const getOrdersForUser = (productId, productTitle) => {
+  const getOrdersForUser = () => {
     fetch(`${API}/orders/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
       setOrders(data);
-      checkforOpenOrder(productId, productTitle);
-
     })
     .catch(console.error);
   };
   
   const addProductToAnOrder = (productId, productTitle) => {
-    fetch(`${API}/orders/${orderId}`, {
+    fetch(`${API}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        userId: userId,
         productId: productId,
         productTitle: productTitle,
-        count: 1, //I don't think this needs to be passed to the back end
-        orderComplete: false, //I don't think this needs to be passed to the back end
+        count: 1
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Getting the error below, maybe need to clean up the back end
-        // {name: "TypeError", message: "usersOrder.filter is not a function"}
-        // message: "usersOrder.filter is not a function";
-        // name: "TypeError";
-        // __proto__: Object;
-        
-        // This error is referring to the filter on Line:68 of orders.js in the API folder.
+        console.log(data);
+        data.orderStatus === "created" ? alert(`${data.productTitle} has been added to cart`) : alert("This order already exists");
+        getOrdersForUser();
       });
 
-  }
-
-  const checkforOpenOrder = (productId, productTitle) => {
-    const openOrder = orders.filter(
-      (order) => {
-        setOrderId(order.id);
-        // Right now the order id is constantly being reset everytime I filter.
-        //we need to fix the backend where only 1 order is NOT complete, currently all of them are considered open.
-        return order.orderComplete === false
-      }
-    );
-    console.log("These are the open orders for this user", openOrder);
-
-    if (openOrder.length) {
-      addProductToAnOrder(productId, productTitle);
-    }
   }
 
 
@@ -164,7 +141,13 @@ const Games = ({game, setGame, userId}) => {
                       </Link>
                       <h3>{product.category}</h3>
                       <h4>${product.price}</h4>
-                      <Button onClick={() => getOrdersForUser(product.id, product.title)}>Add to Cart</Button>
+                      <Button
+                        onClick={() =>
+                          addProductToAnOrder(product.id, product.title)
+                        }
+                      >
+                        Add to Cart
+                      </Button>
                     </div>
                   );
                 })
