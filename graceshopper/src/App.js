@@ -26,7 +26,7 @@ const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
   const [userId, setUserId] = useState();
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   console.log(isAdmin);
   console.log(authenticate);
@@ -79,12 +79,13 @@ const App = () => {
               Logout
             </Link>
           )}
+          { orders ? 
           <ShoppingCartModal
             userId={userId}
             orders={orders}
             setOrders={setOrders}
-            userId={userId}
           />
+          : null}
         </Nav>
       </Navbar>
       {/* <nav>
@@ -158,7 +159,10 @@ const App = () => {
           </Route>
 
           <Route path="/checkout">
-            <Checkout userId={userId} />
+            <Checkout 
+            userId={userId}
+            orders={orders} 
+            />
           </Route>
           <Route path="/">
             <Home />
