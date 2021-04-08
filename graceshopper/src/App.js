@@ -16,6 +16,8 @@ import { getToken, getUser, getUserId } from "./auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Button from "react-bootstrap/Button";
+import ShoppingCartModal from "./components/ShoppingCartModal";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -23,20 +25,36 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
-  const [userId, setUserId] = useState()
+  const [userId, setUserId] = useState();
+  const [orders, setOrders] = useState(null);
 
-  console.log(isAdmin)
-  console.log(authenticate)
+  console.log(isAdmin);
+  console.log(authenticate);
+  console.log(userId);
+  const getOrdersForUser = () => {
+    fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setOrders(data);
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
+    if (userId) {
+      getOrdersForUser();
+    }
+    
     if (getToken() && getToken() !== undefined) {
       setAuthentication(true);
     }
-    if(getUser()) {
-      setIsAdmin(getUser())
+    if (getUser()) {
+      setIsAdmin(getUser());
     }
-    if(getUserId()) {
-      setUserId(getUserId())
-      console.log(userId)
+    if (getUserId()) {
+      setUserId(getUserId());
+      console.log(userId);
     }
   }, []);
 
@@ -61,6 +79,12 @@ const App = () => {
               Logout
             </Link>
           )}
+          <ShoppingCartModal
+            userId={userId}
+            orders={orders}
+            setOrders={setOrders}
+            userId={userId}
+          />
         </Nav>
       </Navbar>
       {/* <nav>
@@ -121,23 +145,20 @@ const App = () => {
             />
           </Route>
           <Route exact path="/games/:gametitle">
-            <SingleGame 
-            game={game} 
-            userId={userId}
-            />
+            <SingleGame game={game} userId={userId} />
           </Route>
           <Route path="/games">
-            <Games 
-            game={game} 
-            setGame={setGame}
-            userId={userId}
-             />
+            <Games
+              orders={orders}
+              setOrders={setOrders}
+              game={game}
+              setGame={setGame}
+              userId={userId}
+            />
           </Route>
 
           <Route path="/checkout">
-            <Checkout 
-            userId={userId}
-            />
+            <Checkout userId={userId} />
           </Route>
           <Route path="/">
             <Home />
