@@ -1,6 +1,6 @@
 import { useState, React } from "react";
 import { Redirect } from "react-router-dom";
-import { login, getToken } from "../auth";
+import { login, getToken, userId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -37,10 +37,13 @@ const Register = ({
           if (result.error) {
             alert(result.error);
           }
+          if(result.message === `duplicate key value violates unique constraint "users_email_key"`)
+          {alert("Email already used. Please use another email to register.")}
           if (result.token !== undefined) {
             login(result.token);
             setToken(getToken());
             isLoggedIn(result);
+            userId(result.userId)
           }
         })
         .catch(console.error);
