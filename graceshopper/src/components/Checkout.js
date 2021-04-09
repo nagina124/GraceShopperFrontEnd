@@ -7,43 +7,41 @@ import { useEffect, useState } from "react";
 import {getProductForGuests} from '../auth'
 const API = "https://peaceful-spire-60083.herokuapp.com/api/orders";
 
-const Checkout = ({userId}) => {
-
-    const [ orders, setOrders ] = useState([]);
+const Checkout = ({userId, orders}) => {
     const [ orderConfirmed, setOrderConfirmed ] = useState(false)
     const [count, setCount] = useState()
 
-    const getOrders = () => {
-        fetch(`${API}`)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            setOrders(data);
-        })
-        .catch(console.error);
-    };
+    // const getOrders = () => {
+    //     fetch(`${API}/${userId}`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         console.log(data);
+    //         setOrders(data);
+    //     })
+    //     .catch(console.error);
+    // };
 
 
 
     console.log(orders)
 
-    const userOrder = orders.filter((order) => {
-        if(order.userId == userId){
-            return order
-        }
-    })
+    // const userOrder = orders.filter((order) => {
+    //     if(order.userId == userId){
+    //         return order
+    //     }
+    // })
 
-    console.log(userOrder)
+    // console.log(userOrder)
 
     
-    useEffect(() => {
-        if(userId){
-            getOrders();
-        } else {
-            getProductForGuests()
-        }
+    // useEffect(() => {
+    //     if(userId){
+    //         getOrders();
+    //     } else {
+    //         getProductForGuests()
+    //     }
          
-    }, []);
+    // }, []);
 
 
     return (
@@ -62,7 +60,7 @@ const Checkout = ({userId}) => {
                     <th>Price</th>
                     </tr>
                 </thead>
-                {userOrder.map((order, index) => {
+                {/* {userOrder.map((order, index) => {
                     return (
                         <tbody key={index}>
                             <tr>
@@ -73,7 +71,7 @@ const Checkout = ({userId}) => {
                         </tbody>
                     )
                     })
-                }
+                } */}
             </Table>
             <button > Confirm Order </button>
         </section>

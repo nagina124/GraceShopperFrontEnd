@@ -1,15 +1,17 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const ShoppingCartModal = ({ orders, setOrders }) => {
+const ShoppingCartModal = ({ userId, orders, setOrders }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const tax = 1.10;
   let subtotal = 0;
   console.log(orders);
+
 
   const deleteOrder = (orderId) => {
     fetch(
@@ -33,6 +35,9 @@ const ShoppingCartModal = ({ orders, setOrders }) => {
       })
       .catch(console.error);
   }
+
+
+
 
   return (
     <>

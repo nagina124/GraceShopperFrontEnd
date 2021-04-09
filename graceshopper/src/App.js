@@ -78,13 +78,13 @@ const App = () => {
               Logout
             </Link>
           )}
-          {orders ?
-            <ShoppingCartModal
-              userId={userId}
-              orders={orders}
-              setOrders={setOrders}
-            /> : null
-          }
+          { orders ? 
+          <ShoppingCartModal
+            userId={userId}
+            orders={orders}
+            setOrders={setOrders}
+          />
+          : null}
         </Nav>
       </Navbar>
       {/* <nav>
@@ -158,7 +158,10 @@ const App = () => {
           </Route>
 
           <Route path="/checkout">
-            <Checkout userId={userId} />
+            <Checkout 
+            userId={userId}
+            orders={orders} 
+            />
           </Route>
           <Route path="/">
             <Home />
