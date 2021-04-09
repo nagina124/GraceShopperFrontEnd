@@ -24,7 +24,7 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(getUserId());
   const [orders, setOrders] = useState([]);
 
   console.log(isAdmin);

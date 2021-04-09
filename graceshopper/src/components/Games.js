@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
 const Games = ({game, setGame, userId, orders, setOrders}) => {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [orderComplete, setOrderComplete] = useState();
   const [orderId, setOrderId] = useState(null);
@@ -64,16 +64,6 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
       });
 
   }
-
-
-// console.log(orders)
-
-
-//   const addToCart = () => {
-//     if(userId){
-
-//     }
-//   }
 
   useEffect(() => {
     getProducts();
