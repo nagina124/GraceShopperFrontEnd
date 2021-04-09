@@ -16,7 +16,6 @@ import { getToken, getUser, getUserId } from "./auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import ShoppingCartModal from "./components/ShoppingCartModal";
 
 const App = () => {
@@ -25,7 +24,7 @@ const App = () => {
   const [authenticate, setAuthentication] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [game, setGame] = useState(null);
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(getUserId());
   const [orders, setOrders] = useState([]);
 
   console.log(isAdmin);
