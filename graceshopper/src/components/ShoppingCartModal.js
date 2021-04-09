@@ -2,9 +2,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router";
 import { useState, useEffect } from "react";
+import {getProductForGuests} from '../auth'
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
 const ShoppingCartModal = ({ userId, orders, setOrders }) => {
+  const [ guestOrder, setGuestOrder ] = useState([])
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -36,7 +38,41 @@ const ShoppingCartModal = ({ userId, orders, setOrders }) => {
       .catch(console.error);
   }
 
+//   function addProduct(productId, productTitle, productPrice) {
+//   let products = [];
+//   if(localStorage.getItem('products')){
+//       products = JSON.parse(localStorage.getItem('products'));
+//   }
+//   products.push({'productId' : productId, 'productTitle' : productTitle, 'productPrice' : productPrice, 'count' : 1});
+//   localStorage.setItem('products', JSON.stringify(products));
+// }
 
+//   function guestShoppingCart(){
+    
+//     setGuestOrder(addProduct())
+//     guestOrder.map((order, index) => {
+//       return (
+//         <div key={index}>
+//           {/* <img
+//             src={order.imageURL}
+//             width="50"
+//             height="50"
+//             className="game-icon"
+//           /> */}
+//           <h5>{guestOrder.productTitle}</h5>
+//           <h5>${guestOrder.productPrice}</h5>
+//           {/* <h5>${guestOrder.count}</h5> */}
+//           <Button
+//             variant="danger"
+//             onClick={() => deleteOrder(order.id)}
+//           >
+//             Remove Item
+//           </Button>
+//         </div>
+//       );
+//     })
+
+//   } 
 
 
   return (
@@ -75,6 +111,7 @@ const ShoppingCartModal = ({ userId, orders, setOrders }) => {
                   );
                 })
               : "There's no items in your cart"}
+              {/* {!userId ? guestShoppingCart() : "There's no items in your cart"} */}
           </div>
           <h6>Subtotal: {subtotal}</h6>
           <h6>Tax: 10%</h6>
