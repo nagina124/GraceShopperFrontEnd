@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SingleGame from "./SingleGame";
 import Button from "react-bootstrap/Button";
+// import {addProduct} from "../auth"
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
 const Games = ({game, setGame, userId, orders, setOrders}) => {
@@ -63,6 +64,15 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
         getOrdersForUser();
       });
 
+  }
+
+  function addProduct(productId, productTitle, productPrice) {
+    let products = [];
+    if(localStorage.getItem('products')){
+        products = JSON.parse(localStorage.getItem('products'));
+    }
+    products.push({'productId' : productId, 'productTitle' : productTitle, 'productPrice' : productPrice, 'count' : 1});
+    localStorage.setItem('products', JSON.stringify(products));
   }
 
   useEffect(() => {
@@ -132,8 +142,13 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
                       <h3>{product.category}</h3>
                       <h4>${product.price}</h4>
                       <Button
-                        onClick={() =>
-                          addOrderToCart(product.id, product.title)
+                        onClick={() => {
+                          if(userId){
+                            addOrderToCart(product.id, product.title)
+                          } else {
+                            addProduct(product.id, product.title, product.price)
+                          }
+                        }
                         }
                       >
                         Add to Cart

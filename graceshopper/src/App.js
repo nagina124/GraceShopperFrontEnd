@@ -124,6 +124,8 @@ const App = () => {
               setAuthentication={setAuthentication}
               isAdmin={isAdmin}
               setIsAdmin={setIsAdmin}
+              orders={orders}
+              setOrders={setOrders}
             />
           </Route>
           <Route path="/logout">
@@ -160,6 +162,7 @@ const App = () => {
           <Route path="/checkout">
             <Checkout 
             userId={userId}
+            setOrders={setOrders}
             orders={orders} 
             />
           </Route>
