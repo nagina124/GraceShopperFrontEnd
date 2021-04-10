@@ -150,7 +150,7 @@ const EditProductModal = ({
                 placeholder={productCategory}
                 onChange={(event) => {
                   if (event.target.value !== null) {
-                    setCategory(event.target.value);
+                    setCategory(event.target.value.toUpperCase());
                   } else {
                     return productCategory;
                   }
