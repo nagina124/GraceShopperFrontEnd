@@ -75,7 +75,7 @@ const Register = ({
   }
 
   const getOrdersForUser = () => {
-    fetch(`${API}/orders/${userId}`)
+    fetch(`${API}/orders/${getUserId()}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

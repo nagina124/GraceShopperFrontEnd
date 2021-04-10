@@ -10,6 +10,7 @@ import {
   SingleGame,
   Checkout,
   Error,
+  ThankYou
 } from "./components";
 import { getToken, getUser, getUserId } from "./auth";
 
@@ -190,6 +191,9 @@ const App = () => {
 
           <Route path="/checkout">
             <Checkout userId={userId} setOrders={setOrders} orders={orders} />
+          </Route>
+          <Route path="/thankyou">
+            <ThankYou/>
           </Route>
           <Route path="/">
             <Home />
