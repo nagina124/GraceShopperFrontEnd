@@ -59,20 +59,20 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Video Games</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/games">Games</Nav.Link>
+      <Navbar className="navBar">
+        <Navbar.Brand href="/">Logo</Navbar.Brand>
+        <Nav className="ml-auto">
+          <Link style={{ color: "white", padding: "7.5px" }} to="/">Home</Link>
+          <Link style={{ color: "white", padding: "7.5px" }} to="/games">Games</Link>
           {authenticate && getUser() && getToken() ? (
-            <Nav.Link href="/admin">Admin Tasks</Nav.Link>
+            <Link style={{ color: "white", padding: "7.5px" }} to="/admin">Admin Tasks</Link>
           ) : null}
-          <Nav.Link href="/checkout">Checkout!</Nav.Link>
+          <Link style={{ color: "white", padding: "7.5px" }} to="/checkout">Checkout!</Link>
           {!authenticate && !getToken() ? (
-            <Nav.Link href="/login">Login/Register</Nav.Link>
+            <Link style={{ color: "white", padding: "7.5px" }} to="/login">Login/Register</Link>
           ) : (
             <Link
-              style={{ color: "rgba(255,255,255,.5)", padding: "7.5px" }}
+              style={{ color: "white", padding: "7.5px" }}
               to="/logout"
             >
               Logout
@@ -80,6 +80,7 @@ const App = () => {
           )}
           { orders ? 
           <ShoppingCartModal
+            
             userId={userId}
             orders={orders}
             setOrders={setOrders}
