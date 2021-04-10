@@ -37,7 +37,7 @@ export function removeUser() {
 }
 
 //userId
-export function userId(result) {
+export function setUserIdLocal(result) {
   localStorage.setItem("userId", result);
   console.log(result)
 }

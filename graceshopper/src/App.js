@@ -66,7 +66,7 @@ const App = () => {
     <Router>
       <Navbar className="navBar">
         <Navbar.Brand href="/">Logo</Navbar.Brand>
-        <p>Hello {username}</p>
+        {username ? <p>Hello {username}</p> : null}
         <Nav className="ml-auto">
           <Link style={{ color: "white", padding: "7.5px" }} to="/">
             Home
@@ -141,6 +141,10 @@ const App = () => {
               setIsAdmin={setIsAdmin}
               orders={orders}
               setOrders={setOrders}
+              guestOrder={guestOrder}
+              setGuestOrder={setGuestOrder}
+              userId={userId}
+              setUserId={setUserId}
             />
           </Route>
           <Route path="/logout">
