@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 // import RegisterModal from "./RegisterModal";
-import { getToken, getUser, login, user, userId } from "../auth";
+import { getToken, getUser, login, user, setUserIdLocal, getUserId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -14,8 +14,11 @@ const Login = ({
   setUsername,
   setToken,
   orders,
-  setOrders
-
+  setOrders,
+  guestOrder,
+  setGuestOrder,
+  userId,
+  setUserId,
 }) => {
   const [password, setPassword] = useState();
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -44,23 +47,51 @@ const Login = ({
           }
           setToken(getToken());
           isLoggedIn(result);
-          userId(result.userId)
-          getOrdersForUser(result.userId)
+          setUserIdLocal(result.userId);
+          setUserId(result.userId);
+          if (guestOrder.length) {
+            moveOrdersFromGuestToUser();
+          } else {
+            getOrdersForUser(result.userId);
+          }
         }
       })
       .catch(console.error);
   }
 
-  const getOrdersForUser = (userId) => {
-    fetch(`${API}/orders/${userId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      setOrders(data);
-    })
-    .catch(console.error);
+  const getOrdersForUser = () => {
+    fetch(`${API}/orders/${getUserId()}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setOrders(data);
+      })
+      .catch(console.error);
   };
 
+  const moveOrdersFromGuestToUser = async () => {
+    guestOrder.forEach(order => {
+      fetch(`${API}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: getUserId(),
+          productId: order.productId,
+          productTitle: order.productTitle,
+          count: 1,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          getOrdersForUser();
+        });
+    });
+    setGuestOrder([]);
+    localStorage.removeItem("products");
+  };
 
   const isLoggedIn = (result) => {
     if (result.name !== "IncorrectCredentialsError") {
@@ -79,7 +110,6 @@ const Login = ({
   } else if (loginSuccessful && authenticate && getUser()) {
     return <Redirect to="./admin" />;
   }
-
 
   return (
     <div>

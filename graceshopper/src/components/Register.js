@@ -1,6 +1,6 @@
 import { useState, React } from "react";
 import { Redirect } from "react-router-dom";
-import { login, getToken, userId, getUserId } from "../auth";
+import { login, getToken, setUserIdLocal, getUserId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -49,9 +49,11 @@ const Register = ({
             login(result.token);
             setToken(getToken());
             isLoggedIn(result);
-            userId(result.userId);
+            setUserIdLocal(result.userId);
             setUserId(result.userId);
-            moveOrdersFromGuestToUser();
+            if (guestOrder.length) {
+              moveOrdersFromGuestToUser();
+            }
           }
         })
         .catch(console.error);
@@ -72,7 +74,7 @@ const Register = ({
     return <Redirect to="./" />;
   }
 
-  const getOrdersForUser = async () => {
+  const getOrdersForUser = () => {
     fetch(`${API}/orders/${userId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -82,7 +84,7 @@ const Register = ({
       .catch(console.error);
   };
 
-  const moveOrdersFromGuestToUser = async () => {
+  const moveOrdersFromGuestToUser = () => {
     guestOrder.forEach(order => {
       fetch(`${API}/orders`, {
         method: "POST",
@@ -99,7 +101,6 @@ const Register = ({
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          
           getOrdersForUser();
         });
     });
