@@ -5,8 +5,17 @@ import Button from "react-bootstrap/Button";
 // import {addProduct} from "../auth"
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const Games = ({game, setGame, userId, orders, setOrders}) => {
+const Games = ({
+  game,
+  setGame,
+  userId,
+  orders,
+  setOrders,
+  guestOrder,
+  setGuestOrder,
+}) => {
   const [products, setProducts] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [orderComplete, setOrderComplete] = useState();
   const [orderId, setOrderId] = useState(null);
@@ -36,14 +45,14 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
 
   const getOrdersForUser = () => {
     fetch(`${API}/orders/${userId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      setOrders(data);
-    })
-    .catch(console.error);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setOrders(data);
+      })
+      .catch(console.error);
   };
-  
+
   const addOrderToCart = (productId, productTitle) => {
     fetch(`${API}/orders`, {
       method: "POST",
@@ -54,26 +63,43 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
         userId: userId,
         productId: productId,
         productTitle: productTitle,
-        count: 1
+        count: 1,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        data.orderStatus === "created" ? alert(`${data.productTitle} has been added to cart`) : alert("This order already exists");
+        data.orderStatus === "created"
+          ? alert(`${data.productTitle} has been added to cart`)
+          : alert("This order already exists");
         getOrdersForUser();
       });
+  };
 
-  }
-
-  function addProduct(productId, productTitle, productPrice) {
+  const addProductGuest = (
+    productId,
+    productTitle,
+    productPrice,
+    productImageURL
+  ) => {
     let products = [];
-    if(localStorage.getItem('products')){
-        products = JSON.parse(localStorage.getItem('products'));
+    console.log(guestOrder);
+    if (localStorage.getItem("products")) {
+      products = JSON.parse(localStorage.getItem("products"));
     }
-    products.push({'productId' : productId, 'productTitle' : productTitle, 'productPrice' : productPrice, 'count' : 1});
-    localStorage.setItem('products', JSON.stringify(products));
-  }
+    products.push({
+      productId: productId,
+      productTitle: productTitle,
+      productPrice: productPrice,
+      productImageURL: productImageURL,
+      count: 1,
+    });
+    localStorage.setItem("products", JSON.stringify(products));
+    products = JSON.parse(localStorage.getItem("products"));
+    setGuestOrder(products);
+    console.log(guestOrder);
+    alert(`${productTitle} has been added to cart.`);
+  };
 
   useEffect(() => {
     getProducts();
@@ -143,13 +169,17 @@ const Games = ({game, setGame, userId, orders, setOrders}) => {
                       <h4>${product.price}</h4>
                       <Button
                         onClick={() => {
-                          if(userId){
-                            addOrderToCart(product.id, product.title)
+                          if (userId) {
+                            addOrderToCart(product.id, product.title);
                           } else {
-                            addProduct(product.id, product.title, product.price)
+                            addProductGuest(
+                              product.id,
+                              product.title,
+                              product.price,
+                              product.imageURL
+                            );
                           }
-                        }
-                        }
+                        }}
                       >
                         Add to Cart
                       </Button>
