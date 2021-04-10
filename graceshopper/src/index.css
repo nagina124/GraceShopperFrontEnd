@@ -54,3 +54,12 @@ code {
 /* .game-icon {
 
 } */
+
+.navBar {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
+  font-size: 20px;
+  background-color: #3d0d6e;
+  color: white;
+}
+

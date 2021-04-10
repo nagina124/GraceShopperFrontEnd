@@ -52,23 +52,24 @@ export function removeUserId() {
   localStorage.removeItem("userId");
 }
 
-
-//products for checkout for guests
-
-
-
 //products for checkout for guests 
 
-export function addProduct(result) {
-  localStorage.setItem("product", result);
-  console.log(result)
-}
+// export function addProduct() {
+//   let products = [];
+//   if(localStorage.getItem('products')){
+//       products = JSON.parse(localStorage.getItem('products'));
+//   }
+//   products.push({'productId' : productId, 'productTitle' : productTitle, 'count' : 1});
+//   localStorage.setItem('products', JSON.stringify(products));
+// }
 
 export function getProductForGuests() {
-  const products = localStorage.getItem("product");
+  const products = localStorage.getItem('products');
   return products;
 }
 
-export function removeProduct() {
-  localStorage.removeItem("product");
-}
+// export function removeProduct() {
+//   let storageProducts = JSON.parse(localStorage.getItem('products'));
+//   let products = storageProducts.filter(product => product.productId !== productId );
+//   localStorage.setItem('products', JSON.stringify(products));
+// }

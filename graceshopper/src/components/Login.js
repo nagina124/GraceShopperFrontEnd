@@ -5,6 +5,7 @@ import { getToken, getUser, login, user, userId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
 const Login = ({
   authenticate,
@@ -12,6 +13,8 @@ const Login = ({
   username,
   setUsername,
   setToken,
+  orders,
+  setOrders
 
 }) => {
   const [password, setPassword] = useState();
@@ -42,10 +45,22 @@ const Login = ({
           setToken(getToken());
           isLoggedIn(result);
           userId(result.userId)
+          getOrdersForUser(result.userId)
         }
       })
       .catch(console.error);
   }
+
+  const getOrdersForUser = (userId) => {
+    fetch(`${API}/orders/${userId}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      setOrders(data);
+    })
+    .catch(console.error);
+  };
+
 
   const isLoggedIn = (result) => {
     if (result.name !== "IncorrectCredentialsError") {
@@ -64,6 +79,7 @@ const Login = ({
   } else if (loginSuccessful && authenticate && getUser()) {
     return <Redirect to="./admin" />;
   }
+
 
   return (
     <div>
