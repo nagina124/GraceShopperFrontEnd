@@ -80,7 +80,10 @@ const Admin = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <center>
+      <h1 style={{ textAlign: "center", marginBottom: "10px" }}>ADMIN PAGE</h1>
+      <Route exact path={`${path}`}> 
+      <center style={{fontSize:"50px"}}>WELCOME TO THE ADMIN DASHBOARD</center> </Route>
+      <center style={{fontSize:"25px"}}>
         <Link to="/admin/user" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL USERS
@@ -94,7 +97,7 @@ const Admin = () => {
           VIEW ALL ORDERS
         </Link>
       </center>
-      <h1 style={{ textAlign: "center", marginBottom: "10px" }}>ADMIN PAGE</h1>
+      
       <Route path={`${path}/user`}>
         <h4 style={{ textAlign: "center" }}>ALL USERS</h4>
         <div className="search-box">

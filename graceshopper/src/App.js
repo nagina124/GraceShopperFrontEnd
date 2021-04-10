@@ -26,6 +26,11 @@ const App = () => {
   const [game, setGame] = useState(null);
   const [userId, setUserId] = useState(getUserId());
   const [orders, setOrders] = useState([]);
+  const [guestOrder, setGuestOrder] = useState(
+    localStorage.getItem("products")
+      ? JSON.parse(localStorage.getItem("products"))
+      : []
+  );
 
   console.log(isAdmin);
   console.log(authenticate);
@@ -61,31 +66,40 @@ const App = () => {
     <Router>
       <Navbar className="navBar">
         <Navbar.Brand href="/">Logo</Navbar.Brand>
+        {username ? <p>Hello {username}</p> : null}
         <Nav className="ml-auto">
-          <Link style={{ color: "white", padding: "7.5px" }} to="/">Home</Link>
-          <Link style={{ color: "white", padding: "7.5px" }} to="/games">Games</Link>
+          <Link style={{ color: "white", padding: "7.5px" }} to="/">
+            Home
+          </Link>
+          <Link style={{ color: "white", padding: "7.5px" }} to="/games">
+            Games
+          </Link>
           {authenticate && getUser() && getToken() ? (
-            <Link style={{ color: "white", padding: "7.5px" }} to="/admin">Admin Tasks</Link>
+            <Link style={{ color: "white", padding: "7.5px" }} to="/admin">
+              Admin Tasks
+            </Link>
           ) : null}
-          <Link style={{ color: "white", padding: "7.5px" }} to="/checkout">Checkout!</Link>
+          <Link style={{ color: "white", padding: "7.5px" }} to="/checkout">
+            Checkout!
+          </Link>
           {!authenticate && !getToken() ? (
-            <Link style={{ color: "white", padding: "7.5px" }} to="/login">Login/Register</Link>
+            <Link style={{ color: "white", padding: "7.5px" }} to="/login">
+              Login/Register
+            </Link>
           ) : (
-            <Link
-              style={{ color: "white", padding: "7.5px" }}
-              to="/logout"
-            >
+            <Link style={{ color: "white", padding: "7.5px" }} to="/logout">
               Logout
             </Link>
           )}
-          { orders ? 
-          <ShoppingCartModal
-            
-            userId={userId}
-            orders={orders}
-            setOrders={setOrders}
-          />
-          : null}
+          {orders ? (
+            <ShoppingCartModal
+              userId={userId}
+              orders={orders}
+              setOrders={setOrders}
+              guestOrder={guestOrder}
+              setGuestOrder={setGuestOrder}
+            />
+          ) : null}
         </Nav>
       </Navbar>
       {/* <nav>
@@ -127,12 +141,19 @@ const App = () => {
               setIsAdmin={setIsAdmin}
               orders={orders}
               setOrders={setOrders}
+              guestOrder={guestOrder}
+              setGuestOrder={setGuestOrder}
+              userId={userId}
+              setUserId={setUserId}
             />
           </Route>
           <Route path="/logout">
             <Logout
+              setUserId={setUserId}
+              setOrders={setOrders}
               authenticate={authenticate}
               setAuthentication={setAuthentication}
+              setGuestOrder={setGuestOrder}
             />
           </Route>
           <Route path="/register">
@@ -145,6 +166,11 @@ const App = () => {
               setAuthentication={setAuthentication}
               isAdmin={isAdmin}
               setIsAdmin={setIsAdmin}
+              guestOrder={guestOrder}
+              setOrders={setOrders}
+              setGuestOrder={setGuestOrder}
+              userId={userId}
+              setUserId={setUserId}
             />
           </Route>
           <Route exact path="/games/:gametitle">
@@ -157,15 +183,13 @@ const App = () => {
               game={game}
               setGame={setGame}
               userId={userId}
+              guestOrder={guestOrder}
+              setGuestOrder={setGuestOrder}
             />
           </Route>
 
           <Route path="/checkout">
-            <Checkout 
-            userId={userId}
-            setOrders={setOrders}
-            orders={orders} 
-            />
+            <Checkout userId={userId} setOrders={setOrders} orders={orders} />
           </Route>
           <Route path="/">
             <Home />

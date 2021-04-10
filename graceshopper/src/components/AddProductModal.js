@@ -112,7 +112,7 @@ const AddProductModal = ({ products, setProducts }) => {
                 type="text"
                 placeholder="Enter category"
                 onChange={(event) => {
-                  setCategory(event.target.value);
+                  setCategory(event.target.value.toUpperCase());
                 }}
               />
             </Form.Group>

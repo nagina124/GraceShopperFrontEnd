@@ -1,9 +1,10 @@
 import { useState, React } from "react";
 import { Redirect } from "react-router-dom";
-import { login, getToken, userId } from "../auth";
+import { login, getToken, setUserIdLocal, getUserId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
 const Register = ({
   username,
@@ -12,6 +13,11 @@ const Register = ({
   setToken,
   authenticate,
   setAuthentication,
+  guestOrder,
+  setGuestOrder,
+  setOrders,
+  userId,
+  setUserId
 }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -43,7 +49,11 @@ const Register = ({
             login(result.token);
             setToken(getToken());
             isLoggedIn(result);
-            userId(result.userId)
+            setUserIdLocal(result.userId);
+            setUserId(result.userId);
+            if (guestOrder.length) {
+              moveOrdersFromGuestToUser();
+            }
           }
         })
         .catch(console.error);
@@ -62,6 +72,40 @@ const Register = ({
 
   if (authenticate && token) {
     return <Redirect to="./" />;
+  }
+
+  const getOrdersForUser = () => {
+    fetch(`${API}/orders/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setOrders(data);
+      })
+      .catch(console.error);
+  };
+
+  const moveOrdersFromGuestToUser = () => {
+    guestOrder.forEach(order => {
+      fetch(`${API}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: getUserId(),
+          productId: order.productId,
+          productTitle: order.productTitle,
+          count: 1,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          getOrdersForUser();
+        });
+    });
+    setGuestOrder([]);
+    localStorage.removeItem('products');
   }
 
   return (
