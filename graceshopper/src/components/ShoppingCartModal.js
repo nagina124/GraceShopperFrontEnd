@@ -5,75 +5,93 @@ import { useState, useEffect } from "react";
 import {getProductForGuests} from '../auth'
 const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const ShoppingCartModal = ({ userId, orders, setOrders }) => {
-  const [ guestOrder, setGuestOrder ] = useState([])
+const ShoppingCartModal = ({
+  userId,
+  orders,
+  setOrders,
+  guestOrder,
+  setGuestOrder,
+}) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const tax = 1.10;
+  const tax = 1.1;
   let subtotal = 0;
   console.log(orders);
-
+  console.log(guestOrder);
 
   const deleteOrder = (orderId) => {
-    fetch(
-      `https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         if (result) {
-          const updatedOrders = orders.filter(
-            (order) => order.id !== orderId
-          );
+          const updatedOrders = orders.filter((order) => order.id !== orderId);
           setOrders(updatedOrders);
         }
       })
       .catch(console.error);
+  };
+
+  const removeProductFromGuestCart = (productId) => {
+    let storageProducts = guestOrder;
+    let products = storageProducts.filter(
+      (product) => product.productId !== productId
+    );
+    localStorage.setItem("products", JSON.stringify(products));
+    setGuestOrder(products);
   }
 
-//   function addProduct(productId, productTitle, productPrice) {
-//   let products = [];
-//   if(localStorage.getItem('products')){
-//       products = JSON.parse(localStorage.getItem('products'));
-//   }
-//   products.push({'productId' : productId, 'productTitle' : productTitle, 'productPrice' : productPrice, 'count' : 1});
-//   localStorage.setItem('products', JSON.stringify(products));
-// }
-
-//   function guestShoppingCart(){
-    
-//     setGuestOrder(addProduct())
-//     guestOrder.map((order, index) => {
-//       return (
-//         <div key={index}>
-//           {/* <img
-//             src={order.imageURL}
-//             width="50"
-//             height="50"
-//             className="game-icon"
-//           /> */}
-//           <h5>{guestOrder.productTitle}</h5>
-//           <h5>${guestOrder.productPrice}</h5>
-//           {/* <h5>${guestOrder.count}</h5> */}
-//           <Button
-//             variant="danger"
-//             onClick={() => deleteOrder(order.id)}
-//           >
-//             Remove Item
-//           </Button>
-//         </div>
-//       );
-//     })
-
-//   } 
-
+  const cart = () => {
+    if (orders.length) {
+      return orders.map((order, index) => {
+        subtotal = Math.round((subtotal + order.productPrice) * 100) / 100;
+        return (
+          <div key={index}>
+            <img
+              src={order.imageURL}
+              width="50"
+              height="50"
+              className="game-icon"
+            />
+            <h5>{order.productTitle}</h5>
+            <h5>${order.productPrice}</h5>
+            <Button variant="danger" onClick={() => deleteOrder(order.id)}>
+              Remove Item
+            </Button>
+          </div>
+        );
+      });
+    } else if (guestOrder.length) {
+      return guestOrder.map((order, index) => {
+        subtotal = Math.round((subtotal + order.productPrice) * 100) / 100;
+        return (
+          <div key={index}>
+            <img
+              src={order.productImageURL}
+              width="50"
+              height="50"
+              className="game-icon"
+            />
+            <h5>{order.productTitle}</h5>
+            <h5>${order.productPrice}</h5>
+            <Button
+              variant="danger"
+              onClick={() => removeProductFromGuestCart(order.productId)}
+            >
+              Remove Item
+            </Button>
+          </div>
+        );
+      });
+    }
+    return <h3>There's no items in your cart</h3>
+  }
 
   return (
     <>
@@ -87,31 +105,8 @@ const ShoppingCartModal = ({ userId, orders, setOrders }) => {
         </Modal.Header>
         <Modal.Body>
           <div className="cart">
-            {orders
-              ? orders.map((order, index) => {
-                  subtotal =
-                    Math.round((subtotal + order.productPrice) * 100) / 100;
-                  return (
-                    <div key={index}>
-                      <img
-                        src={order.imageURL}
-                        width="50"
-                        height="50"
-                        className="game-icon"
-                      />
-                      <h5>{order.productTitle}</h5>
-                      <h5>${order.productPrice}</h5>
-                      <Button
-                        variant="danger"
-                        onClick={() => deleteOrder(order.id)}
-                      >
-                        Remove Item
-                      </Button>
-                    </div>
-                  );
-                })
-              : "There's no items in your cart"}
-              {/* {!userId ? guestShoppingCart() : "There's no items in your cart"} */}
+            {cart()}
+            {/* {!userId ? guestShoppingCart() : "There's no items in your cart"} */}
           </div>
           <h6>Subtotal: {subtotal}</h6>
           <h6>Tax: 10%</h6>
@@ -121,9 +116,7 @@ const ShoppingCartModal = ({ userId, orders, setOrders }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">
-            Checkout
-          </Button>
+          <Button variant="primary">Checkout</Button>
         </Modal.Footer>
       </Modal>
     </>
