@@ -3,4 +3,14 @@
 } */
 .homeTitle{
     text-align: center;
+    font-family: 'Megrim', cursive;
+    font-weight: bolder;
+    font-size: 100px;
+}
+
+.welcomeMessage {
+    text-align: center;
+    font-family: 'Megrim', cursive;
+    font-weight: bolder;
+    font-size: 30px;
 }

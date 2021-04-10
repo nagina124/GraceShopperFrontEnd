@@ -1,16 +1,19 @@
 import "./Checkout.css"
 import Table from 'react-bootstrap/Table'
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from "react";
 import {getProductForGuests} from '../auth'
+// import TakeMoney from './StripeCheckout'
+import StripeCheckout from './StripeCheckout'
 const API = "https://peaceful-spire-60083.herokuapp.com/api/orders";
+// import StripeCheckout from 'react-stripe-checkout';
 
 const Checkout = ({userId, orders, setOrders}) => {
     const [ orderConfirmed, setOrderConfirmed ] = useState(false)
     const [count, setCount] = useState()
-
+    const tax = 1.10;
+    let subtotal = 0;
+    let total = 0;
     const getOrders = () => {
         fetch(`${API}/${userId}`)
         .then((response) => response.json())
@@ -101,6 +104,8 @@ const Checkout = ({userId, orders, setOrders}) => {
                     </tr>
                 </thead>
                 {orders.map((order, index) => {
+                    subtotal = Math.round((subtotal + order.productPrice) * 100) / 100;
+                    total = Math.round(subtotal * tax * 100) / 100;
                     return (
                         <tbody key={index}>
                             <tr>
@@ -121,9 +126,15 @@ const Checkout = ({userId, orders, setOrders}) => {
                     })
                 }
             </Table>
+            <h6>Subtotal: {subtotal}</h6>
+            <h6>Tax: 10%</h6>
+            
+            <h6>Total: {total} </h6>
             <button> 
                 Confirm Order 
             </button>
+            {/* <TakeMoney amount={total}/> */}
+            <StripeCheckout amount={total}/>
         </section>
         </>
     )
