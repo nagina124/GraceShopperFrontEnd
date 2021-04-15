@@ -50,7 +50,7 @@ const Login = ({
           setUserIdLocal(result.userId);
           setUserId(result.userId);
           if (guestOrder.length) {
-            moveOrdersFromGuestToUser();
+            moveOrdersFromGuestToUser(result.userId);
           } else {
             getOrdersForUser(result.userId);
           }
@@ -59,8 +59,8 @@ const Login = ({
       .catch(console.error);
   }
 
-  const getOrdersForUser = () => {
-    fetch(`${API}/orders/${getUserId()}`)
+  const getOrdersForUser = (id) => {
+    fetch(`${API}/orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -69,7 +69,7 @@ const Login = ({
       .catch(console.error);
   };
 
-  const moveOrdersFromGuestToUser = async () => {
+  const moveOrdersFromGuestToUser = (id) => {
     guestOrder.forEach(order => {
       fetch(`${API}/orders`, {
         method: "POST",
@@ -77,7 +77,7 @@ const Login = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: getUserId(),
+          userId: id,
           productId: order.productId,
           productTitle: order.productTitle,
           count: 1,
@@ -86,7 +86,7 @@ const Login = ({
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          getOrdersForUser();
+          getOrdersForUser(id);
         });
     });
     setGuestOrder([]);
