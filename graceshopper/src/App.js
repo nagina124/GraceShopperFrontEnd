@@ -10,14 +10,14 @@ import {
   SingleGame,
   Checkout,
   Error,
-  ThankYou
+  ThankYou,
+  Navigation
 } from "./components";
 import { getToken, getUser, getUserId } from "./auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import ShoppingCartModal from "./components/ShoppingCartModal";
+
+
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -27,6 +27,7 @@ const App = () => {
   const [game, setGame] = useState(null);
   const [userId, setUserId] = useState(getUserId());
   const [orders, setOrders] = useState([]);
+  const [cart, setCart] = useState([]);
   const [guestOrder, setGuestOrder] = useState(
     localStorage.getItem("products")
       ? JSON.parse(localStorage.getItem("products"))
@@ -65,44 +66,17 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar className="navBar">
-        <Navbar.Brand href="/">Logo</Navbar.Brand>
-        {username ? <p>Hello {username}</p> : null}
-        <Nav className="ml-auto">
-          <Link style={{ color: "white", padding: "7.5px" }} to="/">
-            Home
-          </Link>
-          <Link style={{ color: "white", padding: "7.5px" }} to="/games">
-            Games
-          </Link>
-          {authenticate && getUser() && getToken() ? (
-            <Link style={{ color: "white", padding: "7.5px" }} to="/admin">
-              Admin Tasks
-            </Link>
-          ) : null}
-          <Link style={{ color: "white", padding: "7.5px" }} to="/checkout">
-            Checkout!
-          </Link>
-          {!authenticate && !getToken() ? (
-            <Link style={{ color: "white", padding: "7.5px" }} to="/login">
-              Login/Register
-            </Link>
-          ) : (
-            <Link style={{ color: "white", padding: "7.5px" }} to="/logout">
-              Logout
-            </Link>
-          )}
-          {orders ? (
-            <ShoppingCartModal
-              userId={userId}
-              orders={orders}
-              setOrders={setOrders}
-              guestOrder={guestOrder}
-              setGuestOrder={setGuestOrder}
-            />
-          ) : null}
-        </Nav>
-      </Navbar>
+      <Navigation
+        userId={userId}
+        orders={orders}
+        setOrders={setOrders}
+        guestOrder={guestOrder}
+        setGuestOrder={setGuestOrder}
+        cart={cart}
+        setCart={setCart}
+        authenticate={authenticate}
+        username={username}
+      />
       {/* <nav>
         <Link to="/">HOME</Link>
         <Link to="/admin">ADMIN</Link>
@@ -190,7 +164,13 @@ const App = () => {
           </Route>
 
           <Route path="/checkout">
-            <Checkout userId={userId} setOrders={setOrders} orders={orders} />
+            <Checkout 
+              userId={userId} 
+              setOrders={setOrders} 
+              orders={orders} 
+              cart={cart}
+              setCart={setCart}
+              />
           </Route>
           <Route path="/thankyou">
             <ThankYou/>

@@ -73,7 +73,7 @@ const EditProductModal = ({
   }
   return (
     <div>
-      <Button variant="warning" onClick={handleShow}>
+      <Button style={{ backgroundColor: "#7209b7", border: "#7209b7" }} onClick={handleShow}>
         Edit Product
       </Button>
       <Modal show={show} onHide={handleClose}>

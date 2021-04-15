@@ -11,6 +11,8 @@ const ShoppingCartModal = ({
   setOrders,
   guestOrder,
   setGuestOrder,
+  // cart,
+  // setCart
 }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -95,11 +97,15 @@ const ShoppingCartModal = ({
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Shopping Cart
-      </Button>
+      <img
+      onClick={handleShow} 
+      src="https://www.pinclipart.com/picdir/big/330-3306967_1600-x-1600-13-shopping-cart-icon-clipart.png"
+      width= "50px"
+      height="50px"
+      // style={{backgroundColor: linear-gradient(to right, #3dd0d8 0%, rgba(146, 82, 234, 0.64) 100%)}}
+      />
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} bg="dark" className="special_modal">
         <Modal.Header closeButton>
           <Modal.Title>Here's the items in your cart</Modal.Title>
         </Modal.Header>

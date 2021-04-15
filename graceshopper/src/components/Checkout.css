@@ -23,12 +23,26 @@ body {
 
  .deleteButton {
     background-color: #c3abbb;
+
  }
 
+ .orderTotal {
+   text-align: center;
+
+ }
+
+ .total{
+   color: red;
+   font-size: x-large;
+ }
+
+ .confirmButton{
+   font-size: 20px;
+ }
 
  /* Stripe Checkout CSS */
 
-
+/* 
 input,
 button {
   -webkit-appearance: none;
@@ -36,7 +50,7 @@ button {
   appearance: none;
   outline: none;
   border-style: none;
-}
+} */
 
 .AppWrapper {
   width: 500px;
