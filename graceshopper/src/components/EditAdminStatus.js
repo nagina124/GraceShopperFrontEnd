@@ -49,7 +49,9 @@ const EditAdminStatus = ({
   }
   return (
     <div>
-      <Button variant="warning" onClick={handleShow}>
+      <Button 
+        style={{ backgroundColor: "#7209b7", border: "#7209b7" }}
+        onClick={handleShow}>
         Change Admin Status
       </Button>
       <Modal show={show} onHide={handleClose}>

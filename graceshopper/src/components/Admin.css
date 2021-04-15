@@ -1,0 +1,20 @@
+/* *{
+    background-color: red
+} */
+
+/* body {
+    background-image: url("https://images4.alphacoders.com/601/thumb-1920-601048.jpg");
+    background-color: #cccccc;
+} */
+
+*{
+    color: white;
+}
+
+.isabelle{
+ 
+    width: auto;
+    height: auto;
+    /* you need to match the shadow color to your background or image border for the desired effect*/
+
+}

@@ -39,6 +39,7 @@ const Login = ({
       .then((result) => {
         if (result.name === "IncorrectCredentialsError") {
           alert("Username or Password does not match. Please try again.");
+          // setOrders([])
         } else {
           console.log(result);
           login(result.token);

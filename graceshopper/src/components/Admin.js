@@ -1,3 +1,4 @@
+import './Admin.css'
 import { useState, useEffect } from "react";
 import { Link, useRouteMatch, Route } from "react-router-dom";
 import { getToken } from "../auth";
@@ -80,21 +81,40 @@ const Admin = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <center>
-        <Link to="/admin/user" style={{ marginRight: "20px" }}>
+      {/* <h1 style={{ textAlign: "center", marginBottom: "10px", fontFamily: 'Libre Barcode 39 Text' }}>ADMIN PAGE</h1> */}
+
+      <Route exact path={`${path}`}> 
+      <center style={{fontSize:"50px"}}>WELCOME TO THE ADMIN DASHBOARD</center> 
+      
+      </Route>
+
+     
+
+
+      <center style={{fontSize:"25px"}}>
+        {/* <img src="https://wmumc.org/wmumc2019/wp-content/uploads/revslider/homepage-slider/staff.png"/> */}
+        <Link to="/admin/user" style={{ marginRight: "20px" }} >
           {" "}
           VIEW ALL USERS
         </Link>
+        {/* <img src=""/> */}
         <Link to="/admin/products" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL PRODUCTS
         </Link>
+        {/* <img src=""/> */}
         <Link to="/admin/orders" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL ORDERS
         </Link>
       </center>
-      <h1 style={{ textAlign: "center", marginBottom: "10px" }}>ADMIN PAGE</h1>
+      
+      <Route exact path={`${path}`}> 
+      <center>
+      <img className="isabelle" src="https://www.clipartmax.com/png/middle/223-2233021_lyle-is-tom-nooks-right-hand-man-in-the-animal-crossing-lyle.png"/> 
+      </center>
+      </Route>
+
       <Route path={`${path}/user`}>
         <h4 style={{ textAlign: "center" }}>ALL USERS</h4>
         <div className="search-box">
@@ -104,11 +124,13 @@ const Admin = () => {
             onChange={(event) => {
               setSearchTerm(event.target.value);
             }}
+            style={{border: "solid gold", margin: "25px"}}
           />
         </div>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
-            <Table striped bordered hover variant="dark">
+          {/* style={{ backgroundColor: "#cfcfd0", color: "black" }} */}
+            <Table striped bordered hover style={{backgroundColor: "#023e8a"}} >
               <thead>
                 <tr>
                   <th>#</th>
@@ -184,7 +206,7 @@ const Admin = () => {
         </div>
         <section style={{ overflow: "auto", height: "800px" }}>
           <center>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover style={{backgroundColor: "#023e8a"}}>
               <thead>
                 <tr>
                   <th>#</th>
@@ -289,7 +311,7 @@ const Admin = () => {
         </div>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover style={{backgroundColor: "#023e8a"}}>
               <thead>
                 <tr>
                   <th>#</th>

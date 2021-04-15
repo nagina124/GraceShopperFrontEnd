@@ -1,16 +1,29 @@
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements
+} from "@stripe/react-stripe-js";
+import Dropdown from 'react-bootstrap/Dropdown'
 import "./Checkout.css"
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from "react";
 import {getProductForGuests} from '../auth'
 // import TakeMoney from './StripeCheckout'
-import StripeCheckout from './StripeCheckout'
+import CheckoutForm from './StripeCheckout'
 const API = "https://peaceful-spire-60083.herokuapp.com/api/orders";
 // import StripeCheckout from 'react-stripe-checkout';
+const stripePromise = loadStripe("pk_test_51Iei4JBoHWwkzUsZILLciQCW97S5JTpLMZak2X4ckbSdJUnT2CcRywoxeNb0Ez1fcyBtVzETYR1MJnLlKAtpf9xi00hJBUHQdx");
 
-const Checkout = ({userId, orders, setOrders}) => {
+const Checkout = ({
+    userId, 
+    orders, 
+    setOrders,
+    cart,
+    setCart
+}) => {
     const [ orderConfirmed, setOrderConfirmed ] = useState(false)
     const [count, setCount] = useState()
+    // const [selected, setSelected] = useState("");
     const tax = 1.10;
     let subtotal = 0;
     let total = 0;
@@ -20,12 +33,13 @@ const Checkout = ({userId, orders, setOrders}) => {
         .then((data) => {
             console.log(data);
             setOrders(data);
+            setCart(data)
         })
         .catch(console.error);
     };
 
 
-    const updateOrderStatus = () => {
+    const makePending = () => {
         orders.forEach((order) => {
             fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
                 method: "PATCH",
@@ -38,13 +52,12 @@ const Checkout = ({userId, orders, setOrders}) => {
               })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-                // setOrders(data);
-                setOrderConfirmed(true);
+                console.log(data, "order is pending");
+                setOrderConfirmed(true)
             })
             .catch(console.error);
         })
-    }
+      }
 
     const deleteOrder = (orderId) => {
         fetch(
@@ -77,6 +90,51 @@ const Checkout = ({userId, orders, setOrders}) => {
 
     // console.log(userOrder)
 
+    const updateCount = () => {
+
+        // const changeCountHandler = (event) => {
+        //     console.log(event.target.value)
+        //     setCount(event.target.value);
+        //   };
+
+
+        // changeCountHandler()
+
+        orders.forEach((order) => {
+            fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  count: count,
+                }),
+              })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data, "count is increased");
+                if(data){
+                    const newOrderCount = orders.map((order) => {
+                        if (order.id === order.id) {
+                          return data;
+                        } else {
+                          return order;
+                        }
+                      });
+          
+                      setOrders(newOrderCount);
+                }
+                
+            })
+            .catch(console.error);
+        })
+      }
+
+
+    const clearCart = () => {
+        setCart([]);
+    };
+
     useEffect(() => {
         if(userId){
             getOrders();
@@ -85,6 +143,9 @@ const Checkout = ({userId, orders, setOrders}) => {
         }
     }, []);
 
+    //changes the count 
+
+    
 
     return (
         <>
@@ -93,8 +154,8 @@ const Checkout = ({userId, orders, setOrders}) => {
             <p> We hope you enjoy your purchase ^_^ </p>
         </div>
         
-        <section className = "left">
-            <Table striped bordered hover>
+        <section>
+            <Table className = "left" striped bordered hover>
                 <thead>
                     <tr>
                     <th>#</th>
@@ -109,16 +170,55 @@ const Checkout = ({userId, orders, setOrders}) => {
                     return (
                         <tbody key={index}>
                             <tr>
-                                <td>{order.count}</td>
+                                <td 
+                                value={count}
+                                >
+                                    <Dropdown>
+                                        <Dropdown.Toggle id="dropdown-basic">
+                                            {order.count}
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item 
+                                                value="1"
+                                                onChange={(event) => {
+                                                    
+                                                    setCount(Number(event.target.value));
+                                                    console.log(count)
+                                                    updateCount()
+                                                  }}
+                                                >1</Dropdown.Item>
+
+                                            <Dropdown.Item 
+                                                value={2}
+                                                onClick={(event) => {
+                                                    
+                                                    setCount(Number(event.target.value));
+                                                    console.log(count)
+                                                    updateCount()
+                                                  }}
+                                                >2</Dropdown.Item>
+                                           
+                                            {/* <Dropdown.Item value={3} onClick={setCount}>3</Dropdown.Item>
+                                            <Dropdown.Item value={4} onClick={setCount}>4</Dropdown.Item>
+                                            <Dropdown.Item value={5} onClick={setCount}>5</Dropdown.Item>
+                                            <Dropdown.Item value={6} onClick={setCount}>6</Dropdown.Item>
+                                            <Dropdown.Item value={7} onClick={setCount}>7</Dropdown.Item>
+                                            <Dropdown.Item value={8} onClick={setCount}>8</Dropdown.Item>
+                                            <Dropdown.Item value={9} onClick={setCount}>9</Dropdown.Item>
+                                            <Dropdown.Item value={10} onClick={setCount}>10</Dropdown.Item> */}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </td>
                                 <td>{order.productTitle}</td>
                                 <td>{order.productPrice}</td>
                                 <td> 
-                                    <Button
-                                        variant="danger"
+                                    <button
+                                        className="deleteButton"
                                         onClick={() => deleteOrder(order.id)}
                                     >
                                         Remove Item
-                                    </Button>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -126,15 +226,30 @@ const Checkout = ({userId, orders, setOrders}) => {
                     })
                 }
             </Table>
-            <h6>Subtotal: {subtotal}</h6>
-            <h6>Tax: 10%</h6>
-            
-            <h6>Total: {total} </h6>
-            <button> 
-                Confirm Order 
-            </button>
-            {/* <TakeMoney amount={total}/> */}
-            <StripeCheckout amount={total}/>
+            <div className="orderTotal">
+                <h6>Subtotal: {subtotal}</h6>
+                <h6>Tax: 10%</h6>
+                
+                <h6 className= "total">Total: {total} </h6>
+                <button 
+                    onClick={makePending}
+                    className="confirmButton"
+                > 
+                    Confirm Order 
+                </button>
+            </div>
+
+            { orderConfirmed ? 
+            <div className="AppWrapper">
+                <Elements stripe={stripePromise} >
+                    <CheckoutForm 
+                    amount={total}
+                    orders={orders}
+                    setOrderConfirmed={setOrderConfirmed}
+                    />
+                </Elements>
+            </div>
+            : null}
         </section>
         </>
     )
