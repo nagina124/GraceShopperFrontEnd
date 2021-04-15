@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {Redirect} from "react-router-dom"
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import {
   CardElement,
   useElements,
@@ -112,6 +114,9 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed}) => {
     phone: "",
     name: ""
   });
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const makeCompleted = () => {
     orders.forEach((order) => {
@@ -203,58 +208,89 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed}) => {
     //   <ResetButton onClick={reset} />
 
   ) : (
-    <form className="Form" onSubmit={handleSubmit}>
-      <fieldset className="FormGroup">
-        <Field
-          label="Name"
-          id="name"
-          type="text"
-          placeholder="Jane Doe"
-          required
-          autoComplete="name"
-          value={billingDetails.name}
-          onChange={(e) => {
-            setBillingDetails({ ...billingDetails, name: e.target.value });
-          }}
-        />
-        <Field
-          label="Email"
-          id="email"
-          type="email"
-          placeholder="janedoe@gmail.com"
-          required
-          autoComplete="email"
-          value={billingDetails.email}
-          onChange={(e) => {
-            setBillingDetails({ ...billingDetails, email: e.target.value });
-          }}
-        />
-        <Field
-          label="Phone"
-          id="phone"
-          type="tel"
-          placeholder="(941) 555-0123"
-          required
-          autoComplete="tel"
-          value={billingDetails.phone}
-          onChange={(e) => {
-            setBillingDetails({ ...billingDetails, phone: e.target.value });
-          }}
-        />
-      </fieldset>
-      <fieldset className="FormGroup">
-        <CardField
-          onChange={(e) => {
-            setError(e.error);
-            setCardComplete(e.complete);
-          }}
-        />
-      </fieldset>
-      {error && <ErrorMessage>{error.message}</ErrorMessage>}
-      <SubmitButton processing={processing} error={error} disabled={!stripe} onClick={makePending}>
-        Total: {amount}
-      </SubmitButton>
-    </form>
+      <>
+      <Button 
+        variant="primary" 
+        onClick={handleShow} 
+        alert={makePending} 
+        style={{ backgroundColor: "green" }}
+        centered 
+        >
+        Pay
+      </Button>
+
+      <Modal show={show} onHide={handleClose} >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ textAlign: "center" }}> Secure Checkout </Modal.Title>
+        </Modal.Header>
+
+      <Modal.Body >
+    <body style={{ textAlign: "center" }} >
+      <form className="Form" onSubmit={handleSubmit} style={{ display: "inline-block" }}>
+        <fieldset className="FormGroup">
+          <Field
+            label="Name"
+            id="name"
+            type="text"
+            placeholder="Jane Doe"
+            required
+            autoComplete="name"
+            value={billingDetails.name}
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, name: e.target.value });
+            }}
+          />
+          <Field
+            label="Email"
+            id="email"
+            type="email"
+            placeholder="janedoe@gmail.com"
+            required
+            autoComplete="email"
+            value={billingDetails.email}
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, email: e.target.value });
+            }}
+          />
+          <Field
+            label="Phone"
+            id="phone"
+            type="tel"
+            placeholder="(941) 555-0123"
+            required
+            autoComplete="tel"
+            value={billingDetails.phone}
+            onChange={(e) => {
+              setBillingDetails({ ...billingDetails, phone: e.target.value });
+            }}
+          />
+        </fieldset>
+        <fieldset className="FormGroup">
+          <CardField
+            onChange={(e) => {
+              setError(e.error);
+              setCardComplete(e.complete);
+            }}
+          />
+        </fieldset>
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
+        <SubmitButton processing={processing} error={error} disabled={!stripe} onClick={makePending}>
+          Total: {amount}
+        </SubmitButton>
+      </form>
+    </body>
+    </Modal.Body>
+
+    <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
