@@ -15,9 +15,11 @@ code {
 }
 
 
-/* .game-page {
-   background-color: #eee;
-} */
+
+.game-page {
+   background-color: #10002b;
+}
+
 
 .games-page-container {
   display: flex;
@@ -36,26 +38,54 @@ code {
 
 .gamelist-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto;
   justify-content: right;
 }
 
+.results {
+  margin: 10px;
+  width: 200px;
+}
+
 .details-page {
-  background-color: #343a40;
+  background-color: #10002b;
   color: white;
 }
 
 .details-container {
-  margin: 20px;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-/* .cart {
-  display: flex;
-  justify-items: end;
-} */
-/* .game-icon {
+#gp-purchase {
+  /* background-color: #161618; */
+  display: grid;
+  background-image: linear-gradient(transparent, #10002b 30%);
+  padding: 10px 10px 17px;
+  position: relative;
+  margin-top: 400px;
+  height: 100%;
+  
+}
 
-} */
+#gp-info {
+  background-color: #10002b;
+  padding: 10px 10px 17px;
+  float: right;
+  position: relative;
+  min-height: 1px;
+  padding-right: 9px;
+  padding-left: 9px;
+  width: 220px;
+  margin-right: 20px;
+  margin-top: 200px;
+  float: right;
+
+}
+
 
 .navBar {
   font-family: 'Raleway', sans-serif;
@@ -70,17 +100,55 @@ code {
   height: 140px;
 }
 
-/* 
-.cart{
-  background-color: rgb(48, 43, 43) !important;
-
-}
-
-.modal-backdrop {
-  background-color: rgb(48, 43, 43) !important;
-} */
 
 .special_modal .modal-content{
   background-color: rgb(48, 43, 43);
   color: #fff;
+}
+
+.game-splash {
+  filter:brightness(50%);
+}
+
+.single-game {
+  width: 100%;
+  height: 1000px;
+  
+}
+
+.game-info {
+  justify-content: right;
+}
+
+.game-description {
+  margin-top: 50px;
+}
+.game-description::before {
+  content: '';
+  display: block;
+  background: white;
+  height: 2px;
+  width: 100%;
+
+}
+.game-description::after {
+  content: '';
+  display: block;
+  background: white;
+  height: 2px;
+  width: 100%;
+}
+
+.bg-image {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+}
+
+.game-icon:hover {
+  opacity: 0.8;
+}
+
+.game-title:hover {
+  color: rgb(190, 22, 154);
 }

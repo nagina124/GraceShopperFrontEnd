@@ -52,7 +52,7 @@ const Register = ({
             setUserIdLocal(result.userId);
             setUserId(result.userId);
             if (guestOrder.length) {
-              moveOrdersFromGuestToUser();
+              moveOrdersFromGuestToUser(result.userId);
             }
           }
         })
@@ -74,8 +74,8 @@ const Register = ({
     return <Redirect to="./" />;
   }
 
-  const getOrdersForUser = () => {
-    fetch(`${API}/orders/${getUserId()}`)
+  const getOrdersForUser = (id) => {
+    fetch(`${API}/orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -84,7 +84,7 @@ const Register = ({
       .catch(console.error);
   };
 
-  const moveOrdersFromGuestToUser = () => {
+  const moveOrdersFromGuestToUser = (id) => {
     guestOrder.forEach(order => {
       fetch(`${API}/orders`, {
         method: "POST",
@@ -92,7 +92,7 @@ const Register = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: getUserId(),
+          userId: id,
           productId: order.productId,
           productTitle: order.productTitle,
           count: 1,
@@ -101,7 +101,7 @@ const Register = ({
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          getOrdersForUser();
+          getOrdersForUser(id);
         });
     });
     setGuestOrder([]);
