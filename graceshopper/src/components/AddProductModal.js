@@ -71,6 +71,8 @@ const AddProductModal = ({ products, setProducts }) => {
           backgroundColor: "#038ed1",
           border: "#3dd0d8",
           margin: "100px, 0px, 0px, 100px",
+          color: "white",
+          fontWeight: "bold",
         }}
         onClick={handleShow}
       >
@@ -80,7 +82,7 @@ const AddProductModal = ({ products, setProducts }) => {
         style={{ width: "50px", height: "50px" }}
         src="https://pics.freeicons.io/uploads/icons/png/7924730121544077048-512.png"
       />
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="special_modal">
         <Modal.Header closeButton>
           <Modal.Title>Add Product.</Modal.Title>
         </Modal.Header>
@@ -231,7 +233,6 @@ const AddProductModal = ({ products, setProducts }) => {
                 }}
               />
             </Form.Group>
-
           </Modal.Body>
 
           <Modal.Footer>

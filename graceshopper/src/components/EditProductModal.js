@@ -89,7 +89,7 @@ const EditProductModal = ({
   return (
     <div>
       <Button
-        style={{ backgroundColor: "#7209b7", border: "#7209b7" }}
+        style={{ backgroundColor: "#7209b7", border: "#7209b7", color: "white", fontWeight: "bold" }}
         onClick={handleShow}
       >
         Edit Product

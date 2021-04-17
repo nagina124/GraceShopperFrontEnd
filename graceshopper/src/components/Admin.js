@@ -17,7 +17,6 @@ const Admin = () => {
   const [productSearchTerm, setProductSearchTerm] = useState("");
   const [orderSearchTerm, setOrderSearchTerm] = useState("");
 
-
   useEffect(() => {
     fetch("https://peaceful-spire-60083.herokuapp.com/api/users")
       .then((response) => response.json())
@@ -93,13 +92,14 @@ const Admin = () => {
             fontFamily: "'Megrim', cursive",
             fontSize: "75px",
             fontWeight: "bolder",
+            color: "white",
           }}
         >
           WELCOME TO THE ADMIN DASHBOARD
         </center>
       </Route>
 
-      <center style={{ fontSize: "25px" }}>
+      <center style={{ fontSize: "25px", margin: "10px 0px 20px 0px" }}>
         {/* <img src="https://wmumc.org/wmumc2019/wp-content/uploads/revslider/homepage-slider/staff.png"/> */}
         <Link to="/admin/user" style={{ marginRight: "20px" }}>
           {" "}
@@ -124,17 +124,35 @@ const Admin = () => {
       </Route>
 
       <Route path={`${path}/user`}>
-        <h4 style={{ textAlign: "center" }}>ALL USERS</h4>
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search User"
-            onChange={(event) => {
-              setUserSearchTerm(event.target.value);
-            }}
-            style={{ border: "solid gold", margin: "25px" }}
-          />
-        </div>
+        <h4
+          style={{
+            fontSize: "50px",
+            fontFamily: "'Megrim', cursive",
+            fontSize: "75px",
+            fontWeight: "bolder",
+            color: "white",
+            textAlign: "center",
+            marginTop: "10px",
+          }}
+        >
+          ALL USERS
+        </h4>
+        <center>
+          <div className="search-box">
+            <img
+              src="https://i.imgur.com/e8S8gy3.png"
+              style={{ width: "35px" }}
+            />
+            <input
+              type="text"
+              placeholder="Search User"
+              onChange={(event) => {
+                setUserSearchTerm(event.target.value);
+              }}
+              style={{ border: "solid gold", margin: "25px" }}
+            />
+          </div>
+        </center>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
             {/* style={{ backgroundColor: "#cfcfd0", color: "black" }} */}
@@ -142,9 +160,15 @@ const Admin = () => {
               striped
               bordered
               hover
-              style={{ backgroundColor: "#038ed1", color: "black" }}
+              style={{
+                backgroundColor: "#038ed1",
+                color: "black",
+                fontWeight: "bold",
+                marginTop: "20px",
+                width: "75vw",
+              }}
             >
-              <thead style={{ backgroundColor: "#023e8a" }}>
+              <thead style={{ backgroundColor: "#023e8a", color: "white" }}>
                 <tr>
                   <th>#</th>
                   <th>Email</th>
@@ -165,7 +189,10 @@ const Admin = () => {
                     user.email
                       .toLowerCase()
                       .includes(userSearchTerm.toLowerCase()) ||
-                    user.isAdmin.toString().toLowerCase().includes(userSearchTerm)
+                    user.isAdmin
+                      .toString()
+                      .toLowerCase()
+                      .includes(userSearchTerm)
                   ) {
                     return user;
                   }
@@ -190,6 +217,7 @@ const Admin = () => {
                         <td>
                           <Button
                             variant="danger"
+                            style={{ color: "white", fontWeight: "bold" }}
                             onClick={() => deleteUser(user.id)}
                           >
                             Delete User
@@ -204,28 +232,51 @@ const Admin = () => {
         </section>
       </Route>
       <Route path={`${path}/products`}>
-        <h4 style={{ textAlign: "center" }}>
+        <h4
+          style={{
+            fontSize: "50px",
+            fontFamily: "'Megrim', cursive",
+            fontSize: "75px",
+            fontWeight: "bolder",
+            color: "white",
+            textAlign: "center",
+            marginTop: "10px",
+          }}
+        >
           ALL PRODUCTS
           <AddProductModal products={products} setProducts={setProducts} />
         </h4>
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search Products"
-            onChange={(event) => {
-              setProductSearchTerm(event.target.value);
-            }}
-          />
-        </div>
+        <center>
+          <div className="search-box">
+            <img
+              src="https://i.imgur.com/e8S8gy3.png"
+              style={{ width: "35px" }}
+            />
+            <input
+              type="text"
+              placeholder="Search Products"
+              onChange={(event) => {
+                setProductSearchTerm(event.target.value);
+              }}
+              style={{ border: "solid gold", margin: "25px" }}
+            />
+          </div>
+        </center>
         <section style={{ overflow: "auto", height: "800px" }}>
           <center>
             <Table
               striped
               bordered
               hover
-              style={{ backgroundColor: "#038ed1", color: "black" }}
+              style={{
+                backgroundColor: "#038ed1",
+                color: "black",
+                fontWeight: "bold",
+                marginTop: "20px",
+                width: "80vw",
+              }}
             >
-              <thead style={{ backgroundColor: "#023e8a" }}>
+              <thead style={{ backgroundColor: "#023e8a", color: "white" }}>
                 <tr>
                   <th>#</th>
                   <th>Title/Category/Platform/Age Rating/Release Date</th>
@@ -322,6 +373,7 @@ const Admin = () => {
                         <td>
                           <Button
                             variant="danger"
+                            style={{ color: "white", fontWeight: "bold" }}
                             onClick={() => deleteProduct(product.id)}
                           >
                             Delete Product
@@ -339,26 +391,51 @@ const Admin = () => {
         </center>
       </Route>
       <Route path={`${path}/orders`}>
-        <h4 style={{ textAlign: "center" }}>ALL ORDERS </h4>
-        <div className="search-box">
-          <input
-            type="text"
-            style={{ width: "650px" }}
-            placeholder="Search Order Status (Created, Pending, Completed, Canceled), User, or Product"
-            onChange={(event) => {
-              setOrderSearchTerm(event.target.value);
-            }}
-          />
-        </div>
+        <h4
+          style={{
+            fontSize: "50px",
+            fontFamily: "'Megrim', cursive",
+            fontSize: "75px",
+            fontWeight: "bolder",
+            color: "white",
+            textAlign: "center",
+            marginTop: "10px",
+          }}
+        >
+          ALL ORDERS{" "}
+        </h4>
+        <center>
+          <div className="search-box">
+            <img
+              src="https://i.imgur.com/e8S8gy3.png"
+              style={{ width: "35px" }}
+            />
+            <input
+              type="text"
+              style={{ width: "650px" }}
+              placeholder="Search Order Status (Created, Pending, Completed, Canceled), User, or Product"
+              onChange={(event) => {
+                setOrderSearchTerm(event.target.value);
+              }}
+              style={{ border: "solid gold", margin: "25px" }}
+            />
+          </div>
+        </center>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
             <Table
               striped
               bordered
               hover
-              style={{ backgroundColor: "#038ed1", color: "black" }}
+              style={{
+                backgroundColor: "#038ed1",
+                color: "black",
+                fontWeight: "bold",
+                marginTop: "20px",
+                width: "75vw",
+              }}
             >
-              <thead style={{ backgroundColor: "#023e8a" }}>
+              <thead style={{ backgroundColor: "#023e8a", color: "white" }}>
                 <tr>
                   <th>#</th>
                   <th>User</th>
