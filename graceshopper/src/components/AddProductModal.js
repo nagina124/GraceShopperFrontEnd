@@ -53,7 +53,7 @@ const AddProductModal = ({ products, setProducts }) => {
   return (
     <div>
       <img style= {{ width: "50px", height: "50px" }} src="https://pics.freeicons.io/uploads/icons/png/7924730121544077048-512.png"/>
-      <Button style={{backgroundColor: "#3dd0d8", border: "#3dd0d8", margin: "100px, 0px, 0px, 100px"}} onClick={handleShow}>
+      <Button style={{backgroundColor: "#038ed1", border: "#3dd0d8", margin: "100px, 0px, 0px, 100px"}} onClick={handleShow}>
         Add Product
       </Button>
       <img style= {{ width: "50px", height: "50px" }} src="https://pics.freeicons.io/uploads/icons/png/7924730121544077048-512.png"/>
