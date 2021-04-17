@@ -14,6 +14,11 @@ const EditProductModal = ({
   productDescription,
   productPrice,
   productInventory,
+  productPlatform,
+  productPublisher,
+  productDeveloper,
+  productAgeRating,
+  productReleaseDate,
   products,
   setProducts,
 }) => {
@@ -25,6 +30,11 @@ const EditProductModal = ({
   const [description, setDescription] = useState(productDescription);
   const [price, setPrice] = useState(productPrice);
   const [inventory, setInventory] = useState(productInventory);
+  const [platform, setPlatform] = useState(productPlatform);
+  const [publisher, setPublisher] = useState(productPublisher);
+  const [developer, setDeveloper] = useState(productDeveloper);
+  const [ageRating, setAgeRating] = useState(productAgeRating);
+  const [releaseDate, setReleaseDate] = useState(productReleaseDate);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -49,6 +59,11 @@ const EditProductModal = ({
             description: description,
             price: price,
             inventory: inventory,
+            platform: platform,
+            publisher: publisher,
+            developer: developer,
+            ageRating: ageRating,
+            releaseDate: releaseDate,
           }),
         }
       )
@@ -73,10 +88,13 @@ const EditProductModal = ({
   }
   return (
     <div>
-      <Button style={{ backgroundColor: "#7209b7", border: "#7209b7" }} onClick={handleShow}>
+      <Button
+        style={{ backgroundColor: "#7209b7", border: "#7209b7", color: "white", fontWeight: "bold" }}
+        onClick={handleShow}
+      >
         Edit Product
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="special_modal">
         <Modal.Header closeButton>
           <Modal.Title>Edit Product.</Modal.Title>
         </Modal.Header>
@@ -200,6 +218,76 @@ const EditProductModal = ({
                     setInventory(event.target.value);
                   } else {
                     return productInventory;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPlatform">
+              <Form.Label>Platform:</Form.Label>
+              <Form.Control
+                placeholder={productPlatform}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setPlatform(event.target.value);
+                  } else {
+                    return productPlatform;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPublisher">
+              <Form.Label>Publisher:</Form.Label>
+              <Form.Control
+                placeholder={productPublisher}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setPublisher(event.target.value);
+                  } else {
+                    return productPublisher;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicDeveloper">
+              <Form.Label>Developer:</Form.Label>
+              <Form.Control
+                placeholder={productDeveloper}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setDeveloper(event.target.value);
+                  } else {
+                    return productDeveloper;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicAgeRating">
+              <Form.Label>Age Rating:</Form.Label>
+              <Form.Control
+                placeholder={productAgeRating}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setAgeRating(event.target.value);
+                  } else {
+                    return productAgeRating;
+                  }
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicReleaseDate">
+              <Form.Label>Release Date:</Form.Label>
+              <Form.Control
+                placeholder={new Date(productReleaseDate).toLocaleDateString()}
+                onChange={(event) => {
+                  if (event.target.value !== null) {
+                    setReleaseDate(event.target.value);
+                  } else {
+                    return productReleaseDate;
                   }
                 }}
               />

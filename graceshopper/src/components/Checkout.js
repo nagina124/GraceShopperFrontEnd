@@ -1,161 +1,150 @@
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements
-} from "@stripe/react-stripe-js";
-import Dropdown from 'react-bootstrap/Dropdown'
-import "./Checkout.css"
-import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button'
+import { Elements } from "@stripe/react-stripe-js";
+import Dropdown from "react-bootstrap/Dropdown";
+import "./Checkout.css";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
-import {removeGuestProducts} from '../auth'
+import { removeGuestProducts } from "../auth";
 // import TakeMoney from './StripeCheckout'
-import CheckoutForm from './StripeCheckout'
+import CheckoutForm from "./StripeCheckout";
 const API = "https://peaceful-spire-60083.herokuapp.com/api/orders";
 // import StripeCheckout from 'react-stripe-checkout';
-const stripePromise = loadStripe("pk_test_51Iei4JBoHWwkzUsZILLciQCW97S5JTpLMZak2X4ckbSdJUnT2CcRywoxeNb0Ez1fcyBtVzETYR1MJnLlKAtpf9xi00hJBUHQdx");
+const stripePromise = loadStripe(
+  "pk_test_51Iei4JBoHWwkzUsZILLciQCW97S5JTpLMZak2X4ckbSdJUnT2CcRywoxeNb0Ez1fcyBtVzETYR1MJnLlKAtpf9xi00hJBUHQdx"
+);
 
 const Checkout = ({
-    userId, 
-    orders, 
-    setOrders,
-    cart,
-    setCart,
-    guestOrder,
-    setGuestOrder
+  userId,
+  orders,
+  setOrders,
+  cart,
+  setCart,
+  guestOrder,
+  setGuestOrder,
 }) => {
-    const [ orderConfirmed, setOrderConfirmed ] = useState(false)
-    const [count, setCount] = useState()
- 
-    // const [selected, setSelected] = useState("");
-    const tax = 1.10;
-    let subtotal = 0;
-    let total = 0;
-    const getOrders = () => {
-        fetch(`${API}/${userId}`)
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [count, setCount] = useState();
+
+  // const [selected, setSelected] = useState("");
+  const tax = 1.1;
+  let subtotal = 0;
+  let total = 0;
+  const getOrders = () => {
+    fetch(`${API}/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setOrders(data);
+        setCart(data);
+      })
+      .catch(console.error);
+  };
+
+  const makePending = () => {
+    orders.forEach((order) => {
+      fetch(
+        `https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderStatus: "pending",
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            setOrders(data);
-            setCart(data)
+          console.log(data, "order is pending");
+          setOrderConfirmed(true);
         })
         .catch(console.error);
-    };
+    });
+  };
 
-
-    const makePending = () => {
-        orders.forEach((order) => {
-            fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  orderStatus: 'pending',
-                }),
-              })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data, "order is pending");
-                setOrderConfirmed(true)
-            })
-            .catch(console.error);
-        })
-      }
-
-    const deleteOrder = (orderId) => {
-        fetch(
-          `https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-            if (result) {
-              const updatedOrders = orders.filter(
-                (order) => order.id !== orderId
-              );
-              setOrders(updatedOrders);
-            }
-          })
-          .catch(console.error);
-      }
-
-    // const userOrder = orders.filter((order) => {
-    //     if(order.userId == userId){
-    //         return order
-    //     }
-    // })
-
-    // console.log(userOrder)
-
-    async function updateCount(orderId){
-
-        // const changeCountHandler = (event) => {
-        //     console.log(event.target.value)
-        //     setCount(event.target.value);
-        //   };
-
-
-        // changeCountHandler()
-
-        // orders.forEach((order) => {
-            await fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  count: count,
-                }),
-              })
-
-
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data, "count is increased");
-            
-                if(data){
-                    const newOrderCount = orders.map((order) => {
-                        if (orderId ) {
-                          return data;
-                        } else {
-                          return order;
-                        }
-                      });
-          
-                      setOrders(newOrderCount);
-                }
-                
-            })
-            .catch(console.error);
-
-      }
-
-
-    const clearCart = () => {
-        setCart([]);
-        removeGuestProducts()
-    };
-
-    useEffect(() => {
-        if(userId){
-            getOrders();
-        } else {
-          // getProductForGuests()
-            // setGuestOrder(getProductForGuests())
-            console.log(guestOrder)
-          
+  const deleteOrder = (orderId) => {
+    fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          const updatedOrders = orders.filter((order) => order.id !== orderId);
+          setOrders(updatedOrders);
         }
-    }, []);
+      })
+      .catch(console.error);
+  };
 
-    //changes the count 
+  // const userOrder = orders.filter((order) => {
+  //     if(order.userId == userId){
+  //         return order
+  //     }
+  // })
 
-    
+  // console.log(userOrder)
+
+  async function updateCount(orderId) {
+    // const changeCountHandler = (event) => {
+    //     console.log(event.target.value)
+    //     setCount(event.target.value);
+    //   };
+
+    // changeCountHandler()
+
+    // orders.forEach((order) => {
+    await fetch(
+      `https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          count: count,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data, "count is increased");
+
+        if (data) {
+          const newOrderCount = orders.map((order) => {
+            if (orderId) {
+              return data;
+            } else {
+              return order;
+            }
+          });
+
+          setOrders(newOrderCount);
+        }
+      })
+      .catch(console.error);
+  }
+
+  const clearCart = () => {
+    setCart([]);
+    removeGuestProducts();
+  };
+
+  useEffect(() => {
+    if (userId) {
+      getOrders();
+    } else {
+      // getProductForGuests()
+      // setGuestOrder(getProductForGuests())
+      console.log(guestOrder);
+    }
+  }, []);
+
 
     return (
         <>
@@ -287,5 +276,8 @@ const Checkout = ({
         </>
     )
 }
+
+  
+
 
 export default Checkout;
