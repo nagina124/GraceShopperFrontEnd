@@ -106,9 +106,9 @@ const Games = ({
   }, []);
 
   return (
-    <div className="game-page">
-      <h1>Here's the games page</h1>
-      <div className="search-box">
+    <div className="game-page" style={{cursor: "pointer"}}>
+      <h1 style={{textAlign: "center"}}>GAME HEAVEN</h1>
+      <div className="search-box" style={{paddingLeft: "10px"}}>
         <input
           type="text"
           placeholder="Search for games here"
@@ -122,15 +122,16 @@ const Games = ({
           <aside className="genre-aside">
             <h3 onClick={getProducts}>Show All Games</h3>
             <h3 onClick={() => getProductsByCategory("JRPG")}>JRPG</h3>
-            <h3 onClick={() => getProductsByCategory("Action-Adventure")}>
+            <h3 onClick={() => getProductsByCategory("ACTION-ADVENTURE")}>
               Action/Adventure
             </h3>
             <h3 onClick={() => getProductsByCategory("RPG")}>RPG</h3>
-            <h3 onClick={() => getProductsByCategory("Fighting")}>Fighting</h3>
-            <h3 onClick={() => getProductsByCategory("Horror")}>Horror</h3>
-            <h3 onClick={() => getProductsByCategory("Hack-N-Slash")}>
+            <h3 onClick={() => getProductsByCategory("FIGHTING")}>Fighting</h3>
+            <h3 onClick={() => getProductsByCategory("HORROR")}>Horror</h3>
+            <h3 onClick={() => getProductsByCategory("HACK-N-SLASH")}>
               Hack and Slash
             </h3>
+            <h3 onClick={() => getProductsByCategory("SIMULATION")}>Simulation</h3>
           </aside>
         </div>
 
@@ -161,11 +162,11 @@ const Games = ({
                         />
                       </Link>
                       <Link to={`/games/${product.productURL}`}>
-                        <h2 onClick={() => setGame(product)}>
+                        <p className="game-title" onClick={() => setGame(product)}>
                           {product.title}
-                        </h2>
+                        </p>
                       </Link>
-                      <h3>{product.category}</h3>
+                      <p>{product.category}</p>
                       <h4>${product.price}</h4>
                       <Button
                         onClick={() => {

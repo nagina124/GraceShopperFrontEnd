@@ -1,11 +1,14 @@
 import { Redirect } from "react-router";
 import Button from "react-bootstrap/Button";
+import moment from 'moment';
 
 const SingleGame = ({ game }) => {
+  console.log(game);
+  // const date = moment(game.releaseDate).format("DD MMM, YYYY");
   return game ? (
-    <div
-      className="single-game"
-      style={{
+    <div className="single-game">
+      <div className="bg-image"
+        style={{
         backgroundImage: `url(${game.splash}`,
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -16,29 +19,34 @@ const SingleGame = ({ game }) => {
         // backgroundRepeat: "no-repeat",
         // backgroundSize: "contain",
         // position: "relative"
-        // filter: "brightness(70%)",
-      }}
-    >
+        filter: "brightness(50%)",
+        }}>
+      </div>
       <div id="gp-purchase" className="details-container">
-        <div className="game-info">
+        <div id="gp-info" className="game-info">
           <div className="gp-game-icon">
             <img
               src={game.imageURL}
-              width="150"
-              height="150"
+              width="200"
+              height="200"
               className="game-icon"
             />
           </div>
           <div className="gp-game-details">
-            <h2>{game.title}</h2>
-            <h3>{game.category}</h3>
+            <h4>{game.title}</h4>
+            <h4>{game.category}</h4>
+            <h4>${game.price}</h4>
+            <Button>Add to Cart</Button>
+            <p>Platform: {game.platform}</p>
+            <p>Publisher: {game.publisher}</p>
+            <p>Developer: {game.developer}</p>
+            {/* <p>Release Date: {date}</p> */}
           </div>
         </div>
-        <h4>${game.price}</h4>
-        <Button>Add to Cart</Button>
         <div className="game-description">
+          <h4>Game Description</h4>
           <p>{game.description}</p>
-          <p>
+          {/* <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
             mollitia, molestiae quas vel sint commodi repudiandae consequuntur
             voluptatum laborum numquam blanditiis harum quisquam eius sed odit
@@ -85,13 +93,13 @@ const SingleGame = ({ game }) => {
             esse temporibus sint culpa, recusandae aliquam numquam totam ratione
             voluptas quod exercitationem fuga. Possimus quis earum veniam quasi
             aliquam eligendi, placeat qui corporis!
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
   ) : (
     <Redirect to="/games" />
   );
-};
+};;
 
 export default SingleGame;
