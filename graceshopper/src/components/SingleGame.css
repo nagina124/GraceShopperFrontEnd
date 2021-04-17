@@ -1,0 +1,82 @@
+.game-splash {
+  filter:brightness(50%);
+}
+
+.single-game {
+  width: 100%;
+  height: 1000px;
+  /* display: grid; */
+}
+
+#gp-purchase {
+  /* background-color: #161618; */
+  display: grid;
+  background: #ffffff;
+  padding: 10px 10px 17px;
+  position: relative;
+  margin-top: 400px;
+  height: 50%;
+  color: black;
+  width: 84%;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-flow: row;
+
+}
+
+#gp-info {
+  /* background-color: #10002b;
+  padding: 10px 10px 17px;
+  float: right;
+  position: relative;
+  min-height: 1px;
+  padding-right: 9px;
+  padding-left: 9px;
+  width: 220px;
+  margin-right: 20px;
+  margin-top: 200px;
+  float: right; */
+
+}
+
+.gp-game-icon {
+  grid-row: 1/3;
+  grid-column: 1;
+}
+
+.gp-game-title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.game-info {
+  justify-content: right;
+}
+
+.game-description {
+  margin-top: 50px;
+}
+/* .game-description::before {
+  content: '';
+  display: block;
+  background: white;
+  height: 2px;
+  width: 100%;
+
+}
+.game-description::after {
+  content: '';
+  display: block;
+  background: white;
+  height: 2px;
+  width: 100%;
+} */
+
+.bg-image {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+}
