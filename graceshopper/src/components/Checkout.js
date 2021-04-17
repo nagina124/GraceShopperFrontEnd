@@ -210,7 +210,7 @@ const Checkout = ({
                                 </td>
                                 <td>
                                   <img
-                                      src={order.imageURL}
+                                      src={order.productImageURL}
                                       
                                       style={{ width: "50px", height: "50px" }}
                                     />
