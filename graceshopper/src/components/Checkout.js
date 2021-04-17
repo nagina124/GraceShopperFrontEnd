@@ -93,7 +93,7 @@ const Checkout = ({
 
     // console.log(userOrder)
 
-    const updateCount = () => {
+    async function updateCount(orderId){
 
         // const changeCountHandler = (event) => {
         //     console.log(event.target.value)
@@ -103,8 +103,8 @@ const Checkout = ({
 
         // changeCountHandler()
 
-        orders.forEach((order) => {
-            fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
+        // orders.forEach((order) => {
+            await fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${orderId}`, {
                 method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
@@ -118,9 +118,10 @@ const Checkout = ({
             .then((response) => response.json())
             .then((data) => {
                 console.log(data, "count is increased");
+            
                 if(data){
                     const newOrderCount = orders.map((order) => {
-                        if (order.id ) {
+                        if (orderId ) {
                           return data;
                         } else {
                           return order;
@@ -132,7 +133,7 @@ const Checkout = ({
                 
             })
             .catch(console.error);
-        })
+
       }
 
 
@@ -164,8 +165,8 @@ const Checkout = ({
         </div>
         
         <section>
-            <Table className = "left" striped bordered hover style={{backgroundColor:"#038ed1"}}>
-                <thead>
+            <Table className = "left" striped bordered hover style={{backgroundColor:"#038ed1", color: "black", fontWeight: "bolder"}}>
+                <thead style={{backgroundColor: "#023e8a", color: "white" }}>
                     <tr>
                     <th>#</th>
                     <th>Game Name</th>
@@ -182,44 +183,6 @@ const Checkout = ({
                             <tr>
                                 <td>
                                 {order.count}
-                        {/* <Dropdown>
-                            <Dropdown.Toggle id="dropdown-basic">
-                                {order.count}
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item 
-                                    value="1"
-                                    onChange={(event) => {
-                                        
-                                        setCount((event.target.value));
-                                        console.log(count)
-                                        updateCount()
-                                      }}
-                                    >1</Dropdown.Item>
-
-                                <Dropdown.Item 
-                                // eventKey={order.count}
-                                    value={2}
-                                    onClick={(event) => {
-                                        
-                                        setCount(Number(event.target.value));
-                                        console.log(event.target.value)
-                                        console.log(count)
-                                        updateCount()
-                                      }}
-                                    >2</Dropdown.Item> */}
-                                
-                                {/* <Dropdown.Item value={3} onClick={setCount}>3</Dropdown.Item>
-                                <Dropdown.Item value={4} onClick={setCount}>4</Dropdown.Item>
-                                <Dropdown.Item value={5} onClick={setCount}>5</Dropdown.Item>
-                                <Dropdown.Item value={6} onClick={setCount}>6</Dropdown.Item>
-                                <Dropdown.Item value={7} onClick={setCount}>7</Dropdown.Item>
-                                <Dropdown.Item value={8} onClick={setCount}>8</Dropdown.Item>
-                                <Dropdown.Item value={9} onClick={setCount}>9</Dropdown.Item>
-                                <Dropdown.Item value={10} onClick={setCount}>10</Dropdown.Item> */}
-                            {/* </Dropdown.Menu>
-                        </Dropdown> */}
                                 </td>
                                 <td>{order.productTitle}</td>
                                 <td>{order.productPrice}</td>
@@ -268,14 +231,20 @@ const Checkout = ({
                 <h6>Tax: 10%</h6>
                 
                 <h6 className= "total">Total: {total} </h6>
-                <button onClick={clearCart}> Cancel Order </button>
-                <button 
-                    // onClick={makePending}
-                    onClick={setOrderConfirmed}
-                    className="confirmButton"
-                > 
-                    Confirm Order 
-                </button>
+                <div className="cancel"> 
+                  <img src="https://i.imgur.com/3p0mNxQ.png" className="x"/>
+                  <button onClick={clearCart} className="cancelButton"> Cancel Order </button>
+                </div>
+                <div className="confirm">
+                  <img src="https://i.imgur.com/yUzJ7Sc.png" className="checkMark"/>
+                  <button className="confirmButton"
+                      // onClick={makePending}
+                      onClick={setOrderConfirmed}
+                      
+                  > 
+                      Confirm Order 
+                  </button>
+                </div>
             </div>
 
             { orderConfirmed ? 
