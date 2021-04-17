@@ -54,7 +54,7 @@ const EditAdminStatus = ({
         onClick={handleShow}>
         Change Admin Status
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="special_modal">
         <Modal.Header closeButton>
           <Modal.Title>Change Admin Status.</Modal.Title>
         </Modal.Header>

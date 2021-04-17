@@ -1,4 +1,4 @@
-import './Admin.css'
+import "./Admin.css";
 import { useState, useEffect } from "react";
 import { Link, useRouteMatch, Route } from "react-router-dom";
 import { getToken } from "../auth";
@@ -13,7 +13,10 @@ const Admin = () => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [userSearchTerm, setUserSearchTerm] = useState("");
+  const [productSearchTerm, setProductSearchTerm] = useState("");
+  const [orderSearchTerm, setOrderSearchTerm] = useState("");
+
 
   useEffect(() => {
     fetch("https://peaceful-spire-60083.herokuapp.com/api/users")
@@ -83,17 +86,22 @@ const Admin = () => {
     <div style={{ padding: "20px" }}>
       {/* <h1 style={{ textAlign: "center", marginBottom: "10px", fontFamily: 'Libre Barcode 39 Text' }}>ADMIN PAGE</h1> */}
 
-      <Route exact path={`${path}`}> 
-      <center style={{fontSize:"50px", fontFamily: "'Megrim', cursive", fontSize: "75px", fontWeight: "bolder"}}>WELCOME TO THE ADMIN DASHBOARD</center> 
-      
+      <Route exact path={`${path}`}>
+        <center
+          style={{
+            fontSize: "50px",
+            fontFamily: "'Megrim', cursive",
+            fontSize: "75px",
+            fontWeight: "bolder",
+          }}
+        >
+          WELCOME TO THE ADMIN DASHBOARD
+        </center>
       </Route>
 
-     
-
-
-      <center style={{fontSize:"25px"}}>
+      <center style={{ fontSize: "25px" }}>
         {/* <img src="https://wmumc.org/wmumc2019/wp-content/uploads/revslider/homepage-slider/staff.png"/> */}
-        <Link to="/admin/user" style={{ marginRight: "20px" }} >
+        <Link to="/admin/user" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL USERS
         </Link>
@@ -108,11 +116,11 @@ const Admin = () => {
           VIEW ALL ORDERS
         </Link>
       </center>
-      
-      <Route exact path={`${path}`}> 
-      <center>
-      <img className="isabelle" src="https://i.imgur.com/VuRJ6fp.png"/> 
-      </center>
+
+      <Route exact path={`${path}`}>
+        <center>
+          <img className="isabelle" src="https://i.imgur.com/VuRJ6fp.png" />
+        </center>
       </Route>
 
       <Route path={`${path}/user`}>
@@ -122,18 +130,23 @@ const Admin = () => {
             type="text"
             placeholder="Search User"
             onChange={(event) => {
-              setSearchTerm(event.target.value);
+              setUserSearchTerm(event.target.value);
             }}
-            style={{border: "solid gold", margin: "25px"}}
+            style={{ border: "solid gold", margin: "25px" }}
           />
         </div>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
-          {/* style={{ backgroundColor: "#cfcfd0", color: "black" }} */}
-            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}} >
-              <thead style={{backgroundColor: "#023e8a" }}>
+            {/* style={{ backgroundColor: "#cfcfd0", color: "black" }} */}
+            <Table
+              striped
+              bordered
+              hover
+              style={{ backgroundColor: "#038ed1", color: "black" }}
+            >
+              <thead style={{ backgroundColor: "#023e8a" }}>
                 <tr>
-                  <th>#</th> 
+                  <th>#</th>
                   <th>Email</th>
                   <th>Username</th>
                   <th>Admin</th>
@@ -143,16 +156,16 @@ const Admin = () => {
               </thead>
               {users
                 .filter((user) => {
-                  if (searchTerm === "") {
+                  if (userSearchTerm === "") {
                     return user;
                   } else if (
                     user.username
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
+                      .includes(userSearchTerm.toLowerCase()) ||
                     user.email
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
-                    user.isAdmin.toString().toLowerCase().includes(searchTerm)
+                      .includes(userSearchTerm.toLowerCase()) ||
+                    user.isAdmin.toString().toLowerCase().includes(userSearchTerm)
                   ) {
                     return user;
                   }
@@ -200,22 +213,26 @@ const Admin = () => {
             type="text"
             placeholder="Search Products"
             onChange={(event) => {
-              setSearchTerm(event.target.value);
+              setProductSearchTerm(event.target.value);
             }}
           />
         </div>
         <section style={{ overflow: "auto", height: "800px" }}>
           <center>
-            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}}>
-              <thead style={{backgroundColor: "#023e8a" }}>
+            <Table
+              striped
+              bordered
+              hover
+              style={{ backgroundColor: "#038ed1", color: "black" }}
+            >
+              <thead style={{ backgroundColor: "#023e8a" }}>
                 <tr>
                   <th>#</th>
-                  <th>Title</th>
-                  <th>Image URL</th>
-                  <th>Splash</th>
+                  <th>Title/Category/Platform/Age Rating/Release Date</th>
+                  <th>Image/Splash</th>
                   <th>Single Game URL Route</th>
-                  <th>Category</th>
                   <th>Description</th>
+                  <th>Publisher/Developer</th>
                   <th>Price</th>
                   <th>Inventory</th>
                   <th>Edit</th>
@@ -224,15 +241,27 @@ const Admin = () => {
               </thead>
               {products
                 .filter((product) => {
-                  if (searchTerm === "") {
+                  if (productSearchTerm === "") {
                     return product;
                   } else if (
                     product.title
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
+                      .includes(productSearchTerm.toLowerCase()) ||
                     product.category
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase())
+                      .includes(productSearchTerm.toLowerCase()) ||
+                    product.platform
+                      .toLowerCase()
+                      .includes(productSearchTerm.toLowerCase()) ||
+                    product.ageRating
+                      .toLowerCase()
+                      .includes(productSearchTerm.toLowerCase()) ||
+                    product.publisher
+                      .toLowerCase()
+                      .includes(productSearchTerm.toLowerCase()) ||
+                    product.developer
+                      .toLowerCase()
+                      .includes(productSearchTerm.toLowerCase())
                   ) {
                     return product;
                   }
@@ -243,15 +272,19 @@ const Admin = () => {
                     <tbody>
                       <tr key={index}>
                         <td>{product.id}</td>
-                        <td>{product.title}</td>
+                        <td>
+                          {product.title} <hr /> {product.category}
+                          <hr />
+                          {product.platform} <hr /> {product.ageRating} <hr />{" "}
+                          {new Date(product.releaseDate).toLocaleDateString()}
+                        </td>
                         <td>
                           <img
                             src={product.imageURL}
                             alt={product.title}
                             style={{ width: "50px" }}
                           />
-                        </td>
-                        <td>
+                          <hr />
                           <img
                             src={product.splash}
                             alt={`Splash of ${product.title}`}
@@ -259,8 +292,11 @@ const Admin = () => {
                           />
                         </td>
                         <td>{product.productURL}</td>
-                        <td>{product.category}</td>
+
                         <td>{product.description}</td>
+                        <td>
+                          {product.publisher} <hr /> {product.developer}
+                        </td>
                         <td>${product.price}</td>
                         <td>{product.inventory}</td>
                         <td>
@@ -274,6 +310,11 @@ const Admin = () => {
                             productDescription={product.description}
                             productPrice={product.price}
                             productInventory={product.inventory}
+                            productPlatform={product.platform}
+                            productPublisher={product.publisher}
+                            productDeveloper={product.developer}
+                            productAgeRating={product.ageRating}
+                            productReleaseDate={product.releaseDate}
                             products={products}
                             setProducts={setProducts}
                           />
@@ -305,14 +346,19 @@ const Admin = () => {
             style={{ width: "650px" }}
             placeholder="Search Order Status (Created, Pending, Completed, Canceled), User, or Product"
             onChange={(event) => {
-              setSearchTerm(event.target.value);
+              setOrderSearchTerm(event.target.value);
             }}
           />
         </div>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
-            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}}>
-              <thead style={{backgroundColor: "#023e8a" }}>
+            <Table
+              striped
+              bordered
+              hover
+              style={{ backgroundColor: "#038ed1", color: "black" }}
+            >
+              <thead style={{ backgroundColor: "#023e8a" }}>
                 <tr>
                   <th>#</th>
                   <th>User</th>
@@ -322,25 +368,26 @@ const Admin = () => {
                   <th>Product Price</th>
                   <th>Count</th>
                   <th>Order Status</th>
+                  <th>Order Created</th>
                 </tr>
               </thead>
               {orders
                 .filter((order) => {
-                  if (searchTerm === "") {
+                  if (orderSearchTerm === "") {
                     return order;
                   } else if (
                     order.creatorName
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
+                      .includes(orderSearchTerm.toLowerCase()) ||
                     order.creatorEmail
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
+                      .includes(orderSearchTerm.toLowerCase()) ||
                     order.productTitle
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase()) ||
+                      .includes(orderSearchTerm.toLowerCase()) ||
                     order.orderStatus
                       .toLowerCase()
-                      .includes(searchTerm.toLowerCase())
+                      .includes(orderSearchTerm.toLowerCase())
                   ) {
                     return order;
                   }
@@ -364,6 +411,9 @@ const Admin = () => {
                         <td>{order.productPrice}</td>
                         <td>{order.count}</td>
                         <td>{order.orderStatus}</td>
+                        <td>
+                          {new Date(order.orderCreated).toLocaleDateString()}
+                        </td>
                       </tr>
                     </tbody>
                   );
