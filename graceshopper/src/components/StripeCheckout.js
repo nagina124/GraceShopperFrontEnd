@@ -224,16 +224,17 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
         Pay
       </Button>
 
-      <Modal show={show} onHide={handleClose} >
+      <Modal show={show} onHide={handleClose} style={{ height: "800px" }} className="special_modal">
         <Modal.Header closeButton>
-          <Modal.Title style={{ textAlign: "center" }}> Secure Checkout </Modal.Title>
+          <Modal.Title style={{ fontFamily: "'Megrim', cursive", fontWeight: "bold" }}> Secure Checkout </Modal.Title>
         </Modal.Header>
 
-      <Modal.Body >
-    <body style={{ textAlign: "center" }} >
-      <form className="Form" onSubmit={handleSubmit} style={{ display: "inline-block" }}>
+      <Modal.Body  >
+    <body style={{ textAlign: "center",  }} >
+      <form className="Form" onSubmit={handleSubmit}  >
         <fieldset className="FormGroup">
           <Field
+            style={{width: "1000px"}}
             label="Name"
             id="name"
             type="text"
