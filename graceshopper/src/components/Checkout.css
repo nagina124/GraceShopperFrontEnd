@@ -17,7 +17,21 @@ body {
     clear: both;
  }
 
- .orderCheckout {
+.secure-checkout{
+  text-align: center;
+  font-family: 'Megrim', cursive;
+  font-size: 75px;
+  font-weight: bolder;
+}
+
+.enjoy{
+  text-align: center;
+  font-family: 'Megrim', cursive;
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+ .order-checkout {
     text-align: center;
  }
 
@@ -32,7 +46,7 @@ body {
  }
 
  .total{
-   color: red;
+  
    font-size: x-large;
  }
 

@@ -84,7 +84,7 @@ const Admin = () => {
       {/* <h1 style={{ textAlign: "center", marginBottom: "10px", fontFamily: 'Libre Barcode 39 Text' }}>ADMIN PAGE</h1> */}
 
       <Route exact path={`${path}`}> 
-      <center style={{fontSize:"50px"}}>WELCOME TO THE ADMIN DASHBOARD</center> 
+      <center style={{fontSize:"50px", fontFamily: "'Megrim', cursive", fontSize: "75px", fontWeight: "bolder"}}>WELCOME TO THE ADMIN DASHBOARD</center> 
       
       </Route>
 
@@ -97,12 +97,12 @@ const Admin = () => {
           {" "}
           VIEW ALL USERS
         </Link>
-        {/* <img src=""/> */}
+        {/* <img src="https://i.imgur.com/9juQDwp.png"/> */}
         <Link to="/admin/products" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL PRODUCTS
         </Link>
-        {/* <img src=""/> */}
+        {/* <img src="https://i.imgur.com/cMfWc5o.png"/> */}
         <Link to="/admin/orders" style={{ marginRight: "20px" }}>
           {" "}
           VIEW ALL ORDERS
@@ -111,7 +111,7 @@ const Admin = () => {
       
       <Route exact path={`${path}`}> 
       <center>
-      <img className="isabelle" src="https://www.clipartmax.com/png/middle/223-2233021_lyle-is-tom-nooks-right-hand-man-in-the-animal-crossing-lyle.png"/> 
+      <img className="isabelle" src="https://i.imgur.com/VuRJ6fp.png"/> 
       </center>
       </Route>
 
@@ -130,10 +130,10 @@ const Admin = () => {
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
           {/* style={{ backgroundColor: "#cfcfd0", color: "black" }} */}
-            <Table striped bordered hover style={{backgroundColor: "#023e8a"}} >
-              <thead>
+            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}} >
+              <thead style={{backgroundColor: "#023e8a" }}>
                 <tr>
-                  <th>#</th>
+                  <th>#</th> 
                   <th>Email</th>
                   <th>Username</th>
                   <th>Admin</th>
@@ -206,8 +206,8 @@ const Admin = () => {
         </div>
         <section style={{ overflow: "auto", height: "800px" }}>
           <center>
-            <Table striped bordered hover style={{backgroundColor: "#023e8a"}}>
-              <thead>
+            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}}>
+              <thead style={{backgroundColor: "#023e8a" }}>
                 <tr>
                   <th>#</th>
                   <th>Title</th>
@@ -311,8 +311,8 @@ const Admin = () => {
         </div>
         <section style={{ overflow: "auto", height: "600px" }}>
           <center>
-            <Table striped bordered hover style={{backgroundColor: "#023e8a"}}>
-              <thead>
+            <Table striped bordered hover style={{backgroundColor:"#038ed1", color: "black"}}>
+              <thead style={{backgroundColor: "#023e8a" }}>
                 <tr>
                   <th>#</th>
                   <th>User</th>

@@ -45,6 +45,12 @@ const Navigation = ({
                 Logout
                 </Link>
             )}
+            {authenticate && getToken() ?(
+            <Link style={{ color: "white", padding: "7.5px" }} to="/profile">
+                Profile
+            </Link>)
+            : null
+            }               
             {orders ? (
                 <ShoppingCartModal
                 userId={userId}

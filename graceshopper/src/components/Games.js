@@ -19,6 +19,7 @@ const Games = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [orderComplete, setOrderComplete] = useState();
   const [orderId, setOrderId] = useState(null);
+  
 
   const getProducts = () => {
     fetch(`${API}/products`)
@@ -62,15 +63,16 @@ const Games = ({
       body: JSON.stringify({
         userId: userId,
         productId: productId,
-        productTitle: productTitle,
         count: 1,
+        orderStatus: "created",
+        orderCreated: new Date()
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         data.orderStatus === "created"
-          ? alert(`${data.productTitle} has been added to cart`)
+          ? alert(`${productTitle} has been added to cart`)
           : alert("This order already exists");
         getOrdersForUser();
       });

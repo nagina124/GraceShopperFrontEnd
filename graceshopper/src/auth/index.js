@@ -64,8 +64,12 @@ export function removeUserId() {
 // }
 
 export function getProductForGuests() {
-  const products = localStorage.getItem('products');
+  const products = JSON.parse(localStorage.getItem('products'));
   return products;
+}
+
+export function removeGuestProducts() {
+  localStorage.removeItem("products");
 }
 
 // export function removeProduct() {
