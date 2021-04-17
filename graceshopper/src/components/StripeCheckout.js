@@ -7,6 +7,7 @@ import {
   useElements,
   useStripe
 } from "@stripe/react-stripe-js";
+import {removeGuestProducts} from '../auth'
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -102,7 +103,7 @@ const ResetButton = ({ onClick }) => (
   </button>
 );
 
-const CheckoutForm = ({amount, orders, setOrderConfirmed}) => {
+const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
@@ -174,6 +175,8 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed}) => {
     if (cardComplete) {
       setProcessing(true);
       makeCompleted()
+      removeGuestProducts();
+      setGuestOrder([])
     }
 
     const payload = await stripe.createPaymentMethod({
@@ -203,7 +206,9 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed}) => {
   };
 
   return paymentMethod ? (
+    
     <Redirect to="/thankyou" />
+    
 
     //   <ResetButton onClick={reset} />
 

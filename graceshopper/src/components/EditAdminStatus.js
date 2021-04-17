@@ -50,11 +50,11 @@ const EditAdminStatus = ({
   return (
     <div>
       <Button 
-        style={{ backgroundColor: "#7209b7", border: "#7209b7" }}
+        style={{ backgroundColor: "#7209b7", border: "#7209b7", color: "white", fontWeight: "bold" }}
         onClick={handleShow}>
         Change Admin Status
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="special_modal">
         <Modal.Header closeButton>
           <Modal.Title>Change Admin Status.</Modal.Title>
         </Modal.Header>

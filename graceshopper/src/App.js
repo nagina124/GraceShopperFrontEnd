@@ -11,7 +11,8 @@ import {
   Checkout,
   Error,
   ThankYou,
-  Navigation
+  Navigation, 
+  Profile
 } from "./components";
 import { getToken, getUser, getUserId } from "./auth";
 
@@ -170,7 +171,15 @@ const App = () => {
               orders={orders} 
               cart={cart}
               setCart={setCart}
+              guestOrder={guestOrder}
+              setGuestOrder={setGuestOrder}
               />
+          </Route>
+          <Route path="/profile">
+            <Profile
+            username={username}
+            userId={userId}
+            />
           </Route>
           <Route path="/thankyou">
             <ThankYou/>

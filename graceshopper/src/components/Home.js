@@ -7,6 +7,7 @@ import Image from 'react-bootstrap/Image'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Card from 'react-bootstrap/Card'
 
 const Home = () => {
     return (
@@ -17,7 +18,7 @@ const Home = () => {
         </div>
 
         <Carousel className="carousel">
-        <Carousel.Item style={{ height: "50%", overflow: "hidden"}}>
+        <Carousel.Item style={{ height: "50vh", overflow: "hidden"}}>
             <img
               className="d-block w-100"
               src="https://gmedia.playstation.com/is/image/SIEPDC/outriders-key-art-image-block-01-en-30jul20?$1600px$"
@@ -29,7 +30,7 @@ const Home = () => {
               <p>Outriders is a 1-3 player co-op RPG shooter set in an original, dark and desperate sci-fi universe.</p>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item style={{height: "50%"}}>
+          <Carousel.Item style={{height: "50vh", overflow: "hidden"}}>
             <img
               className="d-block w-100"
               src="https://image.api.playstation.com/vulcan/img/rnd/202010/0723/vDLeyNzrJdGwabFlEo44GkEZ.png?w=5000&thumb=false"
@@ -40,7 +41,7 @@ const Home = () => {
               <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item style={{height: "700px"}}>
+          <Carousel.Item style={{height: "50vh", overflow: "hidden"}}>
             <img
               className="d-block w-100"
               src="https://www.ps4wallpapers.com/wp-content/uploads/2021/01/2021-01-24_600ceafb1913f_1126063.jpg"
@@ -52,7 +53,7 @@ const Home = () => {
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item style={{height: "700px"}}>
+          <Carousel.Item style={{height: "50vh", overflow: "hidden"}}>
             <img
               className="d-block w-100"
               src="https://image.api.playstation.com/vulcan/ap/rnd/202010/0911/IUHo6BeWCLACvasWb4hX8xfu.jpg?w=5000&thumb=false"
@@ -67,11 +68,14 @@ const Home = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
+        
+        
         <div className="container"> 
           <div className="row"> 
 
               <div className="newGames">
                 <h3 className="upcomingGamesTitle"> Upcoming Games </h3>
+                
  
             
 {/* src= "https://compass-ssl.xbox.com/assets/53/1c/531cfd20-22e9-434b-86eb-2ea61b5dd646.jpg?n=Biomutant_GLP-Page-Hero-1084_1920x1080.jpg" */}
@@ -92,28 +96,63 @@ const Home = () => {
         </Card> */}
  
 
-        <Container> 
+        <Container > 
           <Row > 
-        <div className="upcomingGames">
-            <section className="specificGame">
+        <div className="upcomingGames"  >
+            <section className="specificGame" id="revealLeft">
+              <div id="revealContainerLeft"> 
               <Col xs={6} md={4}>
+                <div id="revealTitleLeft-overlay">
+                  <div id="revealTitleLeft-overlay-text">
+                  <div className="gameInfo">
+                    <h3> Pokemon Snap </h3>
+                    {/* <h4> Release Date: 	April 30, 2021 </h4>
+                    <h5> Platform: Nintendo Switch </h5>
+                    <p> The player is a Pokémon photographer who visits various islands 
+                        in the Lental region to help the research studies of 
+                        Professor Mirror and his assistants Rita and Phil. </p> */}
+                  </div>
+
+                {/* <Card style={{ width: '500px', height: '200px' }}>
+                  <Card.Body>
+                    <Card.Title>Pokemon Snap</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">elease Date: April 30, 2021</Card.Subtitle>
+                    <Card.Text>
+                        The player is a Pokémon photographer who visits various islands 
+                        in the Lental region to help the research studies of 
+                        Professor Mirror and his assistants Rita and Phil.
+                    </Card.Text>
+
+                  </Card.Body>
+                </Card> */}
+                  </div>
+                </div>
                 <Image 
                 src="https://tnsmedia.imgix.net/2021/01/newpokemonsnapfi.png?auto=compress&fm=png&ixlib=php-3.3.0&s=7d47702a4c8291c2feeb25c180297e49" 
                 rounded
                 style={{height: "300px", width: "500px"}}
                 />
+                
               </Col>
+              </div>
             </section>
+            
 
-
-            <section className="specificGame">
+            <section className="specificGame" id="revealRight">
+            <div id="revealContainerRight"> 
               <Col xs={6} md={4}>
+              <div id="revealTitleRight-overlay">
+                  <div id="revealTitleRight-overlay-text">
+                  Biomutant- May 25, 2021
+                  </div>
+                </div>
                 <Image 
                 src="https://compass-ssl.xbox.com/assets/53/1c/531cfd20-22e9-434b-86eb-2ea61b5dd646.jpg?n=Biomutant_GLP-Page-Hero-1084_1920x1080.jpg" 
                 rounded
                 style={{height: "300px", width: "500px"}}
                 />
               </Col>
+              </div>
             </section>
 
 
@@ -144,10 +183,13 @@ const Home = () => {
         </div>
 
         <div>
-          Bottom
+          <section>
+
+          </section>
         </div>
         </div>
         </div>
+       
         </div>
       </>
     );
