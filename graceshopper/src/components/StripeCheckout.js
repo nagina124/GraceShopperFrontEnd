@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import {
-  CardElement,
-  useElements,
-  useStripe
-} from "@stripe/react-stripe-js";
-import {removeGuestProducts} from '../auth'
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { removeGuestProducts } from "../auth";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -20,17 +16,17 @@ const CARD_OPTIONS = {
       fontSize: "16px",
       fontSmoothing: "antialiased",
       ":-webkit-autofill": {
-        color: "#fce883"
+        color: "#fce883",
       },
       "::placeholder": {
-        color: "#87bbfd"
-      }
+        color: "#87bbfd",
+      },
     },
     invalid: {
       iconColor: "#ffc7ee",
-      color: "#ffc7ee"
-    }
-  }
+      color: "#ffc7ee",
+    },
+  },
 };
 
 const CardField = ({ onChange }) => (
@@ -47,7 +43,7 @@ const Field = ({
   required,
   autoComplete,
   value,
-  onChange
+  onChange,
 }) => (
   <div className="FormRow">
     <label htmlFor={id} className="FormRowLabel">
@@ -103,7 +99,7 @@ const ResetButton = ({ onClick }) => (
   </button>
 );
 
-const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
+const CheckoutForm = ({ amount, orders, setOrderConfirmed, setGuestOrder }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
@@ -113,7 +109,7 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
   const [billingDetails, setBillingDetails] = useState({
     email: "",
     phone: "",
-    name: ""
+    name: "",
   });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -121,42 +117,48 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
 
   const makeCompleted = () => {
     orders.forEach((order) => {
-        fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              orderStatus: 'completed',
-            }),
-          })
+      fetch(
+        `https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderStatus: "completed",
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
-            console.log(data, "order is completed");
-            setOrderConfirmed(true);
+          console.log(data, "order is completed");
+          setOrderConfirmed(true);
         })
         .catch(console.error);
-    })
-  }
+    });
+  };
 
   const makePending = () => {
     orders.forEach((order) => {
-        fetch(`https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              orderStatus: 'pending',
-            }),
-          })
+      fetch(
+        `https://peaceful-spire-60083.herokuapp.com/api/orders/${order.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderStatus: "pending",
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
-            console.log(data, "order is pending");
+          console.log(data, "order is pending");
         })
         .catch(console.error);
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -174,15 +176,15 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
 
     if (cardComplete) {
       setProcessing(true);
-      makeCompleted()
+      makeCompleted();
       removeGuestProducts();
-      setGuestOrder([])
+      setGuestOrder([]);
     }
 
     const payload = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
-      billing_details: billingDetails
+      billing_details: billingDetails,
     });
 
     setProcessing(false);
@@ -201,93 +203,114 @@ const CheckoutForm = ({amount, orders, setOrderConfirmed, setGuestOrder}) => {
     setBillingDetails({
       email: "",
       phone: "",
-      name: ""
+      name: "",
     });
   };
 
   return paymentMethod ? (
-    
     <Redirect to="/thankyou" />
-    
-
+  ) : (
     //   <ResetButton onClick={reset} />
 
-  ) : (
-      <>
-      <Button 
-        variant="primary" 
-        onClick={handleShow} 
-        alert={makePending} 
+    <>
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        alert={makePending}
         style={{ backgroundColor: "green" }}
-        centered 
-        >
+        centered
+      >
         Pay
       </Button>
 
-      <Modal show={show} onHide={handleClose} style={{ height: "800px" }} className="special_modal">
+      <Modal
+        show={show}
+        onHide={handleClose}
+        style={{ height: "750px" }}
+        className="special_modal"
+      >
         <Modal.Header closeButton>
-          <Modal.Title style={{ fontFamily: "'Megrim', cursive", fontWeight: "bold" }}> Secure Checkout </Modal.Title>
+          <Modal.Title
+            style={{ fontFamily: "'Megrim', cursive", fontWeight: "bold" }}
+          >
+            {" "}
+            Secure Checkout{" "}
+          </Modal.Title>
         </Modal.Header>
 
-      <Modal.Body  >
-    <body style={{ textAlign: "center",  }} >
-      <form className="Form" onSubmit={handleSubmit}  >
-        <fieldset className="FormGroup">
-          <Field
-            style={{width: "1000px"}}
-            label="Name"
-            id="name"
-            type="text"
-            placeholder="Jane Doe"
-            required
-            autoComplete="name"
-            value={billingDetails.name}
-            onChange={(e) => {
-              setBillingDetails({ ...billingDetails, name: e.target.value });
-            }}
-          />
-          <Field
-            label="Email"
-            id="email"
-            type="email"
-            placeholder="janedoe@gmail.com"
-            required
-            autoComplete="email"
-            value={billingDetails.email}
-            onChange={(e) => {
-              setBillingDetails({ ...billingDetails, email: e.target.value });
-            }}
-          />
-          <Field
-            label="Phone"
-            id="phone"
-            type="tel"
-            placeholder="(941) 555-0123"
-            required
-            autoComplete="tel"
-            value={billingDetails.phone}
-            onChange={(e) => {
-              setBillingDetails({ ...billingDetails, phone: e.target.value });
-            }}
-          />
-        </fieldset>
-        <fieldset className="FormGroup">
-          <CardField
-            onChange={(e) => {
-              setError(e.error);
-              setCardComplete(e.complete);
-            }}
-          />
-        </fieldset>
-        {error && <ErrorMessage>{error.message}</ErrorMessage>}
-        <SubmitButton processing={processing} error={error} disabled={!stripe} onClick={makePending}>
-          Total: {amount}
-        </SubmitButton>
-      </form>
-    </body>
-    </Modal.Body>
+        <Modal.Body>
+          <body style={{ textAlign: "center", height: "400px", paddingBottom: "10px" }}>
+            <form className="Form" onSubmit={handleSubmit} style={{paddingTop: "50px"}}>
+              <fieldset className="FormGroup">
+                <Field
+                  style={{ width: "1000px" }}
+                  label="Name"
+                  id="name"
+                  type="text"
+                  placeholder="Jane Doe"
+                  required
+                  autoComplete="name"
+                  value={billingDetails.name}
+                  onChange={(e) => {
+                    setBillingDetails({
+                      ...billingDetails,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+                <Field
+                  label="Email"
+                  id="email"
+                  type="email"
+                  placeholder="janedoe@gmail.com"
+                  required
+                  autoComplete="email"
+                  value={billingDetails.email}
+                  onChange={(e) => {
+                    setBillingDetails({
+                      ...billingDetails,
+                      email: e.target.value,
+                    });
+                  }}
+                />
+                <Field
+                  label="Phone"
+                  id="phone"
+                  type="tel"
+                  placeholder="(941) 555-0123"
+                  required
+                  autoComplete="tel"
+                  value={billingDetails.phone}
+                  onChange={(e) => {
+                    setBillingDetails({
+                      ...billingDetails,
+                      phone: e.target.value,
+                    });
+                  }}
+                />
+              </fieldset>
+              <fieldset className="FormGroup">
+                <CardField
+                  onChange={(e) => {
+                    setError(e.error);
+                    setCardComplete(e.complete);
+                  }}
+                />
+              </fieldset>
+              {error && <ErrorMessage>{error.message}</ErrorMessage>}
+              <SubmitButton
+                processing={processing}
+                error={error}
+                disabled={!stripe}
+                onClick={makePending}
+              >
+                Total: {amount}
+              </SubmitButton>
+            </form>
+          </body>
+        </Modal.Body>
 
-    <Modal.Footer>
+        <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
