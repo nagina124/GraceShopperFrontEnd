@@ -22,6 +22,7 @@ body {
   font-family: 'Megrim', cursive;
   font-size: 75px;
   font-weight: bolder;
+  color: white;
 }
 
 .enjoy{
@@ -29,6 +30,7 @@ body {
   font-family: 'Megrim', cursive;
   font-size: 30px;
   font-weight: bolder;
+  color: white 
 }
 
  .order-checkout {
@@ -36,23 +38,64 @@ body {
  }
 
  .deleteButton {
-    background-color: #c3abbb;
+  background: #DC3545;
+  color: white;
+  font-weight: bold;
 
  }
 
  .orderTotal {
    text-align: center;
+   color: white;
 
  }
 
  .total{
   
    font-size: x-large;
+   color: white;
  }
 
- .confirmButton{
+.x{
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+
+}
+
+.cancel{
+  margin: 20px;
+  font-size: 20px;
+  
+}
+.cancelButton{
+  background: #0718EB;
+  background: -webkit-linear-gradient(top right, #0718EB, #BA08B4);
+  background: -moz-linear-gradient(top right, #0718EB, #BA08B4);
+  background: linear-gradient(to bottom left, #0718EB, #BA08B4);
+  color: white;
+  font-weight: bold;
+}
+
+.checkMark{
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+ .confirm{
+   margin: 20px;
    font-size: 20px;
  }
+
+.confirmButton{
+  background: #0718EB;
+  background: -webkit-linear-gradient(top right, #0718EB, #BA08B4);
+  background: -moz-linear-gradient(top right, #0718EB, #BA08B4);
+  background: linear-gradient(to bottom left, #0718EB, #BA08B4);
+  color: white;
+  font-weight: bold;
+}
 
  /* Stripe Checkout CSS */
 
