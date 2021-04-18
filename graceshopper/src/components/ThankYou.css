@@ -4,7 +4,7 @@
 
     /* grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr; */
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .thankYouImage{
@@ -13,25 +13,26 @@
     grid-column: 1; */
     height: 600px;
     width: 500px;
-    margin-left: 300px;
+    margin-left: 20vw;
+    margin-right: -5vw;
 }
 
  .info{ 
     /* grid-row: 1;
     grid-column: 2;  */
-    border: solid #0718EB;
+    border: none;
     width: 50vw;
     height: 50vh;
     float: right;
  
     font-family: 'Megrim', cursive;
     font-weight: bold;
-    
+ 
     
 }
 
 .thankYou{
-    font-size: 72px;
+    font-size: 100px;
     font-weight: bolder;
     background: -webkit-linear-gradient(top right, #0718EB, #BA08B4);
     -webkit-background-clip: text;
@@ -47,4 +48,27 @@
     font-size: 35px;
     font-family: 'Megrim', cursive;
     font-weight: bold;
+    color: white;
+}
+
+.expect{
+    color: white;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+    font-size: 20px;
+}
+
+.customerService{
+    color: white;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+    font-size: 20px;
+}
+
+.phoneNumber{
+    margin: 20px;
+    font-size: 40px;
+    background: -webkit-linear-gradient(top right, #0718EB, #BA08B4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

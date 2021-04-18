@@ -112,7 +112,14 @@ const Register = ({
     <div>
       <Container>
         <center>
-          <h1 style={{ padding: "35px", color: "white"  }}>REGISTER PAGE</h1>
+          <h1 
+          style={{ 
+            padding: "35px", 
+            fontSize: "50px",
+            fontFamily: "'Megrim', cursive",
+            fontWeight: "bold",
+            color: "white"
+            }}>REGISTER HERE!</h1>
         </center>
         <Form onSubmit={createUser}>
           <Form.Group controlId="formBasicEmail">
@@ -165,7 +172,17 @@ const Register = ({
             </Form.Text>
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button 
+           type="submit"
+           style={{
+            background: "#0718EB",
+            background: "-webkit-linear-gradient(top right, #0718EB, #BA08B4)",
+            background: "-moz-linear-gradient(top right, #0718EB, #BA08B4)",
+            background: "linear-gradient(to bottom left, #0718EB, #BA08B4)",
+            color: "white",
+            fontWeight: "bold"
+           }}
+           >
             Submit
           </Button>
         </Form>

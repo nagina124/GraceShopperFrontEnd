@@ -161,7 +161,7 @@ const Admin = () => {
               bordered
               hover
               style={{
-                backgroundColor: "#038ed1",
+                backgroundColor: "#d5e7fe",
                 color: "black",
                 fontWeight: "bold",
                 marginTop: "20px",
@@ -269,7 +269,7 @@ const Admin = () => {
               bordered
               hover
               style={{
-                backgroundColor: "#038ed1",
+                backgroundColor: "#d5e7fe",
                 color: "black",
                 fontWeight: "bold",
                 marginTop: "20px",
@@ -428,7 +428,7 @@ const Admin = () => {
               bordered
               hover
               style={{
-                backgroundColor: "#038ed1",
+                backgroundColor: "#d5e7fe",
                 color: "black",
                 fontWeight: "bold",
                 marginTop: "20px",

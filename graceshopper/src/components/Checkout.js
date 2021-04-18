@@ -155,7 +155,7 @@ const Checkout = ({
         
         <section>
           <center>
-            <Table className = "left" striped bordered hover style={{backgroundColor:"#7b2cbf", color: "black", fontWeight: "bolder", width: "75vw", textAlign: "center"}}>
+            <Table className = "left" striped bordered hover style={{backgroundColor:"#decbe8", color: "black", fontWeight: "bolder", width: "75vw", textAlign: "center", marginBottom: "40px"}}>
                 <thead style={{backgroundColor: "#510087", color: "white", textAlign: "center" }}>
                     <tr>
                     <th>Quantity</th>
@@ -234,8 +234,8 @@ const Checkout = ({
             </Table>
           </center>
             <div className="orderTotal">
-                <h6>Subtotal: {subtotal}</h6>
-                <h6>Tax: 10%</h6>
+                <div>Subtotal: {subtotal}</div>
+                <div>Tax: 10%</div>
                 
                 <h6 className= "total">Total: {total} </h6>
               </div>
