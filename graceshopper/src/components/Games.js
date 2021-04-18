@@ -109,8 +109,8 @@ const Games = ({
 
   return (
     <div className="game-page" style={{cursor: "pointer"}}>
-      <h1 style={{textAlign: "center"}}>GAME HEAVEN</h1>
-      <div className="search-box" style={{paddingLeft: "60px"}}>
+      <h1 style={{textAlign: "center", fontFamily: "'Megrim', cursive", fontWeight: "bold", fontSize: "75px"}}>GAME HEAVEN</h1>
+      <div className="search-box" style={{paddingLeft: "75px", marginBottom: "20px"}}>
         <input
           type="text"
           placeholder="Search for games here"
@@ -125,15 +125,15 @@ const Games = ({
             <h3 onClick={getProducts}>Show All Games</h3>
             <h3 onClick={() => getProductsByCategory("JRPG")}>JRPG</h3>
             <h3 onClick={() => getProductsByCategory("ACTION-ADVENTURE")}>
-              Action/Adventure
+              ACTION/ADVENTURE
             </h3>
             <h3 onClick={() => getProductsByCategory("RPG")}>RPG</h3>
-            <h3 onClick={() => getProductsByCategory("FIGHTING")}>Fighting</h3>
-            <h3 onClick={() => getProductsByCategory("HORROR")}>Horror</h3>
+            <h3 onClick={() => getProductsByCategory("FIGHTING")}>FIGHTING</h3>
+            <h3 onClick={() => getProductsByCategory("HORROR")}>HORROR</h3>
             <h3 onClick={() => getProductsByCategory("HACK-N-SLASH")}>
-              Hack and Slash
+              HACK AND SLASH
             </h3>
-            <h3 onClick={() => getProductsByCategory("SIMULATION")}>Simulation</h3>
+            <h3 onClick={() => getProductsByCategory("SIMULATION")}>SIMULATION</h3>
           </aside>
         </div>
 
@@ -171,6 +171,14 @@ const Games = ({
                       <p>{product.category}</p>
                       <h4>${product.price}</h4>
                       <Button
+                      style={{ 
+                        background: "#0718EB",
+                        background: "-webkit-linear-gradient(top right, #0718EB, #BA08B4)",
+                        background: "-moz-linear-gradient(top right, #0718EB, #BA08B4)",
+                        background: "linear-gradient(to bottom left, #0718EB, #BA08B4)",
+                        color: "white",
+                        fontWeight: "bold"
+                      }}
                         onClick={() => {
                           if (userId) {
                             addOrderToCart(product.id, product.title);

@@ -52,9 +52,10 @@ const Profile = ({ username, userId }) => {
               bordered
               hover
               style={{
-                backgroundColor: "#7b2cbf",
+                backgroundColor:"#decbe8",
                 color: "black",
                 fontWeight: "bolder",
+                marginTop:"50px"
               }}
             >
               <thead

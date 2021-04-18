@@ -1,6 +1,7 @@
 body {
 
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
  }
 
  * {
@@ -30,7 +31,9 @@ body {
   font-family: 'Megrim', cursive;
   font-size: 30px;
   font-weight: bolder;
-  color: white 
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
 
  .order-checkout {
@@ -47,12 +50,13 @@ body {
  .orderTotal {
    text-align: center;
    color: white;
+   font-size: 20px;
 
  }
 
  .total{
   
-   font-size: x-large;
+   font-size: 30px;
    color: white;
  }
 
