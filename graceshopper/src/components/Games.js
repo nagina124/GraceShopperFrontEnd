@@ -110,7 +110,7 @@ const Games = ({
   return (
     <div className="game-page" style={{cursor: "pointer"}}>
       <h1 style={{textAlign: "center"}}>GAME HEAVEN</h1>
-      <div className="search-box" style={{paddingLeft: "10px"}}>
+      <div className="search-box" style={{paddingLeft: "60px"}}>
         <input
           type="text"
           placeholder="Search for games here"
