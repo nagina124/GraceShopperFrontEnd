@@ -19,7 +19,7 @@ const Navigation = ({
     return (
  
         <Navbar className="navBar">
-            <Navbar.Brand href="/">Logo</Navbar.Brand>
+            {/* <Navbar.Brand href="/">Logo</Navbar.Brand> */}
             <img src= "https://i.imgur.com/9juQDwp.png" style={{height: "50px", width: "75px"}}/>
             <Nav className="ml-auto">
             <Link style={{ color: "white", padding: "7.5px" }} to="/">

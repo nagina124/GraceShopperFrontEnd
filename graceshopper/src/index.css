@@ -31,18 +31,39 @@ code {
 .genre-container {
   display: flex;
   justify-content: left;
+  padding-left: 30px;
 }
 
 .gamelist-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-template-columns: repeat(5, 1fr);
   justify-content: right;
+
+  /* padding: 0px 30px 30px 30px; 
+  display: flex;
+  height: 600px; */
 }
 
 .results {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   width: 200px;
+  transition: ease-in-out 300ms;
+  padding: 10px;
 }
+.results > * > * {
+  text-align: center;
+}
+.results:hover {
+  -webkit-box-shadow: -1px 1px 2px 4px rgba(141, 137, 137, 0.486);
+  -moz-box-shadow: -1px 1px 2px 4px rgba(141, 137, 137, 0.411);
+  box-shadow: -1px 1px 2px 4px rgba(141, 137, 137, 0.411);
+  transform: scale(1.1);
+}
+
 
 .details-page {
   background-color: #10002b;

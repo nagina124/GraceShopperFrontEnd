@@ -17,36 +17,40 @@ const SingleGame = ({ game }) => {
           backgroundRepeat: "no-repeat",
           width: "100vw",
           height: "100vh",
-          // backgroundPosition: "center top",
-          // backgroundRepeat: "no-repeat",
-          // backgroundSize: "contain",
-          // position: "relative"
           filter: "brightness(50%)",
         }}
       ></div>
       <div id="gp-purchase" className="details-container">
-        <div id="gp-info" className="game-info">
-          <div className="gp-game-icon">
-            <img
-              src={game.imageURL}
-              width="200"
-              height="200"
-              className="game-icon"
-            />
-          </div>
-          <div className="gp-game-details">
-            <h4 className="gp-game-title">{game.title}</h4>
-            <h4>{game.category}</h4>
-            <h4>${game.price}</h4>
-            <Button>Add to Cart</Button>
-            <p>Platform: {game.platform}</p>
-            <p>Publisher: {game.publisher}</p>
-            <p>Developer: {game.developer}</p>
-            {/* <p>Release Date: {date}</p> */}
-            <p>{game.description}</p>
-          </div>
+        <div className="gp-game-icon">
+          <img
+            src={game.imageURL}
+            width="200"
+            height="200"
+            className="game-icon"
+          />
         </div>
-        {/* <div className="game-description"></div> */}
+        <div id="gp-info" className="game-info">
+          <h4 className="gp-game-title">{game.title}</h4>
+          <div className="gp-game-sub-details">
+            <p> {game.platform} <span>&#8226;</span> {game.category}  
+              <span> &#8226; </span> 
+              <span  
+                style={{
+                  fontWeight: "bold", 
+                  textTransform: "uppercase",
+                }}
+              > {game.ageRating} </span> 
+            </p>
+          </div>
+          <p>{game.description}</p>
+        </div>
+        <div className="gp-game-details">
+          <h4>${game.price}</h4>
+          <Button>Add to Cart</Button>
+          <div> &nbsp; </div>
+          <p><b>Publisher:</b> {game.publisher}</p>
+          <p><b>Developer:</b> {game.developer}</p>
+        </div>
       </div>
     </div>
   ) : (
