@@ -4,26 +4,87 @@
 
 .single-game {
   width: 100%;
-  height: 1000px;
+  height: fit-content;
   /* display: grid; */
 }
 
 #gp-purchase {
   /* background-color: #161618; */
-  display: grid;
+  display: flex;
   background: #ffffff;
-  padding: 10px 10px 17px;
+  padding-bottom: 24px;
   position: relative;
   margin-top: 400px;
-  height: 50%;
+  height: fit-content;
   color: black;
   width: 84%;
+  max-width: 68vw;
   margin-left: auto;
   margin-right: auto;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* box-shadow:rgba(218, 211, 211, 0.432) 7px 0px 24px,
+    rgba(218, 211, 211, 0.432) 7px -10px 24px,
+    rgba(218, 211, 211, 0.432) 7px 10px 24px;  */
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  -webkit-box-shadow: -1px 1px 3px 9px rgba(141, 137, 137, 0.411);
+  -moz-box-shadow: -1px 1px 3px 9px rgba(141, 137, 137, 0.411);
+  box-shadow: -1px 1px 3px 9px rgba(141, 137, 137, 0.411);
+  /* grid-template-columns: 1fr 1fr 1fr;
   grid-auto-flow: column;
-  grid-auto-flow: row;
+  grid-auto-flow: row; */
+
+}
+
+.gp-game-icon {
+  padding: 24px;
+  width: 45%;
+  
+}
+.gp-game-icon > img {
+  /* outline: 5px solid rgba(0, 0, 0, 0.267); */
+  box-shadow:rgba(0,0,0,0.5) 0px 0px 24px; 
+} 
+
+#gp-info {
+  padding-top: 24px;
+  padding-right: 70px;
+  
+
+}
+.gp-game-title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.gp-game-details {
+  display: flex;
+  float: right;
+  flex-flow: column nowrap;
+  padding: 24px 24px 24px 0px;
+  min-width: 200px;
+}
+
+.gp-game-details > h4 {
+  margin-bottom: 24px;
+ text-align: center;
+ font-size: 2.3rem;
+}
+
+.btn-primary {
+  /* align-self: center; */
+  min-width: 150px;
+}
+
+.game-description {
+  margin-top: 50px;
+}
+
+#gp-info > p:last-of-type {
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 7; number of lines to show */
+  -webkit-box-orient: vertical;
 
 }
 
@@ -40,24 +101,6 @@
   margin-top: 200px;
   float: right; */
 
-}
-
-.gp-game-icon {
-  grid-row: 1/3;
-  grid-column: 1;
-}
-
-.gp-game-title {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.game-info {
-  justify-content: right;
-}
-
-.game-description {
-  margin-top: 50px;
 }
 /* .game-description::before {
   content: '';
