@@ -145,121 +145,139 @@ const Checkout = ({
     }
   }, []);
 
-  //changes the count
 
-  return (
-    <>
-      <div className="order-checkout">
-        <h1 className="secure-checkout"> Secure Checkout </h1>
-        <p className="enjoy"> We hope you enjoy your purchase! </p>
-      </div>
-
-      <section>
-        <Table
-          className="left"
-          striped
-          bordered
-          hover
-          style={{
-            backgroundColor: "#038ed1",
-            color: "black",
-            fontWeight: "bolder",
-          }}
-        >
-          <thead style={{ backgroundColor: "#023e8a", color: "white" }}>
-            <tr>
-              <th>#</th>
-              <th>Game Name</th>
-              <th>Price</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          {userId
-            ? orders.map((order, index) => {
-                subtotal =
-                  Math.round((subtotal + order.productPrice) * 100) / 100;
-                total = Math.round(subtotal * tax * 100) / 100;
-                return (
-                  <tbody key={index}>
-                    <tr>
-                      <td>{order.count}</td>
-                      <td>{order.productTitle}</td>
-                      <td>{order.productPrice}</td>
-                      <td>
-                        <button
-                          className="deleteButton"
-                          onClick={() => deleteOrder(order.id)}
-                        >
-                          Remove Item
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })
-            : guestOrder.map((order, index) => {
-                subtotal =
-                  Math.round((subtotal + order.productPrice) * 100) / 100;
-                total = Math.round(subtotal * tax * 100) / 100;
-                return (
-                  <tbody key={index}>
-                    <tr>
-                      <td>{order.count}</td>
-                      <td>{order.productTitle}</td>
-                      <td>{order.productPrice}</td>
-                      <td>
-                        <button
-                          className="deleteButton"
-                          onClick={() => deleteOrder(order.id)}
-                        >
-                          Remove Item
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })}
-        </Table>
-
-        <div className="orderTotal">
-          <h6>Subtotal: {subtotal}</h6>
-          <h6>Tax: 10%</h6>
-
-          <h6 className="total">Total: {total} </h6>
-          <div className="cancel">
-            <img src="https://i.imgur.com/3p0mNxQ.png" className="x" />
-            <button onClick={clearCart} className="cancelButton">
-              {" "}
-              Cancel Order{" "}
-            </button>
-          </div>
-          <div className="confirm">
-            <img src="https://i.imgur.com/yUzJ7Sc.png" className="checkMark" />
-            <button
-              className="confirmButton"
-              // onClick={makePending}
-              onClick={setOrderConfirmed}
-            >
-              Confirm Order
-            </button>
-          </div>
+    return (
+        <>
+        <div className="order-checkout">
+            <h1 className="secure-checkout"> Secure Checkout </h1>
+            <p className="enjoy"> We hope you enjoy your purchase! </p>
         </div>
+        
+        <section>
+          <center>
+            <Table className = "left" striped bordered hover style={{backgroundColor:"#7b2cbf", color: "black", fontWeight: "bolder", width: "75vw", textAlign: "center"}}>
+                <thead style={{backgroundColor: "#510087", color: "white", textAlign: "center" }}>
+                    <tr>
+                    <th>Quantity</th>
+                    <th> </th>
+                    <th>Game Name</th>
+                    <th>Price</th>
+                    <th>Delete</th>
+                    </tr>
+                </thead>
+                
+                {userId ?
+                orders.map((order, index) => {
+                    subtotal = Math.round((subtotal + order.productPrice) * 100) / 100;
+                    total = Math.round(subtotal * tax * 100) / 100;
+                    console.log(order)
+                    return (
+                        <tbody key={index}>
+                            <tr>
+                                <td>
+                                {order.count}
+                                </td>
+                                <td>
+                                  <img
+                                    src={order.imageURL}
+                                    
+                                    style={{ width: "50px", height: "50px" }}
+                                  />
+                                </td>
+                                <td>{order.productTitle}</td>
+                                <td>{order.productPrice}</td>
+                                <td> 
+                                    <button
+                                        className="deleteButton"
+                                        onClick={() => deleteOrder(order.id)}
+                                    >
+                                        Remove Item
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    )
+                    })
+                    : 
+                    guestOrder.map((order, index) => {
+                      subtotal = Math.round((subtotal + order.productPrice) * 100) / 100;
+                      total = Math.round(subtotal * tax * 100) / 100;
+                      return (
+                          <tbody key={index}>
+                              <tr>
+                                <td>
+                                  {order.count}
+                                </td>
+                                <td>
+                                  <img
+                                      src={order.productImageURL}
+                                      
+                                      style={{ width: "50px", height: "50px" }}
+                                    />
+                                </td>
+                                <td>{order.productTitle}</td>
+                                <td>{order.productPrice}</td>
+                                <td> 
+                                    <button
+                                        className="deleteButton"
+                                        onClick={() => deleteOrder(order.id)}
+                                    >
+                                        Remove Item
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    )})
+                    
+                  }
+                  
+            </Table>
+          </center>
+            <div className="orderTotal">
+                <h6>Subtotal: {subtotal}</h6>
+                <h6>Tax: 10%</h6>
+                
+                <h6 className= "total">Total: {total} </h6>
+              </div>
+              <center>
+                <section className="checkoutButtons"> 
+                  {/* <div className="cancel">  */}
+                    <img src="https://i.imgur.com/3p0mNxQ.png" className="x"/>
+                    <button onClick={clearCart} className="cancelButton"> CANCEL </button>
+                  {/* </div> */}
+                  {/* <div className="confirm"> */}
+                    <img src="https://i.imgur.com/yUzJ7Sc.png" className="checkMark"/>
+                    <button className="confirmButton"
+                        // onClick={makePending}
+                        onClick={setOrderConfirmed}
+                        
+                    > 
+                        CONFIRM
+                    </button>
+                  {/* </div> */}
+                
+            { orderConfirmed ? 
+            <div className="AppWrapper">
+                <Elements stripe={stripePromise} >
+                    <CheckoutForm 
+                    amount={total}
+                    orders={orders}
+                    guestOrder={guestOrder}
+                    setGuestOrder={setGuestOrder}
 
-        {orderConfirmed ? (
-          <div className="AppWrapper">
-            <Elements stripe={stripePromise}>
-              <CheckoutForm
-                amount={total}
-                orders={orders}
-                guestOrder={guestOrder}
-                setGuestOrder={setGuestOrder}
-              />
-            </Elements>
-          </div>
-        ) : null}
-      </section>
-    </>
-  );
-};
+                    />
+                </Elements>
+            </div>
+            
+            : null}
+            </section>
+            </center>
+        </section>
+        </>
+    )
+}
+
+  
+
 
 export default Checkout;

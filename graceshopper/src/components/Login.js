@@ -116,11 +116,11 @@ const Login = ({
     <div>
       <Container>
         <center>
-          <h1 style={{ padding: "35px" }}>LOGIN PAGE</h1>
+          <h1 style={{ padding: "35px", color: "white" }}>LOGIN PAGE</h1>
         </center>
         <Form onSubmit={authentication}>
           <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
+            <Form.Label style={{ color: "white"  }}> Username</Form.Label>
             <Form.Control
               type="username"
               placeholder="Enter username"
@@ -131,7 +131,7 @@ const Login = ({
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label style={{ color: "white"  }}>Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
