@@ -2,9 +2,11 @@ import "../App.css";
 
 const Footer = () => {
   return (
-    <footer>
-      <img className="footer" src="https://i.imgur.com/mIeQWbZ.png" />
-    </footer>
+    <div>
+      <footer className="footer">
+        <img className="footerImage" src="https://i.imgur.com/mIeQWbZ.png" />
+      </footer>
+    </div>
   );
 };
 

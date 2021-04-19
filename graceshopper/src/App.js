@@ -192,7 +192,6 @@ const App = () => {
           </Route>
         </Switch>
       </main>
-      <Footer />
     </Router>
   );
 };

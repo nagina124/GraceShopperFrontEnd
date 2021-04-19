@@ -1,3 +1,4 @@
+import Footer from './Footer'
 import './Home.css'
 import Carousel from 'react-bootstrap/Carousel'
 import SwiperCarousel from './Swiper'
@@ -137,6 +138,7 @@ const Home = () => {
       </div>
     </div>
     </div>
+    <Footer/>
     </>
     );
 }
