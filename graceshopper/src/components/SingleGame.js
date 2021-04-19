@@ -1,11 +1,71 @@
 import { Redirect } from "react-router";
 import Button from "react-bootstrap/Button";
-import moment from 'moment';
+import moment from "moment";
 import "./SingleGame.css";
+const API = "https://peaceful-spire-60083.herokuapp.com/api";
 
-const SingleGame = ({ game }) => {
+const SingleGame = ({ game, userId, setOrders, setGuestOrder, guestOrder }) => {
   console.log(game);
   // const date = moment(game.releaseDate).format("DD MMM, YYYY");
+    const getOrdersForUser = () => {
+      fetch(`${API}/orders/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setOrders(data);
+        })
+        .catch(console.error);
+    };
+
+    const addOrderToCart = (productId, productTitle) => {
+      fetch(`${API}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          productId: productId,
+          count: 1,
+          orderStatus: "created",
+          orderCreated: new Date(),
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          data.orderStatus === "created"
+            ? alert(`${productTitle} has been added to cart`)
+            : alert("This order already exists");
+          getOrdersForUser();
+        });
+    };
+
+    const addProductGuest = (
+      productId,
+      productTitle,
+      productPrice,
+      productImageURL
+    ) => {
+      let products = [];
+      console.log(guestOrder);
+      if (localStorage.getItem("products")) {
+        products = JSON.parse(localStorage.getItem("products"));
+      }
+      products.push({
+        productId: productId,
+        productTitle: productTitle,
+        productPrice: productPrice,
+        productImageURL: productImageURL,
+        count: 1,
+      });
+      localStorage.setItem("products", JSON.stringify(products));
+      products = JSON.parse(localStorage.getItem("products"));
+      setGuestOrder(products);
+      console.log(guestOrder);
+      alert(`${productTitle} has been added to cart.`);
+    };
+
   return game ? (
     <div className="single-game">
       <div
@@ -25,37 +85,62 @@ const SingleGame = ({ game }) => {
           <img
             src={game.imageURL}
             width="200"
-            height="200"
+            height="230"
             className="game-icon"
           />
         </div>
         <div id="gp-info" className="game-info">
           <h4 className="gp-game-title">{game.title}</h4>
           <div className="gp-game-sub-details">
-            <p> {game.platform} <span>&#8226;</span> {game.category}  
-              <span> &#8226; </span> 
-              <span  
+            <p>
+              {" "}
+              {game.platform} <span>&#8226;</span> {game.category}
+              <span> &#8226; </span>
+              <span
                 style={{
-                  fontWeight: "bold", 
+                  fontWeight: "bold",
                   textTransform: "uppercase",
                 }}
-              > {game.ageRating} </span> 
+              >
+                {" "}
+                {game.ageRating}{" "}
+              </span>
             </p>
           </div>
           <p>{game.description}</p>
         </div>
         <div className="gp-game-details">
           <h4>${game.price}</h4>
-          <Button>Add to Cart</Button>
+          <Button
+            className="add-to-cart-button"
+            onClick={() => {
+              if (userId) {
+                addOrderToCart(game.id, game.title);
+              } else {
+                addProductGuest(
+                  game.id,
+                  game.title,
+                  game.price,
+                  game.imageURL
+                );
+              }
+            }}
+          >
+            Add to Cart
+          </Button>
           <div> &nbsp; </div>
-          <p><b>Publisher:</b> {game.publisher}</p>
-          <p><b>Developer:</b> {game.developer}</p>
+          <p>
+            <b>Publisher:</b> {game.publisher}
+          </p>
+          <p>
+            <b>Developer:</b> {game.developer}
+          </p>
         </div>
       </div>
     </div>
   ) : (
     <Redirect to="/games" />
   );
-};;
+};
 
 export default SingleGame;

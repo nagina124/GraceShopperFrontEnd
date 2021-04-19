@@ -15,7 +15,6 @@ const Games = ({
   setGuestOrder,
 }) => {
   const [products, setProducts] = useState([]);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [orderComplete, setOrderComplete] = useState();
   const [orderId, setOrderId] = useState(null);
@@ -158,7 +157,7 @@ const Games = ({
                         <img
                           src={product.imageURL}
                           width="150"
-                          height="150"
+                          height="160"
                           className="game-icon"
                           onClick={() => setGame(product)}
                         />

@@ -150,7 +150,13 @@ const App = () => {
             />
           </Route>
           <Route exact path="/games/:gametitle">
-            <SingleGame game={game} userId={userId} />
+            <SingleGame
+              game={game}
+              userId={userId}
+              setOrders={setOrders}
+              setGuestOrder={setGuestOrder}
+              guestOrder={guestOrder}
+            />
           </Route>
           <Route path="/games">
             <Games
