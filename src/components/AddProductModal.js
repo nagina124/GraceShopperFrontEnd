@@ -50,7 +50,6 @@ const AddProductModal = ({ products, setProducts }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           if (result) {
             const newProducts = [...products];
             newProducts.push(result);

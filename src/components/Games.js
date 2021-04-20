@@ -137,7 +137,7 @@ const Games = ({
   }, []);
 
   return (
-    <div className="game-page" style={{ cursor: "pointer" }}>
+    <div className="game-page">
       <h1
         style={{
           textAlign: "center",
@@ -161,7 +161,7 @@ const Games = ({
         />
       </div>
       <div className="games-page-container">
-        <div className="genre-container">
+        <div className="genre-container" style={{ cursor: "pointer" }}>
           <aside className="genre-aside">
             <h3 onClick={getProducts}>Show All Games</h3>
             <h3 onClick={() => getProductsByCategory("JRPG")}>JRPG</h3>
@@ -180,7 +180,7 @@ const Games = ({
           </aside>
         </div>
 
-        <div className="gamelist-container">
+        <div className="gamelist-container" style={{ cursor: "pointer" }}>
           {products
             ? products
                 .filter((product) => {

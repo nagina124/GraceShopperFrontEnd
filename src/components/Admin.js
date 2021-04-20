@@ -51,7 +51,7 @@ const Admin = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        
         if (result) {
           const usersAfterDeletion = users.filter((user) => user.id !== userId);
           toast.success(`${result.username} has been deleted.`, {
@@ -82,7 +82,7 @@ const Admin = () => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        
         if (result) {
           const newProductsAfterDeletion = products.filter(
             (product) => product.id !== productId
