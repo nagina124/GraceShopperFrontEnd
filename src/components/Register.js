@@ -43,7 +43,6 @@ const Register = ({
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           if (result.error) {
             alert(result.error);
           }
@@ -95,10 +94,7 @@ const Register = ({
 
   const isLoggedIn = (result) => {
     if (result.token) {
-      console.log("is registered");
       setAuthentication(true);
-      // alert(result.message);
- 
       toast.success("Thank you for registering at Video Game Heaven! Happy shopping!", {
         position: "top-center",
         autoClose: 2000,
@@ -109,7 +105,7 @@ const Register = ({
         progress: undefined,
       });
     } else {
-      console.log("not registered");
+      return null
     }
   };
 
@@ -121,7 +117,6 @@ const Register = ({
     fetch(`${API}/orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setOrders(data);
       })
       .catch(console.error);
@@ -137,13 +132,13 @@ const Register = ({
         body: JSON.stringify({
           userId: id,
           productId: order.productId,
-          productTitle: order.productTitle,
           count: 1,
+          orderStatus: "created",
+          orderCreated: new Date()
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           getOrdersForUser(id);
         });
     });

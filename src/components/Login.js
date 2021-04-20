@@ -41,9 +41,6 @@ const Login = ({
       .then((response) => response.json())
       .then((result) => {
         if (result.name === "IncorrectCredentialsError") {
-          // alert("Username or Password does not match. Please try again.");
-          // setOrders([])
-       
           toast.error("Username or Password does not match. Please try again.", {
             position: "top-center",
             autoClose: 2000,
@@ -54,7 +51,6 @@ const Login = ({
             progress: undefined,
           });
         } else {
-          console.log(result);
           login(result.token);
           if (result.admin === true) {
             user(result.admin);
@@ -77,7 +73,6 @@ const Login = ({
     fetch(`${API}/orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setOrders(data);
       })
       .catch(console.error);
@@ -93,13 +88,13 @@ const Login = ({
         body: JSON.stringify({
           userId: id,
           productId: order.productId,
-          productTitle: order.productTitle,
           count: 1,
+          orderStatus: "created",
+          orderCreated: new Date()
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           getOrdersForUser(id);
         });
     });
@@ -109,7 +104,6 @@ const Login = ({
 
   const isLoggedIn = (result) => {
     if (result.name !== "IncorrectCredentialsError") {
-      console.log("is logged in");
       setAuthentication(true);
       setLoginSuccessful(true);
       // alert(result.message);
@@ -123,7 +117,6 @@ const Login = ({
         progress: undefined,
       });
     } else {
-      console.log("not logged in");
       alert(result.message);
     }
   };

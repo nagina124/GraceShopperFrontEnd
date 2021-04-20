@@ -15,7 +15,7 @@ const Home = () => {
     <>
       <div>
         <h1 className="homeTitle"> Video Game Heaven! </h1>
-        <p className="welcomeMessage"> Enjoy your journey into the unkownn</p>
+        <p className="welcomeMessage"> Enjoy your journey into the unknown</p>
       </div>
 
       <Carousel className="carousel">
