@@ -229,18 +229,40 @@ const CheckoutForm = ({ amount, orders, setOrderConfirmed, setGuestOrder }) => {
         style={{ height: "750px" }}
         className="special_modal"
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{ backgroundColor: "#510087" }}>
           <Modal.Title
-            style={{ fontFamily: "'Megrim', cursive", fontWeight: "bold" }}
+            style={{
+              textAlign: "center",
+              fontFamily: "'Megrim', cursive",
+              fontWeight: "bolder",
+              fontSize: "30px",
+              color: "white",
+            }}
           >
             {" "}
             Secure Checkout{" "}
           </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <body style={{ textAlign: "center", height: "400px", paddingBottom: "10px" }}>
-            <form className="Form" onSubmit={handleSubmit} style={{paddingTop: "50px"}}>
+        <Modal.Body
+          style={{
+            backgroundColor: "#10002B",
+            color: "black",
+            textAlign: "center",
+          }}
+        >
+          <body
+            style={{
+              textAlign: "center",
+              height: "400px",
+              paddingBottom: "10px",
+            }}
+          >
+            <form
+              className="Form"
+              onSubmit={handleSubmit}
+              style={{ paddingTop: "50px" }}
+            >
               <fieldset className="FormGroup">
                 <Field
                   style={{ width: "1000px" }}
@@ -310,11 +332,25 @@ const CheckoutForm = ({ amount, orders, setOrderConfirmed, setGuestOrder }) => {
           </body>
         </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+        <Modal.Footer style={{
+            backgroundColor: "#10002B",
+            color: "black",
+            textAlign: "center",
+          }}>
+          <Button variant="danger" style={{fontWeight: "bolder"}}onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button style={{
+              background: "#0718EB",
+              background:
+                "-webkit-linear-gradient(top right, #0718EB, #BA08B4)",
+              background: "-moz-linear-gradient(top right, #0718EB, #BA08B4)",
+              background: "linear-gradient(to bottom left, #0718EB, #BA08B4)",
+              color: "white",
+              fontWeight: "bold",
+              padding: "7px",
+              borderRadius: "5px",
+            }} onClick={handleClose}>
             Save Changes
           </Button>
         </Modal.Footer>
