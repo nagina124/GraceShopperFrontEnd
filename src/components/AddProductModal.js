@@ -3,6 +3,7 @@ import { getToken } from "../auth";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import {toast} from 'react-toastify'
 
 const AddProductModal = ({ products, setProducts }) => {
   const [title, setTitle] = useState("");
@@ -49,10 +50,18 @@ const AddProductModal = ({ products, setProducts }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           if (result) {
             const newProducts = [...products];
             newProducts.push(result);
+            toast.success(`${result.title} has been added.`, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
             setProducts(newProducts);
           }
         })

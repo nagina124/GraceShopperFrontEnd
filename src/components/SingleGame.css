@@ -12,6 +12,7 @@
   /* background-color: #161618; */
   display: flex;
   background: #ffffff;
+  opacity: 0.9;
   padding-bottom: 24px;
   position: relative;
   margin-top: 400px;
@@ -34,9 +35,11 @@
 
 }
 
+
 .gp-game-icon {
   padding: 24px;
   width: 45%;
+  align-self: center;
   
 }
 .gp-game-icon > img {
@@ -86,6 +89,20 @@
   /* -webkit-line-clamp: 7; number of lines to show */
   -webkit-box-orient: vertical;
 
+}
+
+.add-to-cart-button{
+  background: #0718EB;
+  background: -webkit-linear-gradient(top right, #0718EB, #BA08B4);
+  background: -moz-linear-gradient(top right, #0718EB, #BA08B4);
+  background: linear-gradient(to bottom left, #0718EB, #BA08B4);
+  color: white;
+  font-weight: bold;
+}
+
+.add-to-cart-button:hover {
+  transition: ease-in-out 300ms;
+  transform: scale(1.1);
 }
 
 #gp-info {

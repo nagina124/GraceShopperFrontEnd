@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
+import Footer from './Footer'
 // import RegisterModal from "./RegisterModal";
+import {toast} from 'react-toastify'
 import { getToken, getUser, login, user, setUserIdLocal, getUserId } from "../auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -22,6 +24,7 @@ const Login = ({
 }) => {
   const [password, setPassword] = useState();
   const [loginSuccessful, setLoginSuccessful] = useState(false);
+ 
 
   function authentication(event) {
     event.preventDefault();
@@ -38,10 +41,16 @@ const Login = ({
       .then((response) => response.json())
       .then((result) => {
         if (result.name === "IncorrectCredentialsError") {
-          alert("Username or Password does not match. Please try again.");
-          // setOrders([])
+          toast.error("Username or Password does not match. Please try again.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
-          console.log(result);
           login(result.token);
           if (result.admin === true) {
             user(result.admin);
@@ -64,7 +73,6 @@ const Login = ({
     fetch(`${API}/orders/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setOrders(data);
       })
       .catch(console.error);
@@ -80,13 +88,13 @@ const Login = ({
         body: JSON.stringify({
           userId: id,
           productId: order.productId,
-          productTitle: order.productTitle,
           count: 1,
+          orderStatus: "created",
+          orderCreated: new Date()
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           getOrdersForUser(id);
         });
     });
@@ -96,12 +104,19 @@ const Login = ({
 
   const isLoggedIn = (result) => {
     if (result.name !== "IncorrectCredentialsError") {
-      console.log("is logged in");
       setAuthentication(true);
       setLoginSuccessful(true);
-      alert(result.message);
+      // alert(result.message);
+      toast.success(`Welcome back, ${username}! Happy shopping!`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      console.log("not logged in");
       alert(result.message);
     }
   };
@@ -112,9 +127,9 @@ const Login = ({
     return <Redirect to="./admin" />;
   }
 
-  return (
+  return ( <>
     <div>
-      <Container>
+      <Container style={{marginBottom: "175px"}}>
         <center>
           <h1 
           style={{ 
@@ -122,7 +137,7 @@ const Login = ({
             color: "white",
             fontSize: "50px",
             fontFamily: "'Megrim', cursive",
-            fontWeight: "bold",
+            fontWeight: "bold"
             }}>LOGIN </h1>
         </center>
         <Form onSubmit={authentication}>
@@ -171,13 +186,15 @@ const Login = ({
               color: "white",
               fontWeight: "bold",
               border: "#0718EB",
-              padding: "10px",
-              margin: "10px 15px",
+              padding: "8px 45px",
+              margin: "9px 15px",
               borderRadius: "7%",
-              fontSize: "14px",
+              fontSize: "16px",
+              textAlign: "center",
+              border: "1px #007bff solid"
             }}
           >
-            Click to Register
+            Register
           </Link>
         </Form>
       </Container>
@@ -189,7 +206,10 @@ const Login = ({
             authenticate={authenticate}
             setAuthentication={setAuthentication}
           /> */}
+          
     </div>
+    <Footer/>
+    </>
   );
 };
 

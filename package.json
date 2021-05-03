@@ -15,12 +15,13 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-stripe-checkout": "^2.6.3",
+    "react-toastify": "^7.0.3",
     "swiper": "^6.5.6",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && echo '/* /index.html 200' > ./build/_redirects",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
